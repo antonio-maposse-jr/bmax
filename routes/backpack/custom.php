@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProcessCrudController;
 use App\Http\Controllers\Admin\ProductCrudController;
 use App\Http\Controllers\Admin\StageCashierCrudController;
 use App\Http\Controllers\Admin\StageAuthorisationCrudController;
+use App\Http\Controllers\Admin\StageProductionCrudController;
 
 // --------------------------
 // Custom Backpack Routes
@@ -34,9 +35,11 @@ Route::group([
     Route::post('create-new-process', [ProcessCrudController::class,'createNewProcess'])->name('create-new-process');
     Route::post('submit-stage-cashier-data', [StageCashierCrudController::class,'createStageCashier'])->name('submit-stage-cashier-data');
     Route::post('submit-stage-authorisation-data', [StageAuthorisationCrudController::class,'createStageAuthorisation'])->name('submit-stage-authorisation-data');
+    Route::post('submit-stage-production-data', [StageProductionCrudController::class,'createProductionStage'])->name('submit-stage-production-data');
 
     Route::get('get-customers', [CustomerCrudController::class, 'getCustomers'])->name('get-customers');
     Route::get('get-products', [ProductCrudController::class, 'getProducts'])->name('get-products');
     Route::crud('stage-cashier', 'StageCashierCrudController');
     Route::crud('stage-authorisations', 'StageAuthorisationCrudController');
+    Route::crud('stage-production', 'StageProductionCrudController');
 }); // this should be the absolute last line of this file
