@@ -52,17 +52,12 @@ class ProcessCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-
-
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
-        $this->crud->column('order_value');
         $this->crud->column('priority_level');
         $this->crud->column('stage_name');
         $this->crud->column('status');
-
-
     }
 
     /**
@@ -310,10 +305,7 @@ class ProcessCrudController extends CrudController
 
     public function createNewProcess(Request $request)
     {
-
-
         CRUD::setValidation(ProcessRequest::class);
-
         //Basic Fields Process
         $process = new Process();
         $process->customer_id = $request->customer_id;
@@ -368,6 +360,7 @@ class ProcessCrudController extends CrudController
         $process->wrapping = $request->has('wrapping');
         $process->sanding = $request->has('sanding');
         $process->hardware = $request->has('hardware');
+        
         $process->stage_id = 1;
 
         $process->save();

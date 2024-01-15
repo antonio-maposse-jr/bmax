@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StageAuthorisationsRequest;
-use App\Models\StageAuthorisation;
+use App\Http\Requests\StageCreditControlRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Http\Request;
 use App\Models\Process;
+use App\Models\StageCreditControl;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
- * Class StageAuthorisationsCrudController
+ * Class StageCreditControlCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class StageAuthorisationCrudController extends CrudController
+class StageCreditControlCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \App\Http\Controllers\Admin\Operations\ProcessAuthorizationStageOperation;
+    use \App\Http\Controllers\Admin\Operations\ProcessCreditControlStageOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -32,11 +32,9 @@ class StageAuthorisationCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Process::class);
-        CRUD::setCreateView('crud::operations.create_stage_authorization');
-
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-authorisations');
-        CRUD::setEntityNameStrings('stage authorisations', 'stage authorisations');
-
+        CRUD::setCreateView('crud::operations.create_stage_credit_control');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-credit-control');
+        CRUD::setEntityNameStrings('stage credit control', 'stage credit controls');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
     }
@@ -49,7 +47,7 @@ class StageAuthorisationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addClause('where', 'stage_id', '2');
+        CRUD::addClause('where', 'stage_id', '4');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -66,7 +64,7 @@ class StageAuthorisationCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(StageAuthorisationsRequest::class);
+        CRUD::setValidation(StageCreditControlRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
         /**
@@ -86,26 +84,27 @@ class StageAuthorisationCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function createStageAuthorisation(Request $request){
-        CRUD::setValidation(StageAuthorisationsRequest::class);
+    public function createStageCreditControl(Request $request){
 
-        $stageAuthorization = new StageAuthorisation();
-        $stageAuthorization->process_id = $request->process_id;
-        $stageAuthorization->comment = $request->comment;
-        $stageAuthorization->decision = $request->decision;
-        $stageAuthorization->comments = $request->comments;
-        $stageAuthorization->special_conditions = $request->has('special_conditions');
+        CRUD::setValidation(StageCreditControlRequest::class);
+
+        $stageCreditControl = new StageCreditControl();
+        $stageCreditControl->process_id = $request->process_id;
+        $stageCreditControl->comment = $request->comment;
+        $stageCreditControl->decision = $request->decision;
+        $stageCreditControl->comments = $request->comments;
+        $stageCreditControl->special_conditions = $request->has('special_conditions');
         
         $otherDocPath = $request->file('other_documents')->store('documents');
 
 
-        $stageAuthorization->other_documents = $otherDocPath;
+        $stageCreditControl->other_documents = $otherDocPath;
 
-        $stageAuthorization->save();
+        $stageCreditControl->save();
         
         $process = Process::find($request->process_id);
-        $process->stage_id = 3;
-        $process->stage_name = 'Production';
+        $process->stage_id = 5;
+        $process->stage_name = 'Dispatch';
         $process->save();
 
         // show a success message

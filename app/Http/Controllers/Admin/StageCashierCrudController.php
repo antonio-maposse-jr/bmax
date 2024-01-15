@@ -39,6 +39,8 @@ class StageCashierCrudController extends CrudController
         CRUD::setEntityNameStrings('stage cashier', 'stage cashiers');
 
         Widget::add()->type('script')->content('assets/js/create_cashier.js');
+        Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
+        Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
     }
 
     /**
@@ -53,10 +55,8 @@ class StageCashierCrudController extends CrudController
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
-        $this->crud->column('nr_sheets');
-        $this->crud->column('nr_panels');
-        $this->crud->column('order_value');
         $this->crud->column('priority_level');
+        $this->crud->column('stage_name');
         $this->crud->column('status');
     }
 

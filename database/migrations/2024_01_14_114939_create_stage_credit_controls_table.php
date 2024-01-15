@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stage_authorisations', function (Blueprint $table) {
+        Schema::create('stage_credit_controls', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('process_id');
             $table->foreign('process_id')->references('id')->on('processes')->onDelete('cascade');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('comment');
             $table->string('decision');
-            $table->text('comments')->nullable();
+            $table->text('comments');
             $table->boolean('special_conditions')->default(false);
             $table->string('other_documents')->nullable();
             $table->timestamps();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stage_authorisations');
+        Schema::dropIfExists('stage_credit_controls');
     }
 };

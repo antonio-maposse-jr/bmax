@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stage_authorisations', function (Blueprint $table) {
+        Schema::create('stage_dispatches', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('process_id');
             $table->foreign('process_id')->references('id')->on('processes')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('comment');
-            $table->string('decision');
-            $table->text('comments')->nullable();
-            $table->boolean('special_conditions')->default(false);
-            $table->string('other_documents')->nullable();
+            $table->string('dispatch_status');
+            $table->string('comment')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stage_authorisations');
+        Schema::dropIfExists('stage_dispatches');
     }
 };

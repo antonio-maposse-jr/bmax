@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('order_confirmation');
             $table->string('colors');
 
-            $table->string('status')->default('pending');
+            $table->string('status')->default('PENDING');
             $table->unsignedBigInteger('stage_id');
             $table->string('stage_name')->default('Cashier');
 

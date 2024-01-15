@@ -28,3 +28,5 @@
 <x-backpack::menu-item title="Stage cashiers" icon="la la-question" :link="backpack_url('stage-cashier')" />
 <x-backpack::menu-item title="Stage authorisations" icon="la la-question" :link="backpack_url('stage-authorisations')" />
 <x-backpack::menu-item title="Stage productions" icon="la la-question" :link="backpack_url('stage-production')" />
+<x-backpack::menu-item title="Stage credit controls" icon="la la-question" :link="backpack_url('stage-credit-control')" />
+<x-backpack::menu-item title="Stage dispatches" icon="la la-question" :link="backpack_url('stage-dispatch')" />

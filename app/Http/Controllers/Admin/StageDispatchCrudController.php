@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StageAuthorisationsRequest;
-use App\Models\StageAuthorisation;
+use App\Http\Requests\StageDispatchRequest;
+use App\Models\StageDispatch;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Backpack\CRUD\app\Library\Widget;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Process;
-
+use Backpack\CRUD\app\Library\Widget;
 /**
- * Class StageAuthorisationsCrudController
+ * Class StageDispatchCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class StageAuthorisationCrudController extends CrudController
+class StageDispatchCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \App\Http\Controllers\Admin\Operations\ProcessAuthorizationStageOperation;
+    use \App\Http\Controllers\Admin\Operations\ProcessDispatchStageOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -32,11 +32,8 @@ class StageAuthorisationCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Process::class);
-        CRUD::setCreateView('crud::operations.create_stage_authorization');
-
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-authorisations');
-        CRUD::setEntityNameStrings('stage authorisations', 'stage authorisations');
-
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-dispatch');
+        CRUD::setEntityNameStrings('stage dispatch', 'stage dispatches');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
     }
@@ -49,7 +46,7 @@ class StageAuthorisationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addClause('where', 'stage_id', '2');
+        CRUD::addClause('where', 'stage_id', '5');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -66,7 +63,7 @@ class StageAuthorisationCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(StageAuthorisationsRequest::class);
+        CRUD::setValidation(StageDispatchRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
         /**
@@ -86,26 +83,22 @@ class StageAuthorisationCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function createStageAuthorisation(Request $request){
-        CRUD::setValidation(StageAuthorisationsRequest::class);
+    public function createStageDispatch(Request $request){
 
-        $stageAuthorization = new StageAuthorisation();
-        $stageAuthorization->process_id = $request->process_id;
-        $stageAuthorization->comment = $request->comment;
-        $stageAuthorization->decision = $request->decision;
-        $stageAuthorization->comments = $request->comments;
-        $stageAuthorization->special_conditions = $request->has('special_conditions');
-        
-        $otherDocPath = $request->file('other_documents')->store('documents');
+        CRUD::setValidation(StageDispatchRequest::class);
 
+        $stageDispatch = new StageDispatch();
+        $stageDispatch->process_id = $request->process_id;
+        $stageDispatch->comment = $request->comment;
+        $stageDispatch->dispatch_status = $request->dispatch_status;
+      //  $stageDispatch->user_id = Auth::user()->id;
 
-        $stageAuthorization->other_documents = $otherDocPath;
-
-        $stageAuthorization->save();
+        $stageDispatch->save();
         
         $process = Process::find($request->process_id);
-        $process->stage_id = 3;
-        $process->stage_name = 'Production';
+        $process->stage_id = 0;
+        $process->stage_name = 'N/A';
+        $process->status = 'COMPLETED';
         $process->save();
 
         // show a success message

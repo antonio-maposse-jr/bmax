@@ -8,6 +8,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
 use App\Models\Process;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class StageProductionCrudController
@@ -34,6 +35,9 @@ class StageProductionCrudController extends CrudController
         CRUD::setCreateView('crud::operations.create_stage_authorization');
         CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-production');
         CRUD::setEntityNameStrings('stage production', 'stage productions');
+        
+        Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
+        Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
     }
 
     /**
@@ -48,10 +52,8 @@ class StageProductionCrudController extends CrudController
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
-        $this->crud->column('nr_sheets');
-        $this->crud->column('nr_panels');
-        $this->crud->column('order_value');
         $this->crud->column('priority_level');
+        $this->crud->column('stage_name');
         $this->crud->column('status');
     }
 
@@ -87,7 +89,7 @@ class StageProductionCrudController extends CrudController
     {
         CRUD::setValidation(StageProductionRequest::class);
         $stageProduction = new StageProduction();
-
+        $stageProduction->process_id = $request->process_id;
         $stageProduction->cutting = $request->has('cutting');
         $stageProduction->edging = $request->has('edging');
         $stageProduction->cnc_machining = $request->has('cnc_machining');

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('stage_productions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('process_id');
+            $table->foreign('process_id')->references('id')->on('processes')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('cutting')->default(false);
             $table->boolean('edging')->default(false);
             $table->boolean('cnc_machining')->default(false);
@@ -23,6 +27,7 @@ return new class extends Migration
             $table->boolean('hardware')->default(false);
             $table->string('other_documents')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
