@@ -33,6 +33,8 @@ Route::group([
    
     Route::crud('customer-category', 'CustomerCategoryCrudController');
     Route::crud('process', 'ProcessCrudController');
+
+    Route::post('return-stage', [ProcessCrudController::class,'returnStage'])->name('return-stage');
     
     Route::post('create-new-process', [ProcessCrudController::class,'createNewProcess'])->name('create-new-process');
     Route::post('submit-stage-cashier-data', [StageCashierCrudController::class,'createStageCashier'])->name('submit-stage-cashier-data');

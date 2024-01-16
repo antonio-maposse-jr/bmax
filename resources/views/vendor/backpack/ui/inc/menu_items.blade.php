@@ -13,20 +13,28 @@
     <x-backpack::menu-dropdown-item title="Customer categories" icon="la la-question" :link="backpack_url('customer-category')" />
 </x-backpack::menu-dropdown>
 
-<x-backpack::menu-dropdown title="Product Management" icon="la la-box">
+<x-backpack::menu-dropdown title="Product Management" icon="la la-cart-arrow-down">
     <x-backpack::menu-dropdown-item title="Categories" icon="la la-folder-plus" :link="backpack_url('category')" />
     <x-backpack::menu-dropdown-item title="Subcategories" icon="la la-file-alt" :link="backpack_url('subcategory')" />
     <x-backpack::menu-dropdown-item title="Products" icon="la la-archive" :link="backpack_url('product')" />
 </x-backpack::menu-dropdown>
 
+<x-backpack::menu-dropdown title="Process Management" icon="la la-file-alt">
+    <x-backpack::menu-dropdown-item title="All process" icon="la la-folder" :link="backpack_url('process')" />
+    <x-backpack::menu-dropdown-header title="Process Workflow" />
+    <x-backpack::menu-dropdown-item title="Cashiers Stage" icon="la la-cash-register" :link="backpack_url('stage-cashier')" />
+    <x-backpack::menu-dropdown-item title="Authorisations Stage" icon="la la-key" :link="backpack_url('stage-authorisations')" />
+    <x-backpack::menu-dropdown-item title="Production Stage" icon="la la-tasks" :link="backpack_url('stage-production')" />
+    <x-backpack::menu-dropdown-item title="Credit Control Stage" icon="la la-eye" :link="backpack_url('stage-credit-control')" />
+    <x-backpack::menu-dropdown-item title="Dispatch Stage" icon="la la-rocket" :link="backpack_url('stage-dispatch')" />
+</x-backpack::menu-dropdown>
 
-<!-- <x-backpack::menu-item title="Categories" icon="la la-question" :link="backpack_url('category')" />
-<x-backpack::menu-item title="Subcategories" icon="la la-question" :link="backpack_url('subcategory')" />
-<x-backpack::menu-item title="Products" icon="la la-question" :link="backpack_url('product')" /> -->
 
-<x-backpack::menu-item title="Processes" icon="la la-question" :link="backpack_url('process')" />
+
+
+{{-- <x-backpack::menu-item title="Processes" icon="la la-question" :link="backpack_url('process')" />
 <x-backpack::menu-item title="Stage cashiers" icon="la la-question" :link="backpack_url('stage-cashier')" />
 <x-backpack::menu-item title="Stage authorisations" icon="la la-question" :link="backpack_url('stage-authorisations')" />
 <x-backpack::menu-item title="Stage productions" icon="la la-question" :link="backpack_url('stage-production')" />
 <x-backpack::menu-item title="Stage credit controls" icon="la la-question" :link="backpack_url('stage-credit-control')" />
-<x-backpack::menu-item title="Stage dispatches" icon="la la-question" :link="backpack_url('stage-dispatch')" />
+<x-backpack::menu-item title="Stage dispatches" icon="la la-question" :link="backpack_url('stage-dispatch')" /> --}}

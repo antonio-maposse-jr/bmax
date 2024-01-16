@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Operations;
 
+use App\Models\ReturnStage;
+use App\Models\StageCashier;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +56,12 @@ trait ProcessCashierStageOperation
         $this->data['title'] = CRUD::getTitle() ?? 'Process Cashier Stage '.$this->crud->entity_name;
         $this->data['entry'] = $this->crud->getCurrentEntry();
 
+        $cashierStage = StageCashier::where('process_id', $this->crud->getCurrentEntry()->id)->first();
+        $this->data['cashier_stage'] =  $cashierStage;
+
+        $returnStages = ReturnStage::where('process_id', $this->crud->getCurrentEntry()->id)
+        ->where('message_status', '1')->get();
+        $this->data['return_stages'] = $returnStages;
        
         // load the view
         return view('crud::operations.create_stage_cashier', $this->data);

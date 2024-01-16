@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Operations;
 
+use App\Models\ReturnStage;
+use App\Models\StageAuthorisation;
 use App\Models\StageCashier;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Route;
@@ -55,10 +57,14 @@ trait ProcessAuthorizationStageOperation
         $this->data['title'] = CRUD::getTitle() ?? 'Process Authorization Stage '.$this->crud->entity_name;
         $this->data['entry'] = $this->crud->getCurrentEntry();
       
-        $cashierStage = StageCashier::where('process_id', 1)->first();
+        $cashierStage = StageCashier::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['cashier_stage'] =  $cashierStage;
+        $authorisationStage = StageAuthorisation::where('process_id', $this->crud->getCurrentEntry()->id)->first();
+        $this->data['authorisation_stage'] =  $authorisationStage;
+        $returnStages = ReturnStage::where('process_id', $this->crud->getCurrentEntry()->id)
+        ->where('message_status', '1')->get();
+        $this->data['return_stages'] = $returnStages;
 
-      //  dd( $this->data);
 
         // load the view
         return view('crud::operations.create_stage_authorisation', $this->data);

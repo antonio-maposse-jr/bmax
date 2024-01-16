@@ -8,7 +8,8 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Http\Request;
 use App\Models\Process;
-
+use App\Models\ReturnStage;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ProcessCrudController
@@ -361,7 +362,7 @@ class ProcessCrudController extends CrudController
         $process->sanding = $request->has('sanding');
         $process->hardware = $request->has('hardware');
         
-        $process->stage_id = 1;
+        $process->stage_id = 2;
 
         $process->save();
 
@@ -369,5 +370,52 @@ class ProcessCrudController extends CrudController
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 
         return redirect(url($this->crud->route));
+    }
+
+    protected function getStageById($id) {
+        switch ($id) {
+            case 1:
+                return "Sales";
+            case 2:
+                return "Cashier";
+            case 3:
+                return "Authorisation";
+            case 4:
+                return "Production";
+            case 5:
+                return "Credit Control";
+            case 6:
+                return "Dispatch";
+            default:
+                return "Unknown Stage";
+        }
+    }
+
+    public function returnStage(Request $request){
+        $returnStage = new ReturnStage();
+
+        $returnStage->process_id = $request->process_id;
+        $returnStage->origin_stage_nr = $request->origin_stage_nr;
+        $returnStage->origin_stage_name = $request->origin_stage_name;
+        $returnStage->destination_stage_nr = $request->destination_stage_nr;
+        $returnStage->destination_stage_name = $this->getStageById($request->destination_stage_nr);
+        $returnStage->reason = $request->reason;
+        $returnStage->comment = $request->comment;
+        $returnStage->message_status = true;
+        $returnStage->user_id = Auth::user()->id;
+
+
+        $returnStage->save();
+
+        $process = Process::find($request->process_id);
+        $process->stage_id = $request->destination_stage_nr;
+        $process->stage_name = $this->getStageById($request->destination_stage_nr);
+      
+        $process->save();
+
+        \Alert::success(trans('backpack::crud.insert_success'))->flash();
+
+        return redirect(url($this->crud->route));
+
     }
 }

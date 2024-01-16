@@ -9,6 +9,8 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Http\Request;
 use App\Models\Process;
+use App\Models\ReturnStage;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class StageAuthorisationsCrudController
@@ -49,7 +51,7 @@ class StageAuthorisationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addClause('where', 'stage_id', '2');
+        CRUD::addClause('where', 'stage_id', '3');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -89,22 +91,24 @@ class StageAuthorisationCrudController extends CrudController
     public function createStageAuthorisation(Request $request){
         CRUD::setValidation(StageAuthorisationsRequest::class);
 
-        $stageAuthorization = new StageAuthorisation();
+        $stageAuthorization = StageAuthorisation::firstOrNew(['process_id' => $request->process_id]);
         $stageAuthorization->process_id = $request->process_id;
         $stageAuthorization->comment = $request->comment;
         $stageAuthorization->decision = $request->decision;
         $stageAuthorization->comments = $request->comments;
         $stageAuthorization->special_conditions = $request->has('special_conditions');
+        $stageAuthorization->user_id = Auth::user()->id;
         
-        $otherDocPath = $request->file('other_documents')->store('documents');
+        $otherDocPath = $request->file('other_documents')->store('documents', 'public');
 
 
         $stageAuthorization->other_documents = $otherDocPath;
 
         $stageAuthorization->save();
+        ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
         
         $process = Process::find($request->process_id);
-        $process->stage_id = 3;
+        $process->stage_id = 4;
         $process->stage_name = 'Production';
         $process->save();
 

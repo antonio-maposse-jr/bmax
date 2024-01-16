@@ -9,6 +9,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Process;
+use App\Models\ReturnStage;
 use Backpack\CRUD\app\Library\Widget;
 /**
  * Class StageDispatchCrudController
@@ -46,7 +47,7 @@ class StageDispatchCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addClause('where', 'stage_id', '5');
+        CRUD::addClause('where', 'stage_id', '6');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -87,13 +88,15 @@ class StageDispatchCrudController extends CrudController
 
         CRUD::setValidation(StageDispatchRequest::class);
 
-        $stageDispatch = new StageDispatch();
+        $stageDispatch = StageDispatch::firstOrNew(['process_id' => $request->process_id]);
         $stageDispatch->process_id = $request->process_id;
         $stageDispatch->comment = $request->comment;
         $stageDispatch->dispatch_status = $request->dispatch_status;
-      //  $stageDispatch->user_id = Auth::user()->id;
+        $stageDispatch->user_id = Auth::user()->id;
 
         $stageDispatch->save();
+
+        ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
         
         $process = Process::find($request->process_id);
         $process->stage_id = 0;

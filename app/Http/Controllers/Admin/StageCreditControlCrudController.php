@@ -7,8 +7,10 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
 use App\Models\Process;
+use App\Models\ReturnStage;
 use App\Models\StageCreditControl;
 use Backpack\CRUD\app\Library\Widget;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class StageCreditControlCrudController
@@ -47,7 +49,7 @@ class StageCreditControlCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addClause('where', 'stage_id', '4');
+        CRUD::addClause('where', 'stage_id', '5');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -88,12 +90,13 @@ class StageCreditControlCrudController extends CrudController
 
         CRUD::setValidation(StageCreditControlRequest::class);
 
-        $stageCreditControl = new StageCreditControl();
+        $stageCreditControl = StageCreditControl::firstOrNew(['process_id' => $request->process_id]);
         $stageCreditControl->process_id = $request->process_id;
         $stageCreditControl->comment = $request->comment;
         $stageCreditControl->decision = $request->decision;
         $stageCreditControl->comments = $request->comments;
         $stageCreditControl->special_conditions = $request->has('special_conditions');
+        $stageCreditControl->user_id = Auth::user()->id;
         
         $otherDocPath = $request->file('other_documents')->store('documents');
 
@@ -101,9 +104,11 @@ class StageCreditControlCrudController extends CrudController
         $stageCreditControl->other_documents = $otherDocPath;
 
         $stageCreditControl->save();
+
+        ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
         
         $process = Process::find($request->process_id);
-        $process->stage_id = 5;
+        $process->stage_id = 6;
         $process->stage_name = 'Dispatch';
         $process->save();
 

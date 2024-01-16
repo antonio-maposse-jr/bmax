@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\StageCashier;
 use App\Models\StageAuthorisation;
 use App\Models\StageCreditControl;
+use App\Models\StageDispatch;
 use App\Models\StageProduction;
 
 trait ProcessDispatchStageOperation
@@ -58,14 +59,20 @@ trait ProcessDispatchStageOperation
         $this->data['title'] = CRUD::getTitle() ?? 'Process Dispatch Stage '.$this->crud->entity_name;
         $this->data['entry'] = $this->crud->getCurrentEntry();
 
-        $cashierStage = StageCashier::where('process_id', 1)->first();
+        $cashierStage = StageCashier::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['cashier_stage'] =  $cashierStage;
-        $authorisationStage = StageAuthorisation::where('process_id', 1)->first();
+
+        $authorisationStage = StageAuthorisation::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['authorisation_stage'] =  $authorisationStage;
-        $productionStage = StageProduction::where('process_id', 1)->first();
+        
+        $productionStage = StageProduction::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['production_stage'] =  $productionStage;
-        $creditControlStage = StageCreditControl::where('process_id', 1)->first();
+
+        $creditControlStage = StageCreditControl::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['credit_control_stage'] =  $creditControlStage;
+
+        $dispatchStage = StageDispatch::where('process_id', $this->crud->getCurrentEntry()->id)->first();
+        $this->data['dispatch_stage'] =  $dispatchStage;
         
 
         // load the view

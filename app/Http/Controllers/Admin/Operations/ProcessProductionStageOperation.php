@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Operations;
 
+use App\Models\ReturnStage;
 use App\Models\StageAuthorisation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Route;
 use App\Models\StageCashier;
-
+use App\Models\StageProduction;
 
 trait ProcessProductionStageOperation
 {
@@ -57,10 +58,16 @@ trait ProcessProductionStageOperation
         $this->data['title'] = CRUD::getTitle() ?? 'Process Production Stage '.$this->crud->entity_name;
         $this->data['entry'] = $this->crud->getCurrentEntry();
       
-        $cashierStage = StageCashier::where('process_id', 1)->first();
+        $cashierStage = StageCashier::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['cashier_stage'] =  $cashierStage;
-        $authorisationStage = StageAuthorisation::where('process_id', 1)->first();
+        $authorisationStage = StageAuthorisation::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['authorisation_stage'] =  $authorisationStage;
+        $productionStage = StageProduction::where('process_id', $this->crud->getCurrentEntry()->id)->first();
+        $this->data['production_stage'] =  $productionStage;
+        $returnStages = ReturnStage::where('process_id', $this->crud->getCurrentEntry()->id)
+        ->where('message_status', '1')->get();
+        $this->data['return_stages'] = $returnStages;
+
 
         // load the view
         return view('crud::operations.create_stage_production', $this->data);

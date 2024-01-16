@@ -8,7 +8,9 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
 use App\Models\Process;
+use App\Models\ReturnStage;
 use Backpack\CRUD\app\Library\Widget;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class StageProductionCrudController
@@ -48,7 +50,7 @@ class StageProductionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addClause('where', 'stage_id', '3');
+        CRUD::addClause('where', 'stage_id', '4');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -88,8 +90,10 @@ class StageProductionCrudController extends CrudController
     public function createProductionStage(Request $request)
     {
         CRUD::setValidation(StageProductionRequest::class);
-        $stageProduction = new StageProduction();
+        $stageProduction = StageProduction::firstOrNew(['process_id' => $request->process_id]);
+
         $stageProduction->process_id = $request->process_id;
+        $stageProduction->user_id = Auth::user()->id;
         $stageProduction->cutting = $request->has('cutting');
         $stageProduction->edging = $request->has('edging');
         $stageProduction->cnc_machining = $request->has('cnc_machining');
@@ -104,8 +108,10 @@ class StageProductionCrudController extends CrudController
 
         $stageProduction->save();
 
+        ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
+
         $process = Process::find($request->process_id);
-        $process->stage_id = 4;
+        $process->stage_id = 5;
         $process->stage_name = 'Credit Control';
         $process->save();
 

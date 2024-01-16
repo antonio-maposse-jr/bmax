@@ -25,7 +25,7 @@ return new class extends Migration
         
             $table->string('reason');
             $table->text('comment');
-            $table->boolean('message_status');
+            $table->boolean('message_status')->default(true);
             
             $table->timestamps();
             $table->softDeletes();

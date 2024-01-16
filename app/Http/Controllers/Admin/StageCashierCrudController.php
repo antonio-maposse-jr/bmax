@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StageCashierRequest;
 use App\Models\Process;
+use App\Models\ReturnStage;
 use App\Models\StageCashier;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 /**
  * Class StageCashierCrudController
  * @package App\Http\Controllers\Admin
@@ -51,7 +54,7 @@ class StageCashierCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addClause('where', 'stage_id', '1');
+        CRUD::addClause('where', 'stage_id', '2');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -91,7 +94,8 @@ class StageCashierCrudController extends CrudController
     public function createStageCashier(Request $request){
         CRUD::setValidation(StageCashierRequest::class);
 
-        $stageCashier = new StageCashier();
+        $stageCashier = StageCashier::firstOrNew(['process_id' => $request->process_id]);
+
         $stageCashier->process_id = $request->process_id;
         $stageCashier->invoice_reference = $request->invoice_reference;
         $stageCashier->invoice_amount = $request->invoice_amount;
@@ -102,6 +106,7 @@ class StageCashierCrudController extends CrudController
         $stageCashier->balance_to_be_paid = $request->balance_to_be_paid;
         $stageCashier->special_instructions = $request->special_instructions;
         $stageCashier->special_authorization = $request->has('special_authorization');
+        $stageCashier->user_id = Auth::user()->id;
 
         $invoicePath = $request->file('invoice')->store('documents');
         $receiptPath = $request->file('receipt')->store('documents');
@@ -112,9 +117,11 @@ class StageCashierCrudController extends CrudController
         $stageCashier->other = $otherPath;
 
         $stageCashier->save();
+
+        ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
         
         $process = Process::find($request->process_id);
-        $process->stage_id = 2;
+        $process->stage_id = 3;
         $process->stage_name = 'Authorisation';
         $process->save();
 

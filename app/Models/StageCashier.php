@@ -41,6 +41,10 @@ class StageCashier extends Model
         return $this->belongsTo(Process::class);
     }
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
