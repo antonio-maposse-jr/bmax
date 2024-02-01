@@ -11,18 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stage_productions', function (Blueprint $table) {
+        Schema::create('production_tasks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('process_id');
             $table->foreign('process_id')->references('id')->on('processes')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->double('total_unallocated_sheets')->default(0);
-            $table->double('total_unallocated_panels')->default(0);
-            $table->string('status')->default('PENDING');
-            $table->string('other')->nullable();
 
+            $table->string('task_name');
+            $table->string('sub_task_name');
 
+            $table->string('task_status')->default('PENDING');
+            $table->double('total_allocated_sheets')->default(0);
+            $table->double('total_allocated_panels')->default(0);
+            $table->double('total_work_time')->default(0);
+            $table->double('total_iddle_time')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stage_productions');
+        Schema::dropIfExists('production_tasks');
     }
 };

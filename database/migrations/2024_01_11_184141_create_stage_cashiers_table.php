@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('invoice_reference');
             $table->double('invoice_amount');
             $table->text('variance_explanation')->nullable();
-            $table->string('reciept_reference');
+            $table->string('reciept_reference')->nullable();
             $table->double('total_amount_paid')->nullable();
             $table->string('invoice_status');
             $table->string('balance_to_be_paid')->nullable();

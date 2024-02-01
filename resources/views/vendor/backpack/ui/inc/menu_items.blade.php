@@ -17,6 +17,7 @@
     <x-backpack::menu-dropdown-item title="Categories" icon="la la-folder-plus" :link="backpack_url('category')" />
     <x-backpack::menu-dropdown-item title="Subcategories" icon="la la-file-alt" :link="backpack_url('subcategory')" />
     <x-backpack::menu-dropdown-item title="Products" icon="la la-archive" :link="backpack_url('product')" />
+    <x-backpack::menu-dropdown-item title="Colors" icon="la la-pen-nib" :link="backpack_url('color')" />
 </x-backpack::menu-dropdown>
 
 <x-backpack::menu-dropdown title="Process Management" icon="la la-file-alt">
@@ -28,13 +29,3 @@
     <x-backpack::menu-dropdown-item title="Credit Control Stage" icon="la la-eye" :link="backpack_url('stage-credit-control')" />
     <x-backpack::menu-dropdown-item title="Dispatch Stage" icon="la la-rocket" :link="backpack_url('stage-dispatch')" />
 </x-backpack::menu-dropdown>
-
-
-
-
-{{-- <x-backpack::menu-item title="Processes" icon="la la-question" :link="backpack_url('process')" />
-<x-backpack::menu-item title="Stage cashiers" icon="la la-question" :link="backpack_url('stage-cashier')" />
-<x-backpack::menu-item title="Stage authorisations" icon="la la-question" :link="backpack_url('stage-authorisations')" />
-<x-backpack::menu-item title="Stage productions" icon="la la-question" :link="backpack_url('stage-production')" />
-<x-backpack::menu-item title="Stage credit controls" icon="la la-question" :link="backpack_url('stage-credit-control')" />
-<x-backpack::menu-item title="Stage dispatches" icon="la la-question" :link="backpack_url('stage-dispatch')" /> --}}

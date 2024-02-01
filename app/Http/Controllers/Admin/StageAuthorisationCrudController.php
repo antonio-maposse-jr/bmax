@@ -39,6 +39,7 @@ class StageAuthorisationCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-authorisations');
         CRUD::setEntityNameStrings('stage authorisations', 'stage authorisations');
 
+        Widget::add()->type('script')->content('assets/js/stage_config.js');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
     }
@@ -52,6 +53,7 @@ class StageAuthorisationCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::addClause('where', 'stage_id', '3');
+        $this->crud->column('id');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -88,7 +90,8 @@ class StageAuthorisationCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function createStageAuthorisation(Request $request){
+    public function createStageAuthorisation(Request $request)
+    {
         CRUD::setValidation(StageAuthorisationsRequest::class);
 
         $stageAuthorization = StageAuthorisation::firstOrNew(['process_id' => $request->process_id]);
@@ -96,17 +99,16 @@ class StageAuthorisationCrudController extends CrudController
         $stageAuthorization->comment = $request->comment;
         $stageAuthorization->decision = $request->decision;
         $stageAuthorization->comments = $request->comments;
-        $stageAuthorization->special_conditions = $request->has('special_conditions');
         $stageAuthorization->user_id = Auth::user()->id;
-        
-        $otherDocPath = $request->file('other_documents')->store('documents', 'public');
 
-
-        $stageAuthorization->other_documents = $otherDocPath;
+        if ($request->hasFile('other_documents')) {
+            $otherDocPath = $request->file('other_documents')->store('documents', 'public');
+            $stageAuthorization->other_documents = $otherDocPath;
+        }
 
         $stageAuthorization->save();
         ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
-        
+
         $process = Process::find($request->process_id);
         $process->stage_id = 4;
         $process->stage_name = 'Production';

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('comment');
             $table->string('decision');
             $table->text('comments')->nullable();
-            $table->boolean('special_conditions')->default(false);
             $table->string('other_documents')->nullable();
             $table->timestamps();
             $table->softDeletes();

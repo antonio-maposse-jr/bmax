@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Operations;
 
+use App\Models\ProductionTask;
 use App\Models\ReturnStage;
 use App\Models\StageAuthorisation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -62,13 +63,18 @@ trait ProcessProductionStageOperation
         $this->data['cashier_stage'] =  $cashierStage;
         $authorisationStage = StageAuthorisation::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['authorisation_stage'] =  $authorisationStage;
+
         $productionStage = StageProduction::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['production_stage'] =  $productionStage;
+
         $returnStages = ReturnStage::where('process_id', $this->crud->getCurrentEntry()->id)
         ->where('message_status', '1')->get();
         $this->data['return_stages'] = $returnStages;
 
+        $productionTasks = ProductionTask::where('process_id', $this->crud->getCurrentEntry()->id)->get();
+        $this->data['production_tasks'] = $productionTasks;
 
+        //dd($this->data);
         // load the view
         return view('crud::operations.create_stage_production', $this->data);
     }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StageCashierRequest extends FormRequest
+class ColorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,7 @@ class StageCashierRequest extends FormRequest
     public function rules()
     {
         return [
-         'invoice_reference' => 'required',
-         'invoice_amount' => 'required',
-         'total_amount_paid' => 'required',
-         'balance_to_be_paid' => 'required',
-         'invoice' => 'required'
+            // 'name' => 'required|min:5|max:255'
         ];
     }
 

@@ -37,6 +37,8 @@ class StageCreditControlCrudController extends CrudController
         CRUD::setCreateView('crud::operations.create_stage_credit_control');
         CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-credit-control');
         CRUD::setEntityNameStrings('stage credit control', 'stage credit controls');
+
+        Widget::add()->type('script')->content('assets/js/stage_config.js');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
     }
@@ -50,6 +52,7 @@ class StageCreditControlCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::addClause('where', 'stage_id', '5');
+        $this->crud->column('id');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -86,7 +89,8 @@ class StageCreditControlCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function createStageCreditControl(Request $request){
+    public function createStageCreditControl(Request $request)
+    {
 
         CRUD::setValidation(StageCreditControlRequest::class);
 
@@ -95,18 +99,17 @@ class StageCreditControlCrudController extends CrudController
         $stageCreditControl->comment = $request->comment;
         $stageCreditControl->decision = $request->decision;
         $stageCreditControl->comments = $request->comments;
-        $stageCreditControl->special_conditions = $request->has('special_conditions');
         $stageCreditControl->user_id = Auth::user()->id;
-        
-        $otherDocPath = $request->file('other_documents')->store('documents');
 
-
-        $stageCreditControl->other_documents = $otherDocPath;
+        if ($request->hasFile('other_documents')) {
+            $otherDocPath = $request->file('other_documents')->store('documents', 'public');
+            $stageCreditControl->other_documents = $otherDocPath;
+        }
 
         $stageCreditControl->save();
 
         ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
-        
+
         $process = Process::find($request->process_id);
         $process->stage_id = 6;
         $process->stage_name = 'Dispatch';

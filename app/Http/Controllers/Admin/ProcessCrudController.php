@@ -53,6 +53,7 @@ class ProcessCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->column('id');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -182,47 +183,47 @@ class ProcessCrudController extends CrudController
             'attributes' => [
                 'multiple'       => 'true',
             ]
-            
+
         ])->tab('Form');
 
         CRUD::field('cutting')->type('checkbox')
-        ->wrapper([
-            'class' => 'form-group col-sm-3'
-        ])->tab('Checklist');
+            ->wrapper([
+                'class' => 'form-group col-sm-3'
+            ])->tab('Checklist');
 
         CRUD::field('edging')->type('checkbox')
-        ->wrapper([
-            'class' => 'form-group col-sm-3'
-        ])->tab('Checklist');
+            ->wrapper([
+                'class' => 'form-group col-sm-3'
+            ])->tab('Checklist');
 
         CRUD::field('cnc_machining')->type('checkbox')
-        ->wrapper([
-            'class' => 'form-group col-sm-3'
-        ])->tab('Checklist');
+            ->wrapper([
+                'class' => 'form-group col-sm-3'
+            ])->tab('Checklist');
 
         CRUD::field('grooving')->type('checkbox')
-        ->wrapper([
-            'class' => 'form-group col-sm-3'
-        ])->tab('Checklist');
+            ->wrapper([
+                'class' => 'form-group col-sm-3'
+            ])->tab('Checklist');
 
         CRUD::field('hinge_boring')->type('checkbox')
-        ->wrapper([
-            'class' => 'form-group col-sm-3'
-        ])->tab('Checklist');
+            ->wrapper([
+                'class' => 'form-group col-sm-3'
+            ])->tab('Checklist');
 
         CRUD::field('wrapping')->type('checkbox')
-        ->wrapper([
-            'class' => 'form-group col-sm-3'
-        ])->tab('Checklist');
+            ->wrapper([
+                'class' => 'form-group col-sm-3'
+            ])->tab('Checklist');
 
         CRUD::field('sanding')->type('checkbox')
-        ->wrapper([
-            'class' => 'form-group col-sm-3'
-        ])->tab('Checklist');
+            ->wrapper([
+                'class' => 'form-group col-sm-3'
+            ])->tab('Checklist');
         CRUD::field('hardware')->type('checkbox')
-        ->wrapper([
-            'class' => 'form-group col-sm-3'
-        ])->tab('Checklist');
+            ->wrapper([
+                'class' => 'form-group col-sm-3'
+            ])->tab('Checklist');
 
         CRUD::field('job_reference')->type('textarea')->tab('Form');
 
@@ -288,9 +289,6 @@ class ProcessCrudController extends CrudController
             ])->wrapper([
                 'class' => 'form-group col-sm-6'
             ])->tab('Documents');;
-
-
-     
     }
 
     /**
@@ -330,38 +328,52 @@ class ProcessCrudController extends CrudController
         } else {
             $process->colors = '';
         }
+
+   
         //End process colors
 
         //Save files
-        $jobLayoutPath = $request->file('job_layout')->store('documents');
-        $cuttingListPath = $request->file('cutting_list')->store('documents');
-        $quotePath = $request->file('quote')->store('documents');
-        $confirmationCallRecordPath = $request->file('confirmation_call_record')->store('documents');
-        $signedConfirmationPath = $request->file('signed_confirmation')->store('documents');
-        $customCuttingListPath = $request->file('custom_cutting_list')->store('documents');
-        $otherDocumentsPath = $request->file('other_document')->store('documents');
-        //End of File Save
+        if ($request->hasFile('job_layout')) {
+            $jobLayoutPath = $request->file('job_layout')->store('documents', 'public');
+            $process->job_layout = $jobLayoutPath;
+        }
+        if ($request->hasFile('cutting_list')) {
+            $cuttingListPath = $request->file('cutting_list')->store('documents', 'public');
+            $process->cutting_list = $cuttingListPath;
+        }
+        if ($request->hasFile('quote')) {
+            $quotePath = $request->file('quote')->store('documents', 'public');
+            $process->quote = $quotePath;
+        }
 
-        //Save document fields
-        $process->job_layout = $jobLayoutPath;
-        $process->cutting_list = $cuttingListPath;
-        $process->quote = $quotePath;
-        $process->confirmation_call_record = $confirmationCallRecordPath;
-        $process->signed_confirmation = $signedConfirmationPath;
-        $process->custom_cutting_list = $customCuttingListPath;
-        $process->other_document = $otherDocumentsPath;
-        //End of document fields
+        if ($request->hasFile('confirmation_call_record')) {
+            $confirmationCallRecordPath = $request->file('confirmation_call_record')->store('documents', 'public');
+            $process->confirmation_call_record = $confirmationCallRecordPath;
+        }
+        if ($request->hasFile('signed_confirmation')) {
+            $signedConfirmationPath = $request->file('signed_confirmation')->store('documents', 'public');
+            $process->signed_confirmation = $signedConfirmationPath;
+        }
+        if ($request->hasFile('custom_cutting_list')) {
+            $customCuttingListPath = $request->file('custom_cutting_list')->store('documents', 'public');
+            $process->custom_cutting_list = $customCuttingListPath;
+        }
+        if ($request->hasFile('other_document')) {
+            $otherDocumentsPath = $request->file('other_document')->store('documents', 'public');
+            $process->other_document = $otherDocumentsPath;
+        }
+        //End of File Save
 
         //Checkboxes
         $process->cutting = $request->has('cutting');
-        $process->edging = $request->has('edging');        
+        $process->edging = $request->has('edging');
         $process->cnc_machining = $request->has('cnc_machining');
         $process->grooving = $request->has('grooving');
         $process->hinge_boring = $request->has('hinge_boring');
         $process->wrapping = $request->has('wrapping');
         $process->sanding = $request->has('sanding');
         $process->hardware = $request->has('hardware');
-        
+
         $process->stage_id = 2;
 
         $process->save();
@@ -372,7 +384,8 @@ class ProcessCrudController extends CrudController
         return redirect(url($this->crud->route));
     }
 
-    protected function getStageById($id) {
+    protected function getStageById($id)
+    {
         switch ($id) {
             case 1:
                 return "Sales";
@@ -391,7 +404,8 @@ class ProcessCrudController extends CrudController
         }
     }
 
-    public function returnStage(Request $request){
+    public function returnStage(Request $request)
+    {
         $returnStage = new ReturnStage();
 
         $returnStage->process_id = $request->process_id;
@@ -410,12 +424,11 @@ class ProcessCrudController extends CrudController
         $process = Process::find($request->process_id);
         $process->stage_id = $request->destination_stage_nr;
         $process->stage_name = $this->getStageById($request->destination_stage_nr);
-      
+
         $process->save();
 
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 
         return redirect(url($this->crud->route));
-
     }
 }

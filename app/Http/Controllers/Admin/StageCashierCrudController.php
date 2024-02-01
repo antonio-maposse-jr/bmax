@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StageCashierRequest;
 use App\Models\Process;
+use App\Models\ProductionTask;
 use App\Models\ReturnStage;
 use App\Models\StageCashier;
+use App\Models\StageProduction;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
@@ -34,7 +36,7 @@ class StageCashierCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Process::class);
-        
+
         CRUD::setCreateView('crud::operations.create_stage_cashier');
         CRUD::setListView('crud::operations.list_process');
 
@@ -42,6 +44,7 @@ class StageCashierCrudController extends CrudController
         CRUD::setEntityNameStrings('stage cashier', 'stage cashiers');
 
         Widget::add()->type('script')->content('assets/js/create_cashier.js');
+        Widget::add()->type('script')->content('assets/js/stage_config.js');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
     }
@@ -55,6 +58,7 @@ class StageCashierCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::addClause('where', 'stage_id', '2');
+        $this->crud->column('id');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -91,7 +95,8 @@ class StageCashierCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function createStageCashier(Request $request){
+    public function createStageCashier(Request $request)
+    {
         CRUD::setValidation(StageCashierRequest::class);
 
         $stageCashier = StageCashier::firstOrNew(['process_id' => $request->process_id]);
@@ -108,26 +113,77 @@ class StageCashierCrudController extends CrudController
         $stageCashier->special_authorization = $request->has('special_authorization');
         $stageCashier->user_id = Auth::user()->id;
 
-        $invoicePath = $request->file('invoice')->store('documents');
-        $receiptPath = $request->file('receipt')->store('documents');
-        $otherPath = $request->file('other')->store('documents');
-
-        $stageCashier->invoice = $invoicePath;
-        $stageCashier->receipt = $receiptPath;
-        $stageCashier->other = $otherPath;
+        if ($request->hasFile('invoice')) {
+            $invoicePath = $request->file('invoice')->store('documents', 'public');
+            $stageCashier->invoice = $invoicePath;
+        }
+        if ($request->hasFile('receipt')) {
+            $receiptPath = $request->file('receipt')->store('documents', 'public');
+            $stageCashier->receipt = $receiptPath;
+        }
+        if ($request->hasFile('other')) {
+            $otherPath = $request->file('other')->store('documents', 'public');
+            $stageCashier->other = $otherPath;
+        }
 
         $stageCashier->save();
 
+        //Remove Return stage messages
         ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
-        
+
         $process = Process::find($request->process_id);
-        $process->stage_id = 3;
-        $process->stage_name = 'Authorisation';
-        $process->save();
+
+        if($request->has('special_authorization')){
+            $process->stage_id = 3;
+            $process->stage_name = 'Authorisation';
+            $process->save();
+        }else{
+            $process->stage_id = 4;
+            $process->stage_name = 'Production';
+            $process->save();
+        }
+  
+        // Create Production Stage tasks
+        $productionStage = StageProduction::firstOrNew(['process_id' => $request->process_id]);
+        $productionStage->process_id= $process->id;
+        $productionStage->user_id= Auth::user()->id;
+        
+        if ($productionStage->total_unallocated_sheets === null || $productionStage->total_unallocated_sheets == 0) {
+            $productionStage->total_unallocated_sheets= $process->nr_sheets;
+        }
+        if ($productionStage->total_unallocated_panels === null || $productionStage->total_unallocated_panels == 0) {
+            $productionStage->total_unallocated_panels= $process->nr_panels;
+        }
+        $productionStage->save();
+
+        $processes = [
+            ['name' => 'cutting', 'subTaskNames' => ['CNC1', 'CNC2', 'Panel Saw 1', 'Panel Saw 2']],
+            ['name' => 'edging', 'subTaskNames' => ['Edgebander 1', 'Edgebander 2']],
+            ['name' => 'cnc_machining', 'subTaskNames' => ['CNC MACHINING']],
+            ['name' => 'sanding', 'subTaskNames' => ['SANDING']],
+            ['name' => 'grooving', 'subTaskNames' => ['GROOVING']],
+            ['name' => 'hinge_boring', 'subTaskNames' => ['HINGE BORING']],
+            ['name' => 'wrapping', 'subTaskNames' => ['WRAPPING']],
+            ['name' => 'hardware', 'subTaskNames' => ['HARDWARE']],
+        ];
+        
+        foreach ($processes as $processData) {
+            if ($process->{$processData['name']}) {
+                foreach ($processData['subTaskNames'] as $subTaskName) {
+                    $task = ProductionTask::firstOrNew(['process_id' => $request->process_id, 'sub_task_name' => $subTaskName]);
+                    $task->process_id = $process->id;
+                    $task->user_id = Auth::user()->id;
+                    $task->task_name = $processData['name'];
+                    $task->sub_task_name = $subTaskName;
+                    $task->save();
+                }
+            }
+        }
+
 
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
-
+        
         return redirect(url($this->crud->route));
     }
 }

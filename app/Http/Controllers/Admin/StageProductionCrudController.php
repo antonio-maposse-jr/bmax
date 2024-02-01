@@ -8,6 +8,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
 use App\Models\Process;
+use App\Models\ProductionTask;
 use App\Models\ReturnStage;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,8 @@ class StageProductionCrudController extends CrudController
         CRUD::setEntityNameStrings('stage production', 'stage productions');
         
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
+        Widget::add()->type('script')->content('assets/js/production_validations.js');
+
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
     }
 
@@ -51,6 +54,7 @@ class StageProductionCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::addClause('where', 'stage_id', '4');
+        $this->crud->column('id');
         $this->crud->column('customer_id');
         $this->crud->column('product');
         $this->crud->column('date_required');
@@ -103,7 +107,7 @@ class StageProductionCrudController extends CrudController
         $stageProduction->sanding = $request->has('sanding');
         $stageProduction->hardware = $request->has('hardware');
 
-        $otherDocPath = $request->file('other_documents')->store('documents');
+        $otherDocPath = $request->file('other_documents')->store('documents', 'public');
         $stageProduction->other_documents = $otherDocPath;
 
         $stageProduction->save();
@@ -120,4 +124,43 @@ class StageProductionCrudController extends CrudController
 
         return redirect(url($this->crud->route));
     }
+
+    public function updateTask(Request $request){
+        $productionTask = ProductionTask::firstOrNew(['process_id' => $request->process_id, 'sub_task_name' => $request->sub_task_name]);
+
+        $productionTask->process_id = $request->process_id;
+        $productionTask->user_id = Auth::user()->id;
+        $productionTask->task_name = $request->task_name;
+        $productionTask->sub_task_name = $request->sub_task_name;
+        $productionTask->task_status = $request->task_status;
+
+        $productionTask->save();
+
+        \Alert::success(trans('backpack::crud.insert_success'))->flash();
+
+        return redirect()->back();
+      
+    }
+
+    public function assignTask(Request $request){
+        $productionTask = ProductionTask::find($request->task_id);
+
+        $productionTask->process_id = $request->process_id;
+        $productionTask->user_id = Auth::user()->id;
+        $productionTask->sub_task_name = $request->sub_task_name;
+        $productionTask->task_status = "PROCESSING";
+        $productionTask->total_allocated_sheets = $request->nr_sheets_allocated;
+
+        $remaining_sheets = $request->nr_sheets_unallocated - $request->nr_sheets_allocated;
+        $productionTask->save();
+
+        StageProduction::where('process_id', $request->process_id)->update(['total_unallocated_sheets' => $remaining_sheets]);
+        
+        \Alert::success(trans('backpack::crud.insert_success'))->flash();
+
+        return redirect()->back();
+
+    }
+
+
 }

@@ -11,3 +11,5 @@ function closePopup() {
 function closeNotification() {
     document.querySelector('.notification-bar').style.display = 'none';
 }
+
+

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ColorCrudController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CustomerCrudController;
 use App\Http\Controllers\Admin\ProcessCrudController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Admin\StageAuthorisationCrudController;
 use App\Http\Controllers\Admin\StageCreditControlCrudController;
 use App\Http\Controllers\Admin\StageDispatchCrudController;
 use App\Http\Controllers\Admin\StageProductionCrudController;
+use App\Models\StageProduction;
 
 // --------------------------
 // Custom Backpack Routes
@@ -43,11 +45,17 @@ Route::group([
     Route::post('submit-stage-credit-control-data', [StageCreditControlCrudController::class,'createStageCreditControl'])->name('submit-stage-credit-control-data');
     Route::post('submit-stage-dispatch-data', [StageDispatchCrudController::class,'createStageDispatch'])->name('submit-stage-dispatch-data');
 
+    Route::post('submit-prod-task', [StageProductionCrudController::class,'updateTask'])->name('submit-prod-task');
+    Route::post('assign-prod-task', [StageProductionCrudController::class,'assignTask'])->name('assign-prod-task');
+
     Route::get('get-customers', [CustomerCrudController::class, 'getCustomers'])->name('get-customers');
     Route::get('get-products', [ProductCrudController::class, 'getProducts'])->name('get-products');
+    Route::get('get-colors', [ColorCrudController::class, 'getColors'])->name('get-colors');
+
     Route::crud('stage-cashier', 'StageCashierCrudController');
     Route::crud('stage-authorisations', 'StageAuthorisationCrudController');
     Route::crud('stage-production', 'StageProductionCrudController');
     Route::crud('stage-credit-control', 'StageCreditControlCrudController');
     Route::crud('stage-dispatch', 'StageDispatchCrudController');
+    Route::crud('color', 'ColorCrudController');
 }); // this should be the absolute last line of this file
