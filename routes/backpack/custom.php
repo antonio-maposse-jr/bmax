@@ -47,6 +47,7 @@ Route::group([
 
     Route::post('submit-prod-task', [StageProductionCrudController::class,'updateTask'])->name('submit-prod-task');
     Route::post('assign-prod-task', [StageProductionCrudController::class,'assignTask'])->name('assign-prod-task');
+    Route::post('assign-prod-panels', [StageProductionCrudController::class,'assignPanels'])->name('assign-prod-panels');
 
     Route::get('get-customers', [CustomerCrudController::class, 'getCustomers'])->name('get-customers');
     Route::get('get-products', [ProductCrudController::class, 'getProducts'])->name('get-products');

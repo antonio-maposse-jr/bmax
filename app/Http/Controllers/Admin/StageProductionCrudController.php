@@ -93,22 +93,15 @@ class StageProductionCrudController extends CrudController
 
     public function createProductionStage(Request $request)
     {
-        CRUD::setValidation(StageProductionRequest::class);
+       
         $stageProduction = StageProduction::firstOrNew(['process_id' => $request->process_id]);
 
         $stageProduction->process_id = $request->process_id;
         $stageProduction->user_id = Auth::user()->id;
-        $stageProduction->cutting = $request->has('cutting');
-        $stageProduction->edging = $request->has('edging');
-        $stageProduction->cnc_machining = $request->has('cnc_machining');
-        $stageProduction->grooving = $request->has('grooving');
-        $stageProduction->hinge_boring = $request->has('hinge_boring');
-        $stageProduction->wrapping = $request->has('wrapping');
-        $stageProduction->sanding = $request->has('sanding');
-        $stageProduction->hardware = $request->has('hardware');
+        $stageProduction->status = "COMPLETED";
 
-        $otherDocPath = $request->file('other_documents')->store('documents', 'public');
-        $stageProduction->other_documents = $otherDocPath;
+        $otherDocPath = $request->file('other')->store('documents', 'public');
+        $stageProduction->other = $otherDocPath;
 
         $stageProduction->save();
 
@@ -126,13 +119,23 @@ class StageProductionCrudController extends CrudController
     }
 
     public function updateTask(Request $request){
-        $productionTask = ProductionTask::firstOrNew(['process_id' => $request->process_id, 'sub_task_name' => $request->sub_task_name]);
-
+     $productionTask = ProductionTask::find($request->task_id);
         $productionTask->process_id = $request->process_id;
         $productionTask->user_id = Auth::user()->id;
         $productionTask->task_name = $request->task_name;
         $productionTask->sub_task_name = $request->sub_task_name;
         $productionTask->task_status = $request->task_status;
+
+        $updatedAt = $productionTask->updated_at;
+        $timeDifferenceInMin = $updatedAt->diffInMinutes(now());
+
+        if( $request->task_status == 'PENDING'){
+            $productionTask->total_iddle_time = $productionTask->total_iddle_time + $timeDifferenceInMin;
+        }
+
+        if( $request->task_status == 'COMPLETED'){
+            $productionTask->total_iddle_time = $productionTask->total_work_time + $timeDifferenceInMin;
+        }
 
         $productionTask->save();
 
@@ -159,7 +162,25 @@ class StageProductionCrudController extends CrudController
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 
         return redirect()->back();
+    }
 
+    public function assignPanels(Request $request){
+        $productionTask = ProductionTask::find($request->task_id);
+
+        $productionTask->process_id = $request->process_id;
+        $productionTask->user_id = Auth::user()->id;
+        $productionTask->sub_task_name = $request->sub_task_name;
+        $productionTask->task_status = "PROCESSING";
+        $productionTask->total_allocated_panels = $request->nr_panels_allocated;
+
+        $remaining_panels = $request->nr_panels_unallocated - $request->nr_panels_allocated;
+        $productionTask->save();
+
+        StageProduction::where('process_id', $request->process_id)->update(['total_unallocated_panels' => $remaining_panels]);
+        
+        \Alert::success(trans('backpack::crud.insert_success'))->flash();
+
+        return redirect()->back();
     }
 
 
