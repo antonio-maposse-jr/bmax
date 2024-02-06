@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Process;
 use App\Models\ProductionTask;
 use App\Models\ReturnStage;
+use App\Models\StageCashier;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,6 +40,7 @@ class StageProductionCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-production');
         CRUD::setEntityNameStrings('stage production', 'stage productions');
         
+        Widget::add()->type('script')->content('assets/js/file_control.js');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('script')->content('assets/js/production_validations.js');
 
@@ -100,17 +102,28 @@ class StageProductionCrudController extends CrudController
         $stageProduction->user_id = Auth::user()->id;
         $stageProduction->status = "COMPLETED";
 
-        $otherDocPath = $request->file('other')->store('documents', 'public');
-        $stageProduction->other = $otherDocPath;
+        if ($request->hasFile('other')) {
+            $otherDocPath = $request->file('other')->store('documents', 'public');
+            $stageProduction->other = $otherDocPath;
+        }
 
         $stageProduction->save();
 
         ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
 
         $process = Process::find($request->process_id);
-        $process->stage_id = 5;
-        $process->stage_name = 'Credit Control';
-        $process->save();
+        $cashierStage = StageCashier::where('process_id', $request->process_id)->first();
+
+        if($cashierStage->balance_to_be_paid != 0){
+            $process->stage_id = 5;
+            $process->stage_name = 'Credit Control';
+            $process->save();
+        }else{
+            $process->stage_id = 6;
+            $process->stage_name = 'Dispatch';
+            $process->save();   
+        }
+    
 
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
@@ -124,19 +137,25 @@ class StageProductionCrudController extends CrudController
         $productionTask->user_id = Auth::user()->id;
         $productionTask->task_name = $request->task_name;
         $productionTask->sub_task_name = $request->sub_task_name;
-        $productionTask->task_status = $request->task_status;
 
         $updatedAt = $productionTask->updated_at;
         $timeDifferenceInMin = $updatedAt->diffInMinutes(now());
 
-        if( $request->task_status == 'PENDING'){
+        if( $request->task_status == 'PROCESSING' && $productionTask->task_status == 'PAUSED'){
             $productionTask->total_iddle_time = $productionTask->total_iddle_time + $timeDifferenceInMin;
         }
 
-        if( $request->task_status == 'COMPLETED'){
-            $productionTask->total_iddle_time = $productionTask->total_work_time + $timeDifferenceInMin;
+        if( $request->task_status == 'PAUSED'){
+            $productionTask->total_work_time = $productionTask->total_work_time + $timeDifferenceInMin;
         }
 
+        if( $request->task_status == 'COMPLETED'){
+            $productionTask->total_work_time = $productionTask->total_work_time + $timeDifferenceInMin;
+        }
+
+        $productionTask->task_status = $request->task_status;
+
+        
         $productionTask->save();
 
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
@@ -151,13 +170,19 @@ class StageProductionCrudController extends CrudController
         $productionTask->process_id = $request->process_id;
         $productionTask->user_id = Auth::user()->id;
         $productionTask->sub_task_name = $request->sub_task_name;
-        $productionTask->task_status = "PROCESSING";
         $productionTask->total_allocated_sheets = $request->nr_sheets_allocated;
 
-        $remaining_sheets = $request->nr_sheets_unallocated - $request->nr_sheets_allocated;
+        $updatedAt = $productionTask->updated_at;
+        $timeDifferenceInMin = $updatedAt->diffInMinutes(now());
+
+        if( $productionTask->task_status == 'PAUSED'){
+            $productionTask->total_iddle_time = $productionTask->total_iddle_time + $timeDifferenceInMin;
+        }
+
+        $productionTask->task_status = "PROCESSING";
         $productionTask->save();
 
-        StageProduction::where('process_id', $request->process_id)->update(['total_unallocated_sheets' => $remaining_sheets]);
+        StageProduction::where('process_id', $request->process_id)->update(['total_unallocated_sheets' => $request->nr_sheets_unallocated]);
         
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 
@@ -170,13 +195,19 @@ class StageProductionCrudController extends CrudController
         $productionTask->process_id = $request->process_id;
         $productionTask->user_id = Auth::user()->id;
         $productionTask->sub_task_name = $request->sub_task_name;
-        $productionTask->task_status = "PROCESSING";
+        
         $productionTask->total_allocated_panels = $request->nr_panels_allocated;
+        $updatedAt = $productionTask->updated_at;
+        $timeDifferenceInMin = $updatedAt->diffInMinutes(now());
 
-        $remaining_panels = $request->nr_panels_unallocated - $request->nr_panels_allocated;
+        if( $productionTask->task_status == 'PAUSED'){
+            $productionTask->total_iddle_time = $productionTask->total_iddle_time + $timeDifferenceInMin;
+        }
+
+        $productionTask->task_status = "PROCESSING";
         $productionTask->save();
 
-        StageProduction::where('process_id', $request->process_id)->update(['total_unallocated_panels' => $remaining_panels]);
+        StageProduction::where('process_id', $request->process_id)->update(['total_unallocated_panels' => $request->nr_panels_unallocated ]);
         
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 

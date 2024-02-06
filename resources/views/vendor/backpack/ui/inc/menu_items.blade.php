@@ -29,3 +29,7 @@
     <x-backpack::menu-dropdown-item title="Credit Control Stage" icon="la la-eye" :link="backpack_url('stage-credit-control')" />
     <x-backpack::menu-dropdown-item title="Dispatch Stage" icon="la la-rocket" :link="backpack_url('stage-dispatch')" />
 </x-backpack::menu-dropdown>
+
+<x-backpack::menu-dropdown title="Reports" icon="la la-chart-pie">
+    <x-backpack::menu-dropdown-item title="Efficiency" icon="la la-business-time" :link="backpack_url('customer')" />
+</x-backpack::menu-dropdown>

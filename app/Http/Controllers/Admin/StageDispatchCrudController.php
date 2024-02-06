@@ -35,6 +35,7 @@ class StageDispatchCrudController extends CrudController
         CRUD::setModel(\App\Models\Process::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-dispatch');
         CRUD::setEntityNameStrings('stage dispatch', 'stage dispatches');
+        Widget::add()->type('script')->content('assets/js/file_control.js');
         Widget::add()->type('script')->content('assets/js/stage_config.js');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');

@@ -457,7 +457,7 @@
                                                     </td>
                                                     <td class="border-top-0">
                                                         <span>
-                                                            {{ $cashier_stage->id }}
+                                                            {{ optional($cashier_stage)->id }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -467,7 +467,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->process_id }}
+                                                            {{ optional($cashier_stage)->process_id }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -477,7 +477,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->invoice_reference }}
+                                                            {{ optional($cashier_stage)->invoice_reference }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -487,7 +487,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->invoice_amount }}
+                                                            {{ optional($cashier_stage)->invoice_amount }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -497,7 +497,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->variance_explanation }}
+                                                            {{ optional($cashier_stage)->variance_explanation }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -507,7 +507,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->reciept_reference }}
+                                                            {{ optional($cashier_stage)->reciept_reference }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -517,7 +517,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->total_amount_paid }}
+                                                            {{ optional($cashier_stage)->total_amount_paid }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -527,7 +527,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->invoice_status }}
+                                                            {{ optional($cashier_stage)->invoice_status }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -537,7 +537,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->balance_to_be_paid }}
+                                                            {{ optional($cashier_stage)->balance_to_be_paid }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -547,7 +547,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->special_authorization == 1 ? 'Yes' : 'No' }}
+                                                            {{ optional($cashier_stage)->special_authorization == 1 ? 'Yes' : 'No' }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -558,7 +558,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->special_instructions }}
+                                                            {{ optional($cashier_stage)->special_instructions }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -616,7 +616,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $cashier_stage->user->name }}
+                                                            {{ optional($cashier_stage)->user ? optional($cashier_stage)->user->name : '' }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -800,7 +800,7 @@
                                 </table>
                                 <hr>
                                 <span>
-                                    @if (isset($cashier_stage->other))
+                                    @if (isset($production_stage->other))
                                         <a href="{{ Storage::url($production_stage->other) }}"
                                             target="_blank">Download/View Other Documents</a>
                                     @else
@@ -904,7 +904,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ optional($credit_control_stage)->user->name }}
+                                                            {{ optional($credit_control_stage)->user ? optional($credit_control_stage)->user->name : '' }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -940,108 +940,106 @@
 
                     {{-- Dispatch Stage form --}}
                     <div role="tabpanel" class="tab-pane" id="tab_dispatch">
-                        <form method="post" action="{{ route('submit-stage-dispatch-data') }}"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="card">
-                                <div class="card-body row">
-                                    <div class="form-group col-md-6 required">
-                                        <label>Process ID</label>
-                                        <input type="text" name="process_id" value=" {{ $entry->id }}"
-                                            class="form-control" readonly>
-                                    </div>
-                                
-                                    <div class="form-group col-md-6 required">
-                                        <label>Status</label>
-                                        <select name="dispatch_status"
-                                            value="{{ optional($dispatch_stage)->dispatch_status }}" id="dispatch_status"
-                                            class="form-control" id="dispatch_status" onchange="partialDispatch()">
-                                            <option value="Full Dispatch">Full Dispatch</option>
-                                            <option value="Partial Dispatch">Partial Dispatch</option>
-                                        </select>
-                                    </div>
+                        <div class="row" bp-section="crud-operation-show">
+                            <div class="col-md-12">
+                                <div class="">
+                                    <div class="card no-padding no-border mb-0">
+                                        <table class="table table-striped m-0 p-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="border-top-0">
+                                                        <strong>ID:</strong>
+                                                    </td>
+                                                    <td class="border-top-0">
+                                                        <span>
+                                                            {{ optional($dispatch_stage)->id }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <strong>Process ID:</strong>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ optional($dispatch_stage)->process_id }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <strong>Comment:</strong>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ optional($dispatch_stage)->comment }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <strong>Status:</strong>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ optional($dispatch_stage)->dispatch_status }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <strong>Number of Panels:</strong>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ optional($dispatch_stage)->nr_panels }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                   
+                                                <tr>
+                                                    <td>
+                                                        <strong>User processed:</strong>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ optional($dispatch_stage)->user ? optional($dispatch_stage)->user->name : '' }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <strong>Created:</strong>
+                                                    </td>
+                                                    <td>
+                                                        <span data-order="{{ optional($dispatch_stage)->created_at }}">
+                                                            {{ optional($dispatch_stage)->created_at }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <strong>Updated:</strong>
+                                                    </td>
+                                                    <td>
+                                                        <span data-order=" {{ optional($dispatch_stage)->updated_at }}">
+                                                            {{ optional($dispatch_stage)->updated_at }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
 
-                                    <div class="form-group col-md-6 required">
-                                        <label>Comment</label>
-                                        <input type="text" value="{{ optional($dispatch_stage)->comment }}"
-                                            name="comment" class="form-control">
+                                            </tbody>
+                                        </table>
                                     </div>
-
-                                    <div class="form-group col-md-6 ">
-                                        <label>Number of Panels</label>
-                                        <input type="number" value="{{ optional($dispatch_stage)->nr_panels }}"
-                                            name="nr_panels" id="nr_panels" class="form-control" disabled onchange="controlInputDataDispatch()">
-                                    </div>
-
                                 </div>
                             </div>
-
-                            <div class="d-none" id="parentLoadedAssets">[]</div>
-                            <div id="saveActions" class="form-group my-3">
-                                <input type="hidden" name="_save_action" value="submit_complete_process">
-                                <button type="submit" class="btn btn-success"  id="submit_btn">
-                                    <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
-                                    <span data-value="create_new_process">Complete Process</span>
-                                </button>
-                                <button type="button" onclick="openPopup()" class="btn btn-info">
-                                    <span class="la la-sync-alt" role="presentation" aria-hidden="true"></span> &nbsp;
-                                    <span data-value="create_new_process">Return stages</span>
-                                </button>
-                                <div class="btn-group" role="group">
-                                </div>
-                                <a href="{{ url($crud->route) }}" class="btn btn-default"><span
-                                        class="la la-ban"></span>
-                                    &nbsp;Cancel</a>
-                            </div>
-                        </form>
-
-
+                        </div>
                     </div>
                     {{-- End of Dispatch Stage form --}}
 
                 </div>
             </div>
         </div>
-
-        <div class="overlay_rs" onclick="closePopup()"></div>
-        <div class="popup_rs">
-            <div class="close-btn_rs" onclick="closePopup()">X</div>
-            <h2 style="color: #333; text-align: center;">Return to Stage Form</h2>
-            <form action="{{ route('return-stage') }}" method="post">
-                @csrf
-                <input type="hidden" name="process_id" value=" {{ $entry->id }}" class="form-control" readonly>
-                <input type="hidden" name="origin_stage_nr" value="2" class="form-control" readonly>
-                <input type="hidden" name="origin_stage_name" value="Authorisation Stage" class="form-control"
-                    readonly>
-
-                <label for="destination_stage_nr" class="popup_label">Select the destination stage:</label>
-                <select id="destination_stage_nr" name="destination_stage_nr" class="popup_input" required>
-                    <option value="1">Process Stage</option>
-                    <option value="2">Cashier Stage</option>
-                    <option value="3">Authorization Stage</option>
-                    <option value="4">Production Stage</option>
-                    <option value="5">Credit Control Stage</option>
-                </select>
-
-                <label for="reason" class="popup_label">Select the reason to return:</label>
-                <select id="reason" name="reason" class="popup_input" required>
-                    <option value="Incorrect Document">Incorrect Document</option>
-                    <option value="Requires Special Approval">Requires Special Approval</option>
-                    <option value="Quote & Invoice not Consistent">Quote & Invoice not Consistent</option>
-                    <option value="Customer Changes">Customer Changes</option>
-                    <option value="Other">Other</option>
-                </select>
-
-                <label for="comment" class="popup_label">Comment:</label>
-                <input type="text" class="popup_input" id="comment" name="comment" required>
-
-                <button type="submit" class="btn btn-success">
-                    <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
-                    <span data-value="create_new_process">Submit</span>
-                </button>
-            </form>
-        </div>
-
 
 
     @endsection

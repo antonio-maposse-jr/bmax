@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('comment');
             $table->string('decision');
-            $table->text('comments');
+            $table->text('comments')->nullable();
             $table->boolean('special_conditions')->default(false);
             $table->string('other_documents')->nullable();
             $table->timestamps();

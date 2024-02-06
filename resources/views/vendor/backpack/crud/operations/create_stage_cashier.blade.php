@@ -453,8 +453,9 @@
                                     <div class="form-group col-md-6 required">
                                         <label>Invoice Amount</label>
                                         <input type="number" value="{{ optional($cashier_stage)->invoice_amount }}"
-                                            name="invoice_amount" id="invoice_amount" class="form-control" onchange="validateAmount()">
-                                            <input type="hidden" value="{{ optional($entry)->order_value }}"
+                                            name="invoice_amount" id="invoice_amount" class="form-control"
+                                            onchange="validateAmount()">
+                                        <input type="hidden" value="{{ optional($entry)->order_value }}"
                                             name="quote_amount" id="quote_amount" class="form-control">
                                     </div>
                                     <div class="form-group col-md-6">
@@ -463,19 +464,21 @@
                                             value="{{ optional($cashier_stage)->variance_explanation }}"
                                             name="variance_explanation" id="variance_explanation" disabled
                                             class="form-control" onchange="validateAmount()">
-                                                </div>
+                                    </div>
                                     <div class="form-group col-md-6">
                                         <label>Total Amount Paid</label>
                                         <input type="number" value="{{ optional($cashier_stage)->total_amount_paid }}"
-                                            name="total_amount_paid" id="total_amount_paid" class="form-control" onchange="validateAmountPaid()">
+                                            name="total_amount_paid" id="total_amount_paid" class="form-control"
+                                            onchange="validateAmountPaid()">
                                     </div>
 
                                     <div class="form-group col-md-6 required">
                                         <label>Invoice Status</label>
                                         <select name="invoice_status"
                                             value="{{ optional($cashier_stage)->invoice_status }}" id="invoice_status"
-                                            class="form-control readonly-select" >
-                                            <option value="Excess amount Advance Payment">Excess amount Advance Payment</option>
+                                            class="form-control readonly-select">
+                                            <option value="Excess amount Advance Payment">Excess amount Advance Payment
+                                            </option>
                                             <option value="PAID">PAID</option>
                                             <option value="PARTIALLY PAID">PARTIALLY PAID</option>
                                             <option value="UNPAID">UNPAID</option>
@@ -484,7 +487,8 @@
                                     <div class="form-group col-md-6 required">
                                         <label>Balance to be Paid</label>
                                         <input type="number" value="{{ optional($cashier_stage)->balance_to_be_paid }}"
-                                            name="balance_to_be_paid" id="balance_to_be_paid" class="form-control" readonly>
+                                            name="balance_to_be_paid" id="balance_to_be_paid" class="form-control"
+                                            readonly>
                                     </div>
                                     <div class="form-group col-md-12 required">
                                         <label>Select if Apllicable</label>
@@ -492,8 +496,9 @@
                                             <div class="col-sm-3">
                                                 <label><input type="checkbox"
                                                         value="{{ optional($cashier_stage)->special_authorization }}"
-                                                        name="special_authorization"
-                                                        id="special_authorization" onchange="specialAuthorizationTogleCashier()"> Special authorization
+                                                        name="special_authorization" id="special_authorization"
+                                                        onchange="specialAuthorizationTogleCashier()"> Special
+                                                    authorization
                                                 </label>
                                             </div>
                                         </div>
@@ -501,24 +506,55 @@
 
                                     <div class="form-group col-md-12">
                                         <label>Special Instructions</label>
-                                        <textarea name="special_instructions" id="special_instructions"  oninput="controlInputData()" class="form-control" disabled>{{ optional($cashier_stage)->special_instructions }}</textarea>
+                                        <textarea name="special_instructions" id="special_instructions" oninput="controlInputData()" class="form-control"
+                                            disabled>{{ optional($cashier_stage)->special_instructions }}</textarea>
                                     </div>
 
                                     <hr>
 
                                     <div class="form-group col-md-6 required">
-                                        <label>Invoice</label>
-                                        <input type="file" name="invoice" class="form-control">
+                                        <div id="invoiceContainer" style="display: {{ isset($cashier_stage->invoice) ? 'none' : 'block' }}">
+                                            <label>Invoice</label>
+                                            <input type="file" name="invoice" id="invoice" class="form-control">
+                                        </div>
+                                    
+                                        <div class="existing-file" style="display: {{ isset($cashier_stage->invoice) ? 'block' : 'none' }}" id="fileDisplayInvoice">
+                                            @if(isset($cashier_stage->invoice))
+                                                <a href="{{ Storage::url($cashier_stage->invoice) }}" target="_blank">Download/View Invoice</a>
+                                                <button type="button" onclick="removeFile('invoice', 'fileDisplayInvoice', 'invoiceContainer')" class="file_clear_button btn btn-light btn-sm float-right" title="Clear file" data-filename="{{ $cashier_stage->invoice }}"><i class="la la-remove"></i></button>
+                                                <div class="clearfix"></div>
+                                            @endif
+                                        </div>
                                     </div>
 
-                                    <div class="form-group col-md-6">
-                                        <label>Receipt</label>
-                                        <input type="file" name="receipt" class="form-control">
+                                    <div class="form-group col-md-6 required">
+                                        <div id="receiptContainer" style="display: {{ isset($cashier_stage->receipt) ? 'none' : 'block' }}">
+                                            <label>Receipt</label>
+                                            <input type="file" name="receipt" id="receipt" class="form-control">
+                                        </div>
+                                    
+                                        <div class="existing-file" style="display: {{ isset($cashier_stage->receipt) ? 'block' : 'none' }}" id="fileDisplayReceipt">
+                                            @if(isset($cashier_stage->receipt))
+                                                <a href="{{ Storage::url($cashier_stage->receipt) }}" target="_blank">Download/View Receipt</a>
+                                                <button type="button" onclick="removeFile('receipt', 'fileDisplayReceipt', 'receiptContainer')" class="file_clear_button btn btn-light btn-sm float-right" title="Clear file" data-filename="{{ $cashier_stage->receipt }}"><i class="la la-remove"></i></button>
+                                                <div class="clearfix"></div>
+                                            @endif
+                                        </div>
                                     </div>
 
-                                    <div class="form-group col-md-6">
-                                        <label>Other</label>
-                                        <input type="file" name="other" class="form-control">
+                                    <div class="form-group col-md-6 required">
+                                        <div id="otherContainer" style="display: {{ isset($cashier_stage->other) ? 'none' : 'block' }}">
+                                            <label>Other</label>
+                                            <input type="file" name="other" id="other" class="form-control">
+                                        </div>
+                                    
+                                        <div class="existing-file" style="display: {{ isset($cashier_stage->other) ? 'block' : 'none' }}" id="fileDisplayOther">
+                                            @if(isset($cashier_stage->other))
+                                                <a href="{{ Storage::url($cashier_stage->other) }}" target="_blank">Download/View Other</a>
+                                                <button type="button" onclick="removeFile('other', 'fileDisplayOther', 'otherContainer')" class="file_clear_button btn btn-light btn-sm float-right" title="Clear file" data-filename="{{ $cashier_stage->other }}"><i class="la la-remove"></i></button>
+                                                <div class="clearfix"></div>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -526,7 +562,7 @@
                             <div class="d-none" id="parentLoadedAssets">[]</div>
                             <div id="saveActions" class="form-group my-3">
                                 <input type="hidden" name="_save_action" value="submit_cashier_stage">
-                                <button type="submit" class="btn btn-success"  id="submit_btn" >
+                                <button type="submit" class="btn btn-success" id="submit_btn">
                                     <span class="la la-save" role="presentation"aria-hidden="true"></span> &nbsp;
                                     <span data-value="create_new_process">Submit</span>
                                 </button>

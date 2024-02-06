@@ -38,6 +38,7 @@ class StageCreditControlCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-credit-control');
         CRUD::setEntityNameStrings('stage credit control', 'stage credit controls');
 
+        Widget::add()->type('script')->content('assets/js/file_control.js');
         Widget::add()->type('script')->content('assets/js/stage_config.js');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');

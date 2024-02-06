@@ -657,7 +657,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6 required">
-                                        <label>Special Condition List</label>
+                                        <label>Comment</label>
                                         <input type="text" value="{{ optional($authorisation_stage)->comment }}"
                                             name="comment" class="form-control">
                                     </div>
@@ -669,10 +669,21 @@
 
                                     <hr>
 
-                                    <div class="form-group col-md-6">
-                                        <label>Other documents</label>
-                                        <input type="file" name="other_documents" class="form-control">
+                                    <div class="form-group col-md-6 required">
+                                        <div id="otherDocContainer" style="display: {{ isset($authorisation_stage->other_documents) ? 'none' : 'block' }}">
+                                            <label>Other</label>
+                                            <input type="file" name="other_documents" id="other_documents" class="form-control">
+                                        </div>
+                                    
+                                        <div class="existing-file" style="display: {{ isset($authorisation_stage->other_documents) ? 'block' : 'none' }}" id="fileDisplayOtherDoc">
+                                            @if(isset($authorisation_stage->other_documents))
+                                                <a href="{{ Storage::url($authorisation_stage->other_documents) }}" target="_blank">Download/View Other</a>
+                                                <button type="button" onclick="removeFile('other_documents', 'fileDisplayOtherDoc', 'otherContainer')" class="file_clear_button btn btn-light btn-sm float-right" title="Clear file" data-filename="{{ $authorisation_stage->other }}"><i class="la la-remove"></i></button>
+                                                <div class="clearfix"></div>
+                                            @endif
+                                        </div>
                                     </div>
+                                   
                                 </div>
                             </div>
 

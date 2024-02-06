@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Operations;
 
+use App\Models\ProductionTask;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Route;
 use App\Models\StageCashier;
@@ -74,6 +75,8 @@ trait ProcessDispatchStageOperation
         $dispatchStage = StageDispatch::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['dispatch_stage'] =  $dispatchStage;
         
+        $productionTasks = ProductionTask::where('process_id', $this->crud->getCurrentEntry()->id)->get();
+        $this->data['production_tasks'] = $productionTasks;
 
         // load the view
         return view('crud::operations.create_stage_dispatch', $this->data);

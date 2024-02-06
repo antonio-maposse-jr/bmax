@@ -780,16 +780,21 @@
                                         <th>Sheets Alocated</th>
                                         <th>Panels Alocated</th>
                                         <th>Total Work (Min)</th>
+                                        <th>Total Iddle Time (Min)</th>
                                         <th>Task Status</th>
                                         <th>Actions</th>
                                     </tr>
                                     @foreach ($production_tasks as $task)
                                         <tr data-task_id="{{ $task->id }}" data-task_name="{{ $task->task_name }}"
-                                            data-sub_task_name="{{ $task->sub_task_name }}">
+                                            data-sub_task_name="{{ $task->sub_task_name }}" 
+                                            data-total_allocated_sheets="{{ $task->total_allocated_sheets }}"
+                                            data-total_allocated_panels="{{ $task->total_allocated_panels }}"
+                                            >
                                             <td>{{ $task->sub_task_name }}</td>
                                             <td>{{ $task->total_allocated_sheets }}</td>
                                             <td>{{ $task->total_allocated_panels }}</td>
                                             <td>{{ $task->total_work_time }}</td>
+                                            <td>{{ $task->total_iddle_time }}</td>
                                             <td>{{ $task->task_status }}</td>
                                             <td>
                                                 @php
@@ -804,12 +809,12 @@
                                                     @else
                                                     onclick="openConfirmationPopup(this, 'PROCESSING')" 
                                                     @endif
-                                                    {!! $task->task_status == 'PENDING' ? '' : $disabledAttribute !!}>
+                                                    {!! ($task->task_status == 'PENDING' || $task->task_status == 'PAUSED') ? '' : $disabledAttribute !!}>
                                                     Assign
                                                 </button>
 
-                                                <button type="submit" class="btn btn-danger" {!! 'onclick=\'openConfirmationPopup(this, "PENDING")\'' !!}
-                                                    {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
+                                                <button type="submit" class="btn btn-danger" {!! 'onclick=\'openConfirmationPopup(this, "PAUSED")\'' !!}
+                                                    {!! ( $task->task_status == 'PROCESSING') ? '' : $disabledAttribute !!}>
                                                     Hold
                                                 </button>
 
@@ -827,11 +832,24 @@
                                 <form method="post" action="{{ route('submit-stage-production-data') }}"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <div class="form-group col-md-6">
-                                        <label>Other Document</label>
-                                        <input type="hidden" name="process_id" value="{{ $entry->id }}">
-                                        <input type="file" name="other" class="form-control">
+                              
+
+                                    <div class="form-group col-md-6 required">
+                                        <div id="otherContainer" style="display: {{ isset($production_stage->other) ? 'none' : 'block' }}">
+                                            <label>Other Document </label>
+                                            <input type="hidden" name="process_id" value="{{ $entry->id }}">
+                                            <input type="file" name="other" id="other" class="form-control">
+                                        </div>
+                                    
+                                        <div class="existing-file" style="display: {{ isset($production_stage->other) ? 'block' : 'none' }}" id="fileDisplayOther">
+                                            @if(isset($production_stage->other))
+                                                <a href="{{ Storage::url($production_stage->other) }}" target="_blank">Download/View Other</a>
+                                                <button type="button" onclick="removeFile('other', 'fileDisplayOther', 'otherContainer')" class="file_clear_button btn btn-light btn-sm float-right" title="Clear file" data-filename="{{ $production_stage->other }}"><i class="la la-remove"></i></button>
+                                                <div class="clearfix"></div>
+                                            @endif
+                                        </div>
                                     </div>
+
                                     <div class="d-none" id="parentLoadedAssets">[]</div>
                                     <div id="saveActions" class="form-group my-3">
                                         <input type="hidden" name="_save_action" value="submit_cashier_stage">
@@ -908,16 +926,16 @@
             <h2 style="color: #333; text-align: center;">Assign Sheets</h2>
             <form action="{{ route('assign-prod-task') }}" method="post">
                 @csrf
-                <input type="hidden" name="process_id" value=" {{ $entry->id }}" class="form-control" readonly>
-                <input type="hidden" name="total_sheets" id="total_sheets" value=" {{ $entry->id }}"
-                    class="form-control" readonly>
+                <input type="hidden" name="process_id" value=" {{ $entry->id }}">
                 <input type="hidden" name="task_id" id="popup_task_id">
                 <input type="hidden" name="task_name" id="popup_task_name">
                 <input type="hidden" name="sub_task_name" id="popup_sub_task_name">
+                <input type="hidden" name="initial_allocation_sheets" id="initial_allocation_sheets">
 
-
+                <input type="hidden" name="total_unallocated_sheets" value="{{ $production_stage->total_unallocated_sheets }}" id="popup_unallocated_sheets">
+               
                 <label for="nr_sheets_unallocated" class="popup_label">Nr of Sheets unllocated:</label>
-                <input type="text" value="{{ $production_stage->total_unallocated_sheets }}" readonly
+                <input type="text" value="{{ $production_stage->total_unallocated_sheets }}" readonly 
                     class="popup_input" id="nr_sheets_unallocated" name="nr_sheets_unallocated" required>
 
                 <label for="nr_sheets_allocated" class="popup_label">Nr of Sheets to allocate:</label>
@@ -943,11 +961,16 @@
                 <input type="hidden" name="task_name" id="panel_task_name">
                 <input type="hidden" name="sub_task_name" id="panel_sub_task_name">
 
+                <input type="hidden" name="initial_allocation_panels" id="initial_allocation_panels">
+
+                <input type="hidden" name="total_unallocated_panels" value="{{ $production_stage->total_unallocated_panels }}" id="popup_unallocated_panels">
+               
+
                 <label for="nr_sheets_unallocated" class="popup_label">Nr of Panels unllocated:</label>
                 <input type="text" value="{{ $production_stage->total_unallocated_panels }}" readonly
                     class="popup_input" id="nr_panels_unallocated" name="nr_panels_unallocated" required>
 
-                <label for="nr_sheets_allocated" class="popup_label">Nr of Sheets to allocate:</label>
+                <label for="nr_sheets_allocated" class="popup_label">Nr of Panels to allocate:</label>
                 <input type="text" class="popup_input" id="nr_panels_allocated" name="nr_panels_allocated"
                     oninput="checkPanelsAllocation()" required>
 
@@ -958,8 +981,6 @@
             </form>
         </div>
         {{-- End of Assign Sheets --}}
-
-
 
         <div class="overlay" id="overlay" onclick="closeConfirmationPopup()"></div>
         <div class="popup-container-task" id="confirmationPopup" style="display:none;">

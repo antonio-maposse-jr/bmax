@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ProductionTask extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['process_id'];
 }

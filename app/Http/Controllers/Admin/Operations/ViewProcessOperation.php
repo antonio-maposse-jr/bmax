@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin\Operations;
 
 use App\Models\ProductionTask;
-use App\Models\ReturnStage;
+use App\Models\StageAuthorisation;
+use App\Models\StageCashier;
+use App\Models\StageCreditControl;
+use App\Models\StageDispatch;
+use App\Models\StageProduction;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Route;
-use App\Models\StageCashier;
-use App\Models\StageAuthorisation;
-use App\Models\StageCreditControl;
-use App\Models\StageProduction;
 
-trait ProcessCreditControlStageOperation
+trait ViewProcessOperation
 {
     /**
      * Define which routes are needed for this operation.
@@ -20,29 +20,29 @@ trait ProcessCreditControlStageOperation
      * @param string $routeName  Prefix of the route name.
      * @param string $controller Name of the current CrudController.
      */
-    protected function setupProcessCreditControlStageRoutes($segment, $routeName, $controller)
+    protected function setupViewProcessRoutes($segment, $routeName, $controller)
     {
-        Route::get($segment.'/{id}/process-credit-control-stage', [
-            'as'        => $routeName.'.processCreditControlStage',
-            'uses'      => $controller.'@processCreditControlStage',
-            'operation' => 'processCreditControlStage',
+        Route::get($segment.'/{id}/view-process', [
+            'as'        => $routeName.'.viewProcess',
+            'uses'      => $controller.'@viewProcess',
+            'operation' => 'viewProcess',
         ]);
     }
 
     /**
      * Add the default settings, buttons, etc that this operation needs.
      */
-    protected function setupProcessCreditControlStageDefaults()
+    protected function setupViewProcessDefaults()
     {
-        CRUD::allowAccess('processCreditControlStage');
+        CRUD::allowAccess('viewProcess');
 
-        CRUD::operation('processCreditControlStage', function () {
+        CRUD::operation('viewProcess', function () {
             CRUD::loadDefaultOperationSettingsFromConfig();
         });
 
         CRUD::operation('list', function () {
-            // CRUD::addButton('top', 'process_credit_control_stage', 'view', 'crud::buttons.process_credit_control_stage');
-            CRUD::addButton('line', 'process_credit_control_stage', 'view', 'crud::buttons.process_credit_control_stage');
+            // CRUD::addButton('top', 'view_process', 'view', 'crud::buttons.view_process');
+            CRUD::addButton('line', 'view_process', 'view', 'crud::buttons.view_process');
         });
     }
 
@@ -51,31 +51,33 @@ trait ProcessCreditControlStageOperation
      *
      * @return Response
      */
-    public function processCreditControlStage()
+    public function viewProcess()
     {
-        CRUD::hasAccessOrFail('processCreditControlStage');
+        CRUD::hasAccessOrFail('viewProcess');
 
         // prepare the fields you need to show
         $this->data['crud'] = $this->crud;
-        $this->data['title'] = CRUD::getTitle() ?? 'Process Credit Control Stage '.$this->crud->entity_name;
+        $this->data['title'] = CRUD::getTitle() ?? 'View Process '.$this->crud->entity_name;
         $this->data['entry'] = $this->crud->getCurrentEntry();
-      
+
         $cashierStage = StageCashier::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['cashier_stage'] =  $cashierStage;
+
         $authorisationStage = StageAuthorisation::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['authorisation_stage'] =  $authorisationStage;
+        
         $productionStage = StageProduction::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['production_stage'] =  $productionStage;
+
         $creditControlStage = StageCreditControl::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['credit_control_stage'] =  $creditControlStage;
-        $returnStages = ReturnStage::where('process_id', $this->crud->getCurrentEntry()->id)
-        ->where('message_status', '1')->get();
-        $this->data['return_stages'] = $returnStages;
+
+        $dispatchStage = StageDispatch::where('process_id', $this->crud->getCurrentEntry()->id)->first();
+        $this->data['dispatch_stage'] =  $dispatchStage;
+        
         $productionTasks = ProductionTask::where('process_id', $this->crud->getCurrentEntry()->id)->get();
         $this->data['production_tasks'] = $productionTasks;
 
-
-        // load the view
-        return view('crud::operations.create_stage_credit_control', $this->data);
+        return view('crud::operations.view_process', $this->data);
     }
 }

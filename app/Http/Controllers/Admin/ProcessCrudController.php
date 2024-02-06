@@ -23,6 +23,7 @@ class ProcessCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \App\Http\Controllers\Admin\Operations\ViewProcessOperation;
 
 
     /**
@@ -43,6 +44,7 @@ class ProcessCrudController extends CrudController
         Widget::add()->type('script')->content('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js');
         Widget::add()->type('script')->content('assets/js/process.js');
         Widget::add()->type('style')->content('assets/css/select2_custom.css');
+
     }
 
     /**

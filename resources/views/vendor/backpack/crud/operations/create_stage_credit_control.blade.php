@@ -666,7 +666,7 @@
                                                     </td>
                                                     <td class="border-top-0">
                                                         <span>
-                                                            {{ $authorisation_stage->id }}
+                                                            {{ optional($authorisation_stage)->id }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -676,7 +676,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $authorisation_stage->process_id }}
+                                                            {{ optional($authorisation_stage)->process_id }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -686,7 +686,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $authorisation_stage->comment }}
+                                                            {{ optional($authorisation_stage)->comment }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -696,7 +696,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $authorisation_stage->decision }}
+                                                            {{ optional($authorisation_stage)->decision }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -706,7 +706,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $authorisation_stage->comments }}
+                                                            {{ optional($authorisation_stage)->comments }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -716,7 +716,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $authorisation_stage->special_conditions == 1 ? 'Yes' : 'No' }}
+                                                            {{ optional($authorisation_stage)->special_conditions == 1 ? 'Yes' : 'No' }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -741,7 +741,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $authorisation_stage->user->name }}
+                                                            {{ optional($authorisation_stage)->user ? optional($authorisation_stage)->user->name : '' }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -750,8 +750,8 @@
                                                         <strong>Created:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order="{{ $cashier_stage->created_at }}">
-                                                            {{ $cashier_stage->created_at }}
+                                                        <span data-order="{{ optional($cashier_stage)->created_at }}">
+                                                            {{ optional($cashier_stage)->created_at }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -760,8 +760,8 @@
                                                         <strong>Updated:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order=" {{ $cashier_stage->updated_at }}">
-                                                            {{ $cashier_stage->updated_at }}
+                                                        <span data-order=" {{ optional($cashier_stage)->updated_at }}">
+                                                            {{ optional($cashier_stage)->updated_at }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -777,166 +777,44 @@
 
                     {{-- Production Stage data --}}
                     <div role="tabpanel" class="tab-pane" id="tab_production">
-                        <div class="row" bp-section="crud-operation-show">
-                            <div class="col-md-12">
-                                <div class="">
-                                    <div class="card no-padding no-border mb-0">
-                                        <table class="table table-striped m-0 p-0">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="border-top-0">
-                                                        <strong>ID:</strong>
-                                                    </td>
-                                                    <td class="border-top-0">
-                                                        <span>
-                                                            {{ $production_stage->id }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Process ID:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            {{ $production_stage->process_id }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Cutting:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            {{ $production_stage->cutting == 1 ? 'Yes' : 'No' }}
-                                                
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Edging:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            {{ $production_stage->edging == 1 ? 'Yes' : 'No' }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Cnc machining:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            {{ $production_stage->cnc_machining == 1 ? 'Yes' : 'No' }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Grooving:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            {{ $production_stage->grooving == 1 ? 'Yes' : 'No' }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Hinge boring:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            {{ $production_stage->hinge_boring == 1 ? 'Yes' : 'No' }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Wrapping:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            {{ $production_stage->wrapping == 1 ? 'Yes' : 'No' }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Sanding:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            {{ $production_stage->sanding == 1 ? 'Yes' : 'No' }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Hardware:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            {{ $production_stage->hardware == 1 ? 'Yes' : 'No' }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Other documents:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            @if (isset($production_stage->other_documents))
-                                                                <a href="{{ Storage::url($production_stage->other_documents) }}"
-                                                                    target="_blank">Download/View Other Documents</a>
-                                                            @else
-                                                                <p>No documents available</p>
-                                                            @endif
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>User processed:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            {{ $production_stage->user->name }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
+                        <div class="card">
+                            <div class="card-body row">
+                                <table id="taskTable">
+                                    <tr>
+                                        <th>Task</th>
+                                        <th>Sheets Alocated</th>
+                                        <th>Panels Alocated</th>
+                                        <th>Total Work (Min)</th>
+                                        <th>Total Iddle Time (Min)</th>
+                                        <th>Task Status</th>
+                                    </tr>
+                                    @foreach ($production_tasks as $task)
+                                        <tr data-task_id="{{ $task->id }}" data-task_name="{{ $task->task_name }}"
+                                            data-sub_task_name="{{ $task->sub_task_name }}">
+                                            <td>{{ $task->sub_task_name }}</td>
+                                            <td>{{ $task->total_allocated_sheets }}</td>
+                                            <td>{{ $task->total_allocated_panels }}</td>
+                                            <td>{{ $task->total_work_time }}</td>
+                                            <td>{{ $task->total_iddle_time }}</td>
+                                            <td>{{ $task->task_status }}</td>
+                                        </tr>
+                                    @endforeach
 
-                                                <tr>
-                                                    <td>
-                                                        <strong>Created:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span data-order="{{ $production_stage->created_at }}">
-                                                            {{ $production_stage->created_at }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Updated:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span data-order=" {{ $production_stage->updated_at }}">
-                                                            {{ $production_stage->updated_at }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                </table>
+                                <hr>
+                                <span>
+                                    @if (isset($cashier_stage->other))
+                                        <a href="{{ Storage::url($production_stage->other) }}"
+                                            target="_blank">Download/View Other Documents</a>
+                                    @else
+                                        <p>No documents available</p>
+                                    @endif
+                                </span>
+                     
                             </div>
+
                         </div>
+
                     </div>
                     {{-- End of Production Stage data --}}
 
