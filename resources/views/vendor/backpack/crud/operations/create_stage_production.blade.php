@@ -881,6 +881,30 @@
             </div>
         </div>
 
+        {{-- Decline popup --}}
+        <div class="popup_sheets" id="popup_decline">
+            <div class="close-btn_rs" onclick="closePopupPanels()">X</div>
+            <h2 style="color: #333; text-align: center;">Decline process</h2>
+            <form action="{{ route('assign-prod-panels') }}" method="post">
+                @csrf
+                <input type="hidden" name="process_id" value=" {{ $entry->id }}" class="form-control" readonly>
+                
+
+                <label for="nr_sheets_unallocated" class="popup_label">Nr of Panels unllocated:</label>
+                <input type="text" value="{{ $production_stage->total_unallocated_panels }}" readonly
+                    class="popup_input" id="nr_panels_unallocated" name="nr_panels_unallocated" required>
+
+                <label for="nr_sheets_allocated" class="popup_label">Nr of Panels to allocate:</label>
+                <input type="text" class="popup_input" id="nr_panels_allocated" name="nr_panels_allocated"
+                    oninput="checkPanelsAllocation()" required>
+
+                <button type="submit" id="submit_panel_task_btn" disabled class="btn btn-success">
+                    <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
+                    <span data-value="create_new_process">Submit</span>
+                </button>
+            </form>
+        </div>
+        {{-- End Decline popup --}}
         {{-- Return to Stage popup --}}
         <div class="overlay_rs" id="overlay_rs" onclick="closePopup()"></div>
         <div class="popup_rs">

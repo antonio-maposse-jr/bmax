@@ -59,4 +59,5 @@ Route::group([
     Route::crud('stage-credit-control', 'StageCreditControlCrudController');
     Route::crud('stage-dispatch', 'StageDispatchCrudController');
     Route::crud('color', 'ColorCrudController');
+    Route::crud('reason-decline', 'ReasonDeclineCrudController');
 }); // this should be the absolute last line of this file

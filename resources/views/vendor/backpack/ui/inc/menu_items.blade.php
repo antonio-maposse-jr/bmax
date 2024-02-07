@@ -33,3 +33,4 @@
 <x-backpack::menu-dropdown title="Reports" icon="la la-chart-pie">
     <x-backpack::menu-dropdown-item title="Efficiency" icon="la la-business-time" :link="backpack_url('customer')" />
 </x-backpack::menu-dropdown>
+<x-backpack::menu-item title="Reason declines" icon="la la-question" :link="backpack_url('reason-decline')" />
