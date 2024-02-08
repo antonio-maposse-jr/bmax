@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ReasonDeclineRequest;
+use App\Models\Process;
+use App\Models\ReasonDecline;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Http\Request;
 
 /**
  * Class ReasonDeclineCrudController
@@ -19,6 +22,7 @@ class ReasonDeclineCrudController extends CrudController
     // use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    use \App\Http\Controllers\Admin\Operations\ViewProcessOperation;
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -26,7 +30,7 @@ class ReasonDeclineCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\ReasonDecline::class);
+        CRUD::setModel(\App\Models\Process::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/reason-decline');
         CRUD::setEntityNameStrings('reason decline', 'reason declines');
     }
@@ -39,13 +43,17 @@ class ReasonDeclineCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
+        CRUD::addClause('where', 'status', 'DECLINED');
 
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        $this->crud->column('id');
+        $this->crud->column('customer_id');
+        $this->crud->column('product');
+        $this->crud->column('date_required');
+        $this->crud->column('priority_level');
+        $this->crud->column('stage_name');
+        $this->crud->column('status');
     }
+
 
     /**
      * Define what happens when the Create operation is loaded.
@@ -73,5 +81,18 @@ class ReasonDeclineCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    public function declineProcess(Request $request){
+        $reason = new ReasonDecline();
+        $reason->process_id = $request->process_id;
+        $reason->reason = $request->reason;
+        $reason->comment = $request->comment;
+        $reason->save();
+
+        Process::where('id', $request->process_id)->update(['status' => 'DECLINED']);
+
+        \Alert::success(trans('backpack::crud.insert_success'))->flash();
+        return redirect('admin/process');
     }
 }

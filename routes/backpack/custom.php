@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CustomerCrudController;
 use App\Http\Controllers\Admin\ProcessCrudController;
 use App\Http\Controllers\Admin\ProductCrudController;
+use App\Http\Controllers\Admin\ReasonDeclineCrudController;
 use App\Http\Controllers\Admin\StageCashierCrudController;
 use App\Http\Controllers\Admin\StageAuthorisationCrudController;
 use App\Http\Controllers\Admin\StageCreditControlCrudController;
@@ -48,6 +49,7 @@ Route::group([
     Route::post('submit-prod-task', [StageProductionCrudController::class,'updateTask'])->name('submit-prod-task');
     Route::post('assign-prod-task', [StageProductionCrudController::class,'assignTask'])->name('assign-prod-task');
     Route::post('assign-prod-panels', [StageProductionCrudController::class,'assignPanels'])->name('assign-prod-panels');
+    Route::post('decline-process', [ReasonDeclineCrudController::class,'declineProcess'])->name('decline-process');
 
     Route::get('get-customers', [CustomerCrudController::class, 'getCustomers'])->name('get-customers');
     Route::get('get-products', [ProductCrudController::class, 'getProducts'])->name('get-products');
@@ -60,4 +62,6 @@ Route::group([
     Route::crud('stage-dispatch', 'StageDispatchCrudController');
     Route::crud('color', 'ColorCrudController');
     Route::crud('reason-decline', 'ReasonDeclineCrudController');
+    Route::crud('pendig-process', 'PendigProcessCrudController');
+    Route::crud('completed-process', 'CompletedProcessCrudController');
 }); // this should be the absolute last line of this file

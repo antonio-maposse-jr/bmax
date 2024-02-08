@@ -2,28 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StageDispatchRequest;
-use App\Models\StageDispatch;
+use App\Http\Requests\CompletedProcessRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use App\Models\Process;
-use App\Models\ReturnStage;
-use Backpack\CRUD\app\Library\Widget;
+
 /**
- * Class StageDispatchCrudController
+ * Class CompletedProcessCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class StageDispatchCrudController extends CrudController
+class CompletedProcessCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \App\Http\Controllers\Admin\Operations\ProcessDispatchStageOperation;
+    use \App\Http\Controllers\Admin\Operations\ViewProcessOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -33,12 +28,8 @@ class StageDispatchCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Process::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-dispatch');
-        CRUD::setEntityNameStrings('stage dispatch', 'stage dispatches');
-        Widget::add()->type('script')->content('assets/js/file_control.js');
-        Widget::add()->type('script')->content('assets/js/stage_config.js');
-        Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
-        Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/completed-process');
+        CRUD::setEntityNameStrings('completed process', 'completed processes');
     }
 
     /**
@@ -49,8 +40,8 @@ class StageDispatchCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addClause('where', 'stage_id', '6');
-        CRUD::addClause('where', 'status', 'PENDING');
+        CRUD::addClause('where', 'status', 'COMPLETED');
+
         $this->crud->column('id');
         $this->crud->column('customer_id');
         $this->crud->column('product');
@@ -68,7 +59,7 @@ class StageDispatchCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(StageDispatchRequest::class);
+        CRUD::setValidation(CompletedProcessRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
         /**
@@ -86,32 +77,5 @@ class StageDispatchCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-    }
-
-    public function createStageDispatch(Request $request){
-
-        CRUD::setValidation(StageDispatchRequest::class);
-
-        $stageDispatch = StageDispatch::firstOrNew(['process_id' => $request->process_id]);
-        $stageDispatch->process_id = $request->process_id;
-        $stageDispatch->comment = $request->comment;
-        $stageDispatch->dispatch_status = $request->dispatch_status;
-        $stageDispatch->nr_panels = $request->nr_panels;
-        $stageDispatch->user_id = Auth::user()->id;
-
-        $stageDispatch->save();
-
-        ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
-        
-        $process = Process::find($request->process_id);
-        $process->stage_id = 0;
-        $process->stage_name = 'N/A';
-        $process->status = 'COMPLETED';
-        $process->save();
-
-        // show a success message
-        \Alert::success(trans('backpack::crud.insert_success'))->flash();
-
-        return redirect(url($this->crud->route));
     }
 }

@@ -15,7 +15,15 @@ var allCompleted = Array.from(table.rows).slice(1) // Exclude the header row
 // Enable or disable the Submit button accordingly
 submitButton.disabled = !allCompleted;
 
+function openPopupDecline() {
+    document.getElementById("popup_decline").style.display = "block";
+    document.getElementById("overlay_rs").style.display = "block";
 
+}
+function closePopupDecline() {
+    document.getElementById("popup_decline").style.display = "none";
+    document.getElementById("overlay_rs").style.display = "none";
+}
 
 function openPopupSheets(button) {
     document.getElementById("popup_sheets").style.display = "block";

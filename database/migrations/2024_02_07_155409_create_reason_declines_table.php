@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('process_id');
             $table->foreign('process_id')->references('id')->on('processes')->onDelete('cascade');
             $table->string('reason');
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

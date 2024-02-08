@@ -21,7 +21,10 @@
 </x-backpack::menu-dropdown>
 
 <x-backpack::menu-dropdown title="Process Management" icon="la la-file-alt">
-    <x-backpack::menu-dropdown-item title="All process" icon="la la-folder" :link="backpack_url('process')" />
+    <x-backpack::menu-dropdown-item title="All Process" icon="la la-folder" :link="backpack_url('process')" />
+    <x-backpack::menu-dropdown-item title="Pending Process" icon="la la-edit" :link="backpack_url('pendig-process')" />
+    <x-backpack::menu-dropdown-item title="Declined Process" icon="la la-window-close" :link="backpack_url('reason-decline')" />
+    <x-backpack::menu-dropdown-item title="Completed Process" icon="la la-check-circle" :link="backpack_url('completed-process')" />
     <x-backpack::menu-dropdown-header title="Process Workflow" />
     <x-backpack::menu-dropdown-item title="Cashiers Stage" icon="la la-cash-register" :link="backpack_url('stage-cashier')" />
     <x-backpack::menu-dropdown-item title="Authorisations Stage" icon="la la-key" :link="backpack_url('stage-authorisations')" />
@@ -33,4 +36,3 @@
 <x-backpack::menu-dropdown title="Reports" icon="la la-chart-pie">
     <x-backpack::menu-dropdown-item title="Efficiency" icon="la la-business-time" :link="backpack_url('customer')" />
 </x-backpack::menu-dropdown>
-<x-backpack::menu-item title="Reason declines" icon="la la-question" :link="backpack_url('reason-decline')" />

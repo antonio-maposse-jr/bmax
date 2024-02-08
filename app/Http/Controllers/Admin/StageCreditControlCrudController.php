@@ -53,6 +53,7 @@ class StageCreditControlCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::addClause('where', 'stage_id', '5');
+        CRUD::addClause('where', 'status', 'PENDING');
         $this->crud->column('id');
         $this->crud->column('customer_id');
         $this->crud->column('product');

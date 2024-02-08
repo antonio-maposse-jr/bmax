@@ -786,10 +786,9 @@
                                     </tr>
                                     @foreach ($production_tasks as $task)
                                         <tr data-task_id="{{ $task->id }}" data-task_name="{{ $task->task_name }}"
-                                            data-sub_task_name="{{ $task->sub_task_name }}" 
+                                            data-sub_task_name="{{ $task->sub_task_name }}"
                                             data-total_allocated_sheets="{{ $task->total_allocated_sheets }}"
-                                            data-total_allocated_panels="{{ $task->total_allocated_panels }}"
-                                            >
+                                            data-total_allocated_panels="{{ $task->total_allocated_panels }}">
                                             <td>{{ $task->sub_task_name }}</td>
                                             <td>{{ $task->total_allocated_sheets }}</td>
                                             <td>{{ $task->total_allocated_panels }}</td>
@@ -807,14 +806,13 @@
                                                     @elseif($task->task_name == 'edging')
                                                     onclick="openPopupPanels(this)" 
                                                     @else
-                                                    onclick="openConfirmationPopup(this, 'PROCESSING')" 
-                                                    @endif
-                                                    {!! ($task->task_status == 'PENDING' || $task->task_status == 'PAUSED') ? '' : $disabledAttribute !!}>
+                                                    onclick="openConfirmationPopup(this, 'PROCESSING')" @endif
+                                                    {!! $task->task_status == 'PENDING' || $task->task_status == 'PAUSED' ? '' : $disabledAttribute !!}>
                                                     Assign
                                                 </button>
 
                                                 <button type="submit" class="btn btn-danger" {!! 'onclick=\'openConfirmationPopup(this, "PAUSED")\'' !!}
-                                                    {!! ( $task->task_status == 'PROCESSING') ? '' : $disabledAttribute !!}>
+                                                    {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
                                                     Hold
                                                 </button>
 
@@ -832,19 +830,25 @@
                                 <form method="post" action="{{ route('submit-stage-production-data') }}"
                                     enctype="multipart/form-data">
                                     @csrf
-                              
-
                                     <div class="form-group col-md-6 required">
-                                        <div id="otherContainer" style="display: {{ isset($production_stage->other) ? 'none' : 'block' }}">
+                                        <div id="otherContainer"
+                                            style="display: {{ isset($production_stage->other) ? 'none' : 'block' }}">
                                             <label>Other Document </label>
                                             <input type="hidden" name="process_id" value="{{ $entry->id }}">
                                             <input type="file" name="other" id="other" class="form-control">
                                         </div>
-                                    
-                                        <div class="existing-file" style="display: {{ isset($production_stage->other) ? 'block' : 'none' }}" id="fileDisplayOther">
-                                            @if(isset($production_stage->other))
-                                                <a href="{{ Storage::url($production_stage->other) }}" target="_blank">Download/View Other</a>
-                                                <button type="button" onclick="removeFile('other', 'fileDisplayOther', 'otherContainer')" class="file_clear_button btn btn-light btn-sm float-right" title="Clear file" data-filename="{{ $production_stage->other }}"><i class="la la-remove"></i></button>
+
+                                        <div class="existing-file"
+                                            style="display: {{ isset($production_stage->other) ? 'block' : 'none' }}"
+                                            id="fileDisplayOther">
+                                            @if (isset($production_stage->other))
+                                                <a href="{{ Storage::url($production_stage->other) }}"
+                                                    target="_blank">Download/View Other</a>
+                                                <button type="button"
+                                                    onclick="removeFile('other', 'fileDisplayOther', 'otherContainer')"
+                                                    class="file_clear_button btn btn-light btn-sm float-right"
+                                                    title="Clear file" data-filename="{{ $production_stage->other }}"><i
+                                                        class="la la-remove"></i></button>
                                                 <div class="clearfix"></div>
                                             @endif
                                         </div>
@@ -861,6 +865,12 @@
                                             <span class="la la-sync-alt" role="presentation" aria-hidden="true"></span>
                                             &nbsp;
                                             <span data-value="create_new_process">Return stages</span>
+                                        </button>
+
+                                        <button type="button" onclick="openPopupDecline()" class="btn btn-danger">
+                                            <span class="la la-window-close" role="presentation" aria-hidden="true"></span>
+                                            &nbsp;
+                                            <span data-value="create_new_process">Decline Process</span>
                                         </button>
                                         <div class="btn-group" role="group">
                                         </div>
@@ -883,22 +893,28 @@
 
         {{-- Decline popup --}}
         <div class="popup_sheets" id="popup_decline">
-            <div class="close-btn_rs" onclick="closePopupPanels()">X</div>
+            <div class="close-btn_rs" onclick="closePopupDecline()">X</div>
             <h2 style="color: #333; text-align: center;">Decline process</h2>
-            <form action="{{ route('assign-prod-panels') }}" method="post">
+            <form action="{{ backpack_url('decline-process')}}" method="post">
                 @csrf
                 <input type="hidden" name="process_id" value=" {{ $entry->id }}" class="form-control" readonly>
-                
 
-                <label for="nr_sheets_unallocated" class="popup_label">Nr of Panels unllocated:</label>
-                <input type="text" value="{{ $production_stage->total_unallocated_panels }}" readonly
-                    class="popup_input" id="nr_panels_unallocated" name="nr_panels_unallocated" required>
 
-                <label for="nr_sheets_allocated" class="popup_label">Nr of Panels to allocate:</label>
-                <input type="text" class="popup_input" id="nr_panels_allocated" name="nr_panels_allocated"
-                    oninput="checkPanelsAllocation()" required>
+                <label for="reason" class="popup_label">Reason for decline:</label>
+                <select name="reason"  id="reason_decline"
+                    class="popup_input">
+                    <option value="Customer Cancelled Order">Customer Cancelled Order</option>
+                    <option value="Process Duplicated">Process Duplicated</option>
+                    <option value="Process Exceeds Limits">Process Exceeds Limits</option>
+                    <option value="Process Eontains Excessive Inconsistencies">Process Eontains Excessive Inconsistencies</option>
+                    <option value="Other">Other</option>
+                </select>
 
-                <button type="submit" id="submit_panel_task_btn" disabled class="btn btn-success">
+                <label for="comment" class="popup_label">Comment</label>
+                <input type="text" class="popup_input" id="comment_decline" name="comment"
+                   required>
+
+                <button type="submit" id="submit_panel_task_btn" class="btn btn-success">
                     <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
                     <span data-value="create_new_process">Submit</span>
                 </button>
@@ -956,10 +972,11 @@
                 <input type="hidden" name="sub_task_name" id="popup_sub_task_name">
                 <input type="hidden" name="initial_allocation_sheets" id="initial_allocation_sheets">
 
-                <input type="hidden" name="total_unallocated_sheets" value="{{ $production_stage->total_unallocated_sheets }}" id="popup_unallocated_sheets">
-               
+                <input type="hidden" name="total_unallocated_sheets"
+                    value="{{ $production_stage->total_unallocated_sheets }}" id="popup_unallocated_sheets">
+
                 <label for="nr_sheets_unallocated" class="popup_label">Nr of Sheets unllocated:</label>
-                <input type="text" value="{{ $production_stage->total_unallocated_sheets }}" readonly 
+                <input type="text" value="{{ $production_stage->total_unallocated_sheets }}" readonly
                     class="popup_input" id="nr_sheets_unallocated" name="nr_sheets_unallocated" required>
 
                 <label for="nr_sheets_allocated" class="popup_label">Nr of Sheets to allocate:</label>
@@ -987,8 +1004,9 @@
 
                 <input type="hidden" name="initial_allocation_panels" id="initial_allocation_panels">
 
-                <input type="hidden" name="total_unallocated_panels" value="{{ $production_stage->total_unallocated_panels }}" id="popup_unallocated_panels">
-               
+                <input type="hidden" name="total_unallocated_panels"
+                    value="{{ $production_stage->total_unallocated_panels }}" id="popup_unallocated_panels">
+
 
                 <label for="nr_sheets_unallocated" class="popup_label">Nr of Panels unllocated:</label>
                 <input type="text" value="{{ $production_stage->total_unallocated_panels }}" readonly

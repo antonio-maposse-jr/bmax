@@ -3,6 +3,11 @@ function openPopup() {
     document.querySelector(".overlay_rs").style.display = "block";
 }
 
+function openDeclinePopup() {
+    document.getElementById("popup_decline").style.display = "block";
+    document.querySelector(".overlay_rs").style.display = "block";
+}
+
 function closePopup() {
     document.querySelector(".popup_rs").style.display = "none";
     document.querySelector(".overlay_rs").style.display = "none";
