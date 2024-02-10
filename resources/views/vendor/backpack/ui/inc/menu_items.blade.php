@@ -10,7 +10,7 @@
 
 <x-backpack::menu-dropdown title="Customer Management" icon="la la-user">
     <x-backpack::menu-dropdown-item title="Customers" icon="la la-user" :link="backpack_url('customer')" />
-    <x-backpack::menu-dropdown-item title="Customer categories" icon="la la-question" :link="backpack_url('customer-category')" />
+    <x-backpack::menu-dropdown-item title="Customer categories" icon="la la-user-secret" :link="backpack_url('customer-category')" />
 </x-backpack::menu-dropdown>
 
 <x-backpack::menu-dropdown title="Product Management" icon="la la-cart-arrow-down">
@@ -34,5 +34,6 @@
 </x-backpack::menu-dropdown>
 
 <x-backpack::menu-dropdown title="Reports" icon="la la-chart-pie">
-    <x-backpack::menu-dropdown-item title="Efficiency" icon="la la-business-time" :link="backpack_url('customer')" />
+    <x-backpack::menu-dropdown-item title="Regular Reports" icon="la la-business-time" :link="backpack_url('regular_reports')" />
+    <x-backpack::menu-dropdown-item title="Sales Reports" icon="la la-file-invoice-dollar" :link="backpack_url('sales_report')" />
 </x-backpack::menu-dropdown>

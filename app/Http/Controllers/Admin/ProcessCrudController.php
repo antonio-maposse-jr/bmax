@@ -330,8 +330,6 @@ class ProcessCrudController extends CrudController
         } else {
             $process->colors = '';
         }
-
-   
         //End process colors
 
         //Save files

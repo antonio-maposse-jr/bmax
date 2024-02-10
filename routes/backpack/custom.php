@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CustomerCrudController;
 use App\Http\Controllers\Admin\ProcessCrudController;
 use App\Http\Controllers\Admin\ProductCrudController;
 use App\Http\Controllers\Admin\ReasonDeclineCrudController;
+use App\Http\Controllers\Admin\RegularReportsController;
 use App\Http\Controllers\Admin\StageCashierCrudController;
 use App\Http\Controllers\Admin\StageAuthorisationCrudController;
 use App\Http\Controllers\Admin\StageCreditControlCrudController;
@@ -51,6 +52,10 @@ Route::group([
     Route::post('assign-prod-panels', [StageProductionCrudController::class,'assignPanels'])->name('assign-prod-panels');
     Route::post('decline-process', [ReasonDeclineCrudController::class,'declineProcess'])->name('decline-process');
 
+    //Reports
+    Route::post('get-users-report', [RegularReportsController::class,'reportsIndex'])->name('get-users-report');
+
+    //End Reports
     Route::get('get-customers', [CustomerCrudController::class, 'getCustomers'])->name('get-customers');
     Route::get('get-products', [ProductCrudController::class, 'getProducts'])->name('get-products');
     Route::get('get-colors', [ColorCrudController::class, 'getColors'])->name('get-colors');
@@ -64,4 +69,6 @@ Route::group([
     Route::crud('reason-decline', 'ReasonDeclineCrudController');
     Route::crud('pendig-process', 'PendigProcessCrudController');
     Route::crud('completed-process', 'CompletedProcessCrudController');
+    Route::get('regular_reports', 'RegularReportsController@index')->name('page.regular_reports.index');
+    Route::get('sales_report', 'SalesReportController@index')->name('page.sales_report.index');
 }); // this should be the absolute last line of this file
