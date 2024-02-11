@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-
+use App\Models\Traits\LogsActivity;
 use Backpack\CRUD\app\Models\Traits\CrudTrait; // <------------------------------- this one
 use Spatie\Permission\Traits\HasRoles;// <---------------------- and this one
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -18,6 +18,7 @@ class User extends Authenticatable
     use HasRoles;
     use SoftDeletes;
     use HasApiTokens, HasFactory, Notifiable;
+    use LogsActivity;
 
     /**
      * The attributes that are mass assignable.
