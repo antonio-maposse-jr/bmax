@@ -71,7 +71,7 @@ class ProductCrudController extends CrudController
         CRUD::field([
             'name' => 'unit',
             'type' => 'select_from_array',
-            'options' => ['kg' => 'Weigh', 'cm' => 'meters'],
+            'options' => ['kgs' => 'Kilograms', 'units' => 'Units', 'm'=>'Meters', 'sqm' => 'Square metres', 'Box'=>'Boxes', 'Packs'=>'Packets', 'L'=>'Litres'],
             'allows_null' => false,
             'default' => 'one',
             'wrapper' => [
