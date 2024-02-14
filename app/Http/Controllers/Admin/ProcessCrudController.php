@@ -315,7 +315,6 @@ class ProcessCrudController extends CrudController
         $process = new Process();
         $process->customer_id = $request->customer_id;
         $process->user_id = $request->user_id;
-        $process->product_id = $request->product_id;
         $process->nr_sheets = $request->nr_sheets;
         $process->nr_panels = $request->nr_panels;
         $process->order_value = $request->order_value;

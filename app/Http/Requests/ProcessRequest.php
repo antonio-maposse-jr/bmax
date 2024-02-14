@@ -26,7 +26,7 @@ class ProcessRequest extends FormRequest
     {
         return [
             'customer_id' => 'required',
-            'product_id' => 'required',
+            'key_products' => 'required',
             'user_id'=> 'required',
             'nr_sheets' => 'required',
             'nr_panels' => 'required',
