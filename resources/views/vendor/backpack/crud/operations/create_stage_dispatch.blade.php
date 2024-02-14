@@ -169,11 +169,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <strong>Colors:</strong>
+                                                        <strong>Key Products:</strong>
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $entry->colors }}
+                                                            {{ $entry->products->pluck('product.name')->implode(', ') }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -441,6 +441,7 @@
                             </div>
                         </div>
                     </div>
+                    {{-- End of process Resume --}}
                     {{-- End of process Resume --}}
 
                     {{-- Cashier Stage Data --}}
@@ -807,7 +808,7 @@
                                         <p>No documents available</p>
                                     @endif
                                 </span>
-                     
+
                             </div>
 
                         </div>
@@ -913,7 +914,8 @@
                                                         <strong>Created:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order="{{ optional($credit_control_stage)->created_at }}">
+                                                        <span
+                                                            data-order="{{ optional($credit_control_stage)->created_at }}">
                                                             {{ optional($credit_control_stage)->created_at }}
                                                         </span>
                                                     </td>
@@ -923,7 +925,8 @@
                                                         <strong>Updated:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order=" {{ optional($credit_control_stage)->updated_at }}">
+                                                        <span
+                                                            data-order=" {{ optional($credit_control_stage)->updated_at }}">
                                                             {{ optional($credit_control_stage)->updated_at }}
                                                         </span>
                                                     </td>
@@ -950,7 +953,7 @@
                                         <input type="text" name="process_id" value=" {{ $entry->id }}"
                                             class="form-control" readonly>
                                     </div>
-                                
+
                                     <div class="form-group col-md-6 required">
                                         <label>Status</label>
                                         <select name="dispatch_status"
@@ -970,7 +973,8 @@
                                     <div class="form-group col-md-6 ">
                                         <label>Number of Panels</label>
                                         <input type="number" value="{{ optional($dispatch_stage)->nr_panels }}"
-                                            name="nr_panels" id="nr_panels" class="form-control" disabled onchange="controlInputDataDispatch()">
+                                            name="nr_panels" id="nr_panels" class="form-control" disabled
+                                            onchange="controlInputDataDispatch()">
                                     </div>
 
                                 </div>
@@ -979,7 +983,7 @@
                             <div class="d-none" id="parentLoadedAssets">[]</div>
                             <div id="saveActions" class="form-group my-3">
                                 <input type="hidden" name="_save_action" value="submit_complete_process">
-                                <button type="submit" class="btn btn-success"  id="submit_btn">
+                                <button type="submit" class="btn btn-success" id="submit_btn">
                                     <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
                                     <span data-value="create_new_process">Complete Process</span>
                                 </button>

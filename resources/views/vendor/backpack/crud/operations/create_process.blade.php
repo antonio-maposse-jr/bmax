@@ -49,8 +49,8 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                         <input name="user_id" value="{{Auth::user()->id}}" type="hidden">
                     </div>
                     <div class="form-group col-md-6 required">
-                        <label>Product </label>
-                        <select id="productSelect" class="form-control" name="product_id">
+                        <label>Key Products </label>
+                        <select id="productSelect" class="form-control" name="key_products[]" multiple>
                         </select>
                     </div>
                     <div class="form-group col-md-6 required">
@@ -91,12 +91,6 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                         </select>
                     </div>
                     <div class="form-group col-md-12 required">
-                        <label>Colors confirmation</label>
-                        <select name="colors[]" id="colorSelect" class="form-control" multiple>
-                        </select>
-
-                    </div>
-                    <div class="form-group col-md-12 required">
                         <label>Select all Apllicable</label>
                         <div class="row">
                             <div class="col-sm-3">
@@ -128,7 +122,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
                     </div>
 
-                    <div class="form-group col-md-12 required">
+                    <div class="form-group col-md-12">
                         <label>Job reference</label>
                         <textarea name="job_reference" class="form-control"></textarea>
                     </div>

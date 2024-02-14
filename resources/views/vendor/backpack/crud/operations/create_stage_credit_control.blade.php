@@ -172,11 +172,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <strong>Colors:</strong>
+                                                        <strong>Key Products:</strong>
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $entry->colors }}
+                                                            {{ $entry->products->pluck('product.name')->implode(', ') }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -445,6 +445,7 @@
                         </div>
                     </div>
                     {{-- End of process Resume --}}
+                    {{-- End of process Resume --}}
 
                     {{-- Cashier Stage Data --}}
                     <div role="tabpanel" class="tab-pane" id="tab_cashier">
@@ -554,7 +555,7 @@
                                                         </span>
                                                     </td>
                                                 </tr>
-                                                
+
                                                 <tr>
                                                     <td>
                                                         <strong>Special instructions:</strong>
@@ -565,7 +566,7 @@
                                                         </span>
                                                     </td>
                                                 </tr>
-                                    
+
                                                 <tr>
                                                     <td>
                                                         <strong>Invoice:</strong>
@@ -810,7 +811,7 @@
                                         <p>No documents available</p>
                                     @endif
                                 </span>
-                     
+
                             </div>
 
                         </div>
@@ -830,11 +831,12 @@
                                         <input type="text" name="process_id" value=" {{ $entry->id }}"
                                             class="form-control" readonly>
                                     </div>
-                                   
+
 
                                     <div class="form-group col-md-6 required">
                                         <label>DECISION</label>
-                                        <select name="decision" value="{{ optional($credit_control_stage)->decision }}" id="decision_cc" onchange="decisionCreditControl()" class="form-control">
+                                        <select name="decision" value="{{ optional($credit_control_stage)->decision }}"
+                                            id="decision_cc" onchange="decisionCreditControl()" class="form-control">
                                             <option value="APPROVED">APPROVED</option>
                                             <option value="APPROVED WITH CONDITIONS">APPROVED WITH CONDITIONS</option>
                                             <option value="REJECTED">REJECTED</option>
@@ -843,12 +845,14 @@
 
                                     <div class="form-group col-md-6 required">
                                         <label>Comment</label>
-                                        <input type="text"    value="{{ optional($credit_control_stage)->comment }}" name="comment" class="form-control">
+                                        <input type="text" value="{{ optional($credit_control_stage)->comment }}"
+                                            name="comment" class="form-control">
                                     </div>
 
                                     <div class="form-group col-md-12 ">
                                         <label>List of special conditions</label>
-                                        <textarea name="comments" onchange="controlInputDataCreditControl()" id="list_special_conditions" class="form-control" disabled>{{ optional($credit_control_stage)->comments }}</textarea>
+                                        <textarea name="comments" onchange="controlInputDataCreditControl()" id="list_special_conditions"
+                                            class="form-control" disabled>{{ optional($credit_control_stage)->comments }}</textarea>
                                     </div>
 
                                     <hr>

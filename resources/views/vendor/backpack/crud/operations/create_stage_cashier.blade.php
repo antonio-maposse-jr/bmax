@@ -68,6 +68,7 @@
                 </ul>
 
                 <div class="tab-content ">
+                    {{-- Process Resume --}}
                     <div role="tabpanel" class="tab-pane active show" id="tab_process">
                         <div class="row" bp-section="crud-operation-show">
                             <div class="col-md-12">
@@ -157,11 +158,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <strong>Colors:</strong>
+                                                        <strong>Key Products:</strong>
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $entry->colors }}
+                                                            {{ $entry->products->pluck('product.name')->implode(', ') }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -429,6 +430,7 @@
                             </div>
                         </div>
                     </div>
+                    {{-- End of process Resume --}}
                     <div role="tabpanel" class="tab-pane" id="tab_cashier">
                         <form method="post" action="{{ route('submit-stage-cashier-data') }}"
                             enctype="multipart/form-data">
@@ -513,45 +515,69 @@
                                     <hr>
 
                                     <div class="form-group col-md-6 required">
-                                        <div id="invoiceContainer" style="display: {{ isset($cashier_stage->invoice) ? 'none' : 'block' }}">
+                                        <div id="invoiceContainer"
+                                            style="display: {{ isset($cashier_stage->invoice) ? 'none' : 'block' }}">
                                             <label>Invoice</label>
                                             <input type="file" name="invoice" id="invoice" class="form-control">
                                         </div>
-                                    
-                                        <div class="existing-file" style="display: {{ isset($cashier_stage->invoice) ? 'block' : 'none' }}" id="fileDisplayInvoice">
-                                            @if(isset($cashier_stage->invoice))
-                                                <a href="{{ Storage::url($cashier_stage->invoice) }}" target="_blank">Download/View Invoice</a>
-                                                <button type="button" onclick="removeFile('invoice', 'fileDisplayInvoice', 'invoiceContainer')" class="file_clear_button btn btn-light btn-sm float-right" title="Clear file" data-filename="{{ $cashier_stage->invoice }}"><i class="la la-remove"></i></button>
+
+                                        <div class="existing-file"
+                                            style="display: {{ isset($cashier_stage->invoice) ? 'block' : 'none' }}"
+                                            id="fileDisplayInvoice">
+                                            @if (isset($cashier_stage->invoice))
+                                                <a href="{{ Storage::url($cashier_stage->invoice) }}"
+                                                    target="_blank">Download/View Invoice</a>
+                                                <button type="button"
+                                                    onclick="removeFile('invoice', 'fileDisplayInvoice', 'invoiceContainer')"
+                                                    class="file_clear_button btn btn-light btn-sm float-right"
+                                                    title="Clear file" data-filename="{{ $cashier_stage->invoice }}"><i
+                                                        class="la la-remove"></i></button>
                                                 <div class="clearfix"></div>
                                             @endif
                                         </div>
                                     </div>
 
                                     <div class="form-group col-md-6 required">
-                                        <div id="receiptContainer" style="display: {{ isset($cashier_stage->receipt) ? 'none' : 'block' }}">
+                                        <div id="receiptContainer"
+                                            style="display: {{ isset($cashier_stage->receipt) ? 'none' : 'block' }}">
                                             <label>Receipt</label>
                                             <input type="file" name="receipt" id="receipt" class="form-control">
                                         </div>
-                                    
-                                        <div class="existing-file" style="display: {{ isset($cashier_stage->receipt) ? 'block' : 'none' }}" id="fileDisplayReceipt">
-                                            @if(isset($cashier_stage->receipt))
-                                                <a href="{{ Storage::url($cashier_stage->receipt) }}" target="_blank">Download/View Receipt</a>
-                                                <button type="button" onclick="removeFile('receipt', 'fileDisplayReceipt', 'receiptContainer')" class="file_clear_button btn btn-light btn-sm float-right" title="Clear file" data-filename="{{ $cashier_stage->receipt }}"><i class="la la-remove"></i></button>
+
+                                        <div class="existing-file"
+                                            style="display: {{ isset($cashier_stage->receipt) ? 'block' : 'none' }}"
+                                            id="fileDisplayReceipt">
+                                            @if (isset($cashier_stage->receipt))
+                                                <a href="{{ Storage::url($cashier_stage->receipt) }}"
+                                                    target="_blank">Download/View Receipt</a>
+                                                <button type="button"
+                                                    onclick="removeFile('receipt', 'fileDisplayReceipt', 'receiptContainer')"
+                                                    class="file_clear_button btn btn-light btn-sm float-right"
+                                                    title="Clear file" data-filename="{{ $cashier_stage->receipt }}"><i
+                                                        class="la la-remove"></i></button>
                                                 <div class="clearfix"></div>
                                             @endif
                                         </div>
                                     </div>
 
                                     <div class="form-group col-md-6 required">
-                                        <div id="otherContainer" style="display: {{ isset($cashier_stage->other) ? 'none' : 'block' }}">
+                                        <div id="otherContainer"
+                                            style="display: {{ isset($cashier_stage->other) ? 'none' : 'block' }}">
                                             <label>Other</label>
                                             <input type="file" name="other" id="other" class="form-control">
                                         </div>
-                                    
-                                        <div class="existing-file" style="display: {{ isset($cashier_stage->other) ? 'block' : 'none' }}" id="fileDisplayOther">
-                                            @if(isset($cashier_stage->other))
-                                                <a href="{{ Storage::url($cashier_stage->other) }}" target="_blank">Download/View Other</a>
-                                                <button type="button" onclick="removeFile('other', 'fileDisplayOther', 'otherContainer')" class="file_clear_button btn btn-light btn-sm float-right" title="Clear file" data-filename="{{ $cashier_stage->other }}"><i class="la la-remove"></i></button>
+
+                                        <div class="existing-file"
+                                            style="display: {{ isset($cashier_stage->other) ? 'block' : 'none' }}"
+                                            id="fileDisplayOther">
+                                            @if (isset($cashier_stage->other))
+                                                <a href="{{ Storage::url($cashier_stage->other) }}"
+                                                    target="_blank">Download/View Other</a>
+                                                <button type="button"
+                                                    onclick="removeFile('other', 'fileDisplayOther', 'otherContainer')"
+                                                    class="file_clear_button btn btn-light btn-sm float-right"
+                                                    title="Clear file" data-filename="{{ $cashier_stage->other }}"><i
+                                                        class="la la-remove"></i></button>
                                                 <div class="clearfix"></div>
                                             @endif
                                         </div>

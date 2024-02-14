@@ -169,11 +169,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <strong>Colors:</strong>
+                                                        <strong>Key Products:</strong>
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $entry->colors }}
+                                                            {{ $entry->products->pluck('product.name')->implode(', ') }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -624,8 +624,8 @@
                                                     <strong>Created:</strong>
                                                 </td>
                                                 <td>
-                                                    <span data-order="{{ $cashier_stage->created_at }}">
-                                                        {{ $cashier_stage->created_at }}
+                                                    <span data-order="{{ optional($cashier_stage)->created_at }}">
+                                                        {{ optional($cashier_stage)->created_at }}
                                                     </span>
                                                 </td>
                                                 </tr>
@@ -634,8 +634,8 @@
                                                         <strong>Updated:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order=" {{ $cashier_stage->updated_at }}">
-                                                            {{ $cashier_stage->updated_at }}
+                                                        <span data-order=" {{ optional($cashier_stage)->updated_at }}">
+                                                            {{ optional($cashier_stage)->updated_at }}
                                                         </span>
                                                     </td>
                                                 </tr>

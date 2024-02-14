@@ -71,6 +71,8 @@
                 </ul>
 
                 <div class="tab-content ">
+
+                    {{-- Process Resume --}}
                     <div role="tabpanel" class="tab-pane active show" id="tab_process">
                         <div class="row" bp-section="crud-operation-show">
                             <div class="col-md-12">
@@ -160,11 +162,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <strong>Colors:</strong>
+                                                        <strong>Key Products:</strong>
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $entry->colors }}
+                                                            {{ $entry->products->pluck('product.name')->implode(', ') }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -432,6 +434,9 @@
                             </div>
                         </div>
                     </div>
+                    {{-- End of process Resume --}}
+                    {{-- End of process Resume --}}
+
                     <div role="tabpanel" class="tab-pane" id="tab_cashier">
                         <div class="row" bp-section="crud-operation-show">
                             <div class="col-md-12">
@@ -539,7 +544,7 @@
                                                         </span>
                                                     </td>
                                                 </tr>
-                                                
+
                                                 <tr>
                                                     <td>
                                                         <strong>Special instructions:</strong>
@@ -550,7 +555,7 @@
                                                         </span>
                                                     </td>
                                                 </tr>
-                                    
+
                                                 <tr>
                                                     <td>
                                                         <strong>Invoice:</strong>
@@ -650,7 +655,8 @@
                                     <div class="form-group col-md-6 required">
                                         <label>DECISION</label>
                                         <select name="decision" id="decision"
-                                            value="{{ optional($authorisation_stage)->decision }}" class="form-control" onchange="specialConditionsAuthorization()">
+                                            value="{{ optional($authorisation_stage)->decision }}" class="form-control"
+                                            onchange="specialConditionsAuthorization()">
                                             <option value="APPROVED">APPROVED</option>
                                             <option value="APPROVED WITH CONDITIONS">APPROVED WITH CONDITIONS</option>
                                             <option value="REJECTED">REJECTED</option>
@@ -664,26 +670,37 @@
 
                                     <div class="form-group col-md-12 ">
                                         <label>Special conditions list</label>
-                                        <textarea name="comments" onchange="controlInputDataAuth()" class="form-control" on  id="auth_special_conditions" disabled>{{ optional($authorisation_stage)->comments }}</textarea>
+                                        <textarea name="comments" onchange="controlInputDataAuth()" class="form-control" on id="auth_special_conditions"
+                                            disabled>{{ optional($authorisation_stage)->comments }}</textarea>
                                     </div>
 
                                     <hr>
 
                                     <div class="form-group col-md-6 required">
-                                        <div id="otherDocContainer" style="display: {{ isset($authorisation_stage->other_documents) ? 'none' : 'block' }}">
+                                        <div id="otherDocContainer"
+                                            style="display: {{ isset($authorisation_stage->other_documents) ? 'none' : 'block' }}">
                                             <label>Other</label>
-                                            <input type="file" name="other_documents" id="other_documents" class="form-control">
+                                            <input type="file" name="other_documents" id="other_documents"
+                                                class="form-control">
                                         </div>
-                                    
-                                        <div class="existing-file" style="display: {{ isset($authorisation_stage->other_documents) ? 'block' : 'none' }}" id="fileDisplayOtherDoc">
-                                            @if(isset($authorisation_stage->other_documents))
-                                                <a href="{{ Storage::url($authorisation_stage->other_documents) }}" target="_blank">Download/View Other</a>
-                                                <button type="button" onclick="removeFile('other_documents', 'fileDisplayOtherDoc', 'otherContainer')" class="file_clear_button btn btn-light btn-sm float-right" title="Clear file" data-filename="{{ $authorisation_stage->other }}"><i class="la la-remove"></i></button>
+
+                                        <div class="existing-file"
+                                            style="display: {{ isset($authorisation_stage->other_documents) ? 'block' : 'none' }}"
+                                            id="fileDisplayOtherDoc">
+                                            @if (isset($authorisation_stage->other_documents))
+                                                <a href="{{ Storage::url($authorisation_stage->other_documents) }}"
+                                                    target="_blank">Download/View Other</a>
+                                                <button type="button"
+                                                    onclick="removeFile('other_documents', 'fileDisplayOtherDoc', 'otherContainer')"
+                                                    class="file_clear_button btn btn-light btn-sm float-right"
+                                                    title="Clear file"
+                                                    data-filename="{{ $authorisation_stage->other }}"><i
+                                                        class="la la-remove"></i></button>
                                                 <div class="clearfix"></div>
                                             @endif
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                             </div>
 

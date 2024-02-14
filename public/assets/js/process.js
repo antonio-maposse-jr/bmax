@@ -48,7 +48,7 @@ $(document).ready(function() {
     });
     
     $('#productSelect').on('change', function() {
-        var selectedCustomerId = $(this).val();
+        var selectedProductId = $(this).val();
         // Use the selectedCustomerId as needed
     });
 

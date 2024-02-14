@@ -25,9 +25,8 @@ return new class extends Migration
             $table->string('estimated_process_time');
             $table->date('date_required');
             $table->string('priority_level');
-            $table->text('job_reference');
+            $table->text('job_reference')->nullable();
             $table->string('order_confirmation');
-            $table->string('colors');
 
             $table->string('status')->default('PENDING');
             $table->unsignedBigInteger('stage_id');

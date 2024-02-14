@@ -130,7 +130,7 @@
                                                         <strong>Date required:</strong>
                                                     </td>
                                                     <td>
-                                                        <span>
+                                                        <span data-order="2024-01-12">
                                                             {{ $entry->date_required }}
                                                         </span>
                                                     </td>
@@ -167,11 +167,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <strong>Colors:</strong>
+                                                        <strong>Key Products:</strong>
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{ $entry->colors }}
+                                                            {{ $entry->products->pluck('product.name')->implode(', ') }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -439,6 +439,7 @@
                             </div>
                         </div>
                     </div>
+                    {{-- End of process Resume --}}
                     {{-- End of process Resume --}}
 
                     {{-- Cashier Stage Data --}}
@@ -868,7 +869,8 @@
                                         </button>
 
                                         <button type="button" onclick="openPopupDecline()" class="btn btn-danger">
-                                            <span class="la la-window-close" role="presentation" aria-hidden="true"></span>
+                                            <span class="la la-window-close" role="presentation"
+                                                aria-hidden="true"></span>
                                             &nbsp;
                                             <span data-value="create_new_process">Decline Process</span>
                                         </button>
@@ -895,24 +897,23 @@
         <div class="popup_sheets" id="popup_decline">
             <div class="close-btn_rs" onclick="closePopupDecline()">X</div>
             <h2 style="color: #333; text-align: center;">Decline process</h2>
-            <form action="{{ backpack_url('decline-process')}}" method="post">
+            <form action="{{ backpack_url('decline-process') }}" method="post">
                 @csrf
                 <input type="hidden" name="process_id" value=" {{ $entry->id }}" class="form-control" readonly>
 
 
                 <label for="reason" class="popup_label">Reason for decline:</label>
-                <select name="reason"  id="reason_decline"
-                    class="popup_input">
+                <select name="reason" id="reason_decline" class="popup_input">
                     <option value="Customer Cancelled Order">Customer Cancelled Order</option>
                     <option value="Process Duplicated">Process Duplicated</option>
                     <option value="Process Exceeds Limits">Process Exceeds Limits</option>
-                    <option value="Process Eontains Excessive Inconsistencies">Process Eontains Excessive Inconsistencies</option>
+                    <option value="Process Eontains Excessive Inconsistencies">Process Eontains Excessive Inconsistencies
+                    </option>
                     <option value="Other">Other</option>
                 </select>
 
                 <label for="comment" class="popup_label">Comment</label>
-                <input type="text" class="popup_input" id="comment_decline" name="comment"
-                   required>
+                <input type="text" class="popup_input" id="comment_decline" name="comment" required>
 
                 <button type="submit" id="submit_panel_task_btn" class="btn btn-success">
                     <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;

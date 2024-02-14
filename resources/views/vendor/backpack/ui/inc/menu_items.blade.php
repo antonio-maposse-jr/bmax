@@ -17,7 +17,6 @@
     <x-backpack::menu-dropdown-item title="Categories" icon="la la-folder-plus" :link="backpack_url('category')" />
     <x-backpack::menu-dropdown-item title="Subcategories" icon="la la-file-alt" :link="backpack_url('subcategory')" />
     <x-backpack::menu-dropdown-item title="Products" icon="la la-archive" :link="backpack_url('product')" />
-    <x-backpack::menu-dropdown-item title="Colors" icon="la la-pen-nib" :link="backpack_url('color')" />
 </x-backpack::menu-dropdown>
 
 <x-backpack::menu-dropdown title="Process Management" icon="la la-file-alt">

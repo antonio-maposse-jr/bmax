@@ -8,6 +8,8 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Http\Request;
 use App\Models\Process;
+use App\Models\ProcessProduct;
+use App\Models\Product;
 use App\Models\ReturnStage;
 use Illuminate\Support\Facades\Auth;
 
@@ -307,6 +309,7 @@ class ProcessCrudController extends CrudController
 
     public function createNewProcess(Request $request)
     {
+        
         CRUD::setValidation(ProcessRequest::class);
         //Basic Fields Process
         $process = new Process();
@@ -322,16 +325,6 @@ class ProcessCrudController extends CrudController
         $process->job_reference = $request->job_reference;
         $process->order_confirmation = $request->order_confirmation;
         //End Basic Fields Process
-
-        //Process Colors
-        $colors = $request->colors;
-        if (is_array($colors)) {
-            $resultString = implode(', ', $colors);
-            $process->colors = $resultString;
-        } else {
-            $process->colors = '';
-        }
-        //End process colors
 
         //Save files
         if ($request->hasFile('job_layout')) {
@@ -378,6 +371,15 @@ class ProcessCrudController extends CrudController
         $process->stage_id = 2;
 
         $process->save();
+
+        $selectedProductIds = $request->key_products;
+        foreach ($selectedProductIds as $productId) {
+          $processProduct = new ProcessProduct();
+          $processProduct->process_id = $process->id;
+          $processProduct->product_id = $productId;
+
+          $processProduct->save();
+        }
 
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();

@@ -58,14 +58,13 @@ Route::group([
     //End Reports
     Route::get('get-customers', [CustomerCrudController::class, 'getCustomers'])->name('get-customers');
     Route::get('get-products', [ProductCrudController::class, 'getProducts'])->name('get-products');
-    Route::get('get-colors', [ColorCrudController::class, 'getColors'])->name('get-colors');
+
 
     Route::crud('stage-cashier', 'StageCashierCrudController');
     Route::crud('stage-authorisations', 'StageAuthorisationCrudController');
     Route::crud('stage-production', 'StageProductionCrudController');
     Route::crud('stage-credit-control', 'StageCreditControlCrudController');
     Route::crud('stage-dispatch', 'StageDispatchCrudController');
-    Route::crud('color', 'ColorCrudController');
     Route::crud('reason-decline', 'ReasonDeclineCrudController');
     Route::crud('pendig-process', 'PendigProcessCrudController');
     Route::crud('completed-process', 'CompletedProcessCrudController');

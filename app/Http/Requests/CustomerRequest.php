@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CustomerRequest extends FormRequest
 {
@@ -28,7 +29,12 @@ class CustomerRequest extends FormRequest
             'name' => 'required|min:5|max:255',
             'customer_category_id' => 'required',
             'id_type' => 'required',
-            'id_number' => 'required',
+            'id_number' => [
+                'required',
+                Rule::unique('customers')->where(function ($query) {
+                    return $query->where('id_type', $this->id_type);
+                })
+            ],
             'phone' => 'required',
             'address' => 'required',
             'tax_number' => 'required',

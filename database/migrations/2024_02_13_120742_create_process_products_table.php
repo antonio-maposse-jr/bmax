@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('process_products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('color_code')->nullable();
+            $table->unsignedBigInteger('process_id');
+            $table->foreign('process_id')->references('id')->on('processes')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('process_products');
     }
 };
