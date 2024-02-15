@@ -43,6 +43,7 @@ class StageAuthorisationCrudController extends CrudController
         Widget::add()->type('script')->content('assets/js/stage_config.js');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
+        Widget::add()->type('script')->content('assets/js/production_validations.js');
     }
 
     /**

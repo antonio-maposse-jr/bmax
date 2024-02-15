@@ -66,7 +66,7 @@ function openPopupPanels(button) {
 }
 
 
-
+    
 function closePopupSheets() {
     document.getElementById("popup_sheets").style.display = "none";
     document.getElementById("overlay_rs").style.display = "none";

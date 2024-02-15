@@ -46,7 +46,7 @@
                     <li role="presentation" class="nav-item">
                         <a href="#tab_process" aria-controls="tab_process" role="tab" data-toggle="tab"
                             tab_name="process" data-name="process" data-bs-toggle="tab"
-                            class="nav-link text-decoration-none active" aria-selected="true">Process Resume</a>
+                            class="nav-link text-decoration-none active" aria-selected="true">Process Summary</a>
                     </li>
                     <li role="presentation" class="nav-item">
                         <a href="#tab_cashier" aria-controls="tab_cashier" role="tab" data-toggle="tab"
@@ -199,7 +199,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <strong>Stage Name:</strong>
+                                                        <strong>Current Stage Name:</strong>
                                                     </td>
                                                     <td>
                                                         <span>
@@ -748,8 +748,8 @@
                                                         <strong>Created:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order="{{ optional($cashier_stage)->created_at }}">
-                                                            {{ optional($cashier_stage)->created_at }}
+                                                        <span data-order="{{ optional($authorisation_stage)->created_at }}">
+                                                            {{ optional($authorisation_stage)->created_at }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -758,8 +758,8 @@
                                                         <strong>Updated:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order=" {{ optional($cashier_stage)->updated_at }}">
-                                                            {{ optional($cashier_stage)->updated_at }}
+                                                        <span data-order=" {{ optional($authorisation_stage)->updated_at }}">
+                                                            {{ optional($authorisation_stage)->updated_at }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -987,6 +987,14 @@
                                     <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
                                     <span data-value="create_new_process">Complete Process</span>
                                 </button>
+
+                                <button type="button" onclick="openPopupDecline()" class="btn btn-danger">
+                                    <span class="la la-window-close" role="presentation"
+                                        aria-hidden="true"></span>
+                                    &nbsp;
+                                    <span data-value="create_new_process">Decline Process</span>
+                                </button>
+
                                 <button type="button" onclick="openPopup()" class="btn btn-info">
                                     <span class="la la-sync-alt" role="presentation" aria-hidden="true"></span> &nbsp;
                                     <span data-value="create_new_process">Return stages</span>
@@ -1008,6 +1016,37 @@
         </div>
 
         <div class="overlay_rs" onclick="closePopup()"></div>
+
+             {{-- Decline popup --}}
+     <div class="popup_sheets" id="popup_decline">
+        <div class="close-btn_rs" onclick="closePopupDecline()">X</div>
+        <h2 style="color: #333; text-align: center;">Decline process</h2>
+        <form action="{{ backpack_url('decline-process') }}" method="post">
+            @csrf
+            <input type="hidden" name="process_id" value=" {{ $entry->id }}" class="form-control" readonly>
+
+
+            <label for="reason" class="popup_label">Reason for decline:</label>
+            <select name="reason" id="reason_decline" class="popup_input">
+                <option value="Customer Cancelled Order">Customer Cancelled Order</option>
+                <option value="Process Duplicated">Process Duplicated</option>
+                <option value="Process Exceeds Limits">Process Exceeds Limits</option>
+                <option value="Process Eontains Excessive Inconsistencies">Process Eontains Excessive Inconsistencies
+                </option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="comment" class="popup_label">Comment</label>
+            <input type="text" class="popup_input" id="comment_decline" name="comment" required>
+
+            <button type="submit" id="submit_panel_task_btn" class="btn btn-success">
+                <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
+                <span data-value="create_new_process">Submit</span>
+            </button>
+        </form>
+    </div>
+    {{-- End Decline popup --}}
+
         <div class="popup_rs">
             <div class="close-btn_rs" onclick="closePopup()">X</div>
             <h2 style="color: #333; text-align: center;">Return to Stage Form</h2>

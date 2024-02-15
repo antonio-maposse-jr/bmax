@@ -8,6 +8,8 @@ use App\Models\ReasonDecline;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class ReasonDeclineCrudController
@@ -33,6 +35,8 @@ class ReasonDeclineCrudController extends CrudController
         CRUD::setModel(\App\Models\Process::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/reason-decline');
         CRUD::setEntityNameStrings('reason decline', 'reason declines');
+
+        Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
     }
 
     /**
@@ -86,6 +90,7 @@ class ReasonDeclineCrudController extends CrudController
     public function declineProcess(Request $request){
         $reason = new ReasonDecline();
         $reason->process_id = $request->process_id;
+        $reason->user_id = Auth::user()->id;
         $reason->reason = $request->reason;
         $reason->comment = $request->comment;
         $reason->save();

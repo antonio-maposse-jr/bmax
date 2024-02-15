@@ -37,7 +37,7 @@ return new class extends Migration
             $table->string('quote');
             $table->string('confirmation_call_record')->nullable();
             $table->string('signed_confirmation');
-            $table->string('custom_cutting_list');
+            $table->string('custom_cutting_list')->nullable();
             $table->string('other_document')->nullable();
 
             $table->boolean('cutting')->default(false);

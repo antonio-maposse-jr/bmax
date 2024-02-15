@@ -51,10 +51,16 @@ trait ProcessCashierStageOperation
     {
         CRUD::hasAccessOrFail('processCashierStage');
 
+        
         // prepare the fields you need to show
         $this->data['crud'] = $this->crud;
         $this->data['title'] = CRUD::getTitle() ?? 'Process Cashier Stage '.$this->crud->entity_name;
         $this->data['entry'] = $this->crud->getCurrentEntry();
+
+        if($this->crud->getCurrentEntry()->stage_name != 'Cashier'){
+            $errorMessage = "Error Process no longer in Cashier Stage";
+            return response()->view('error', compact('errorMessage'), 500);
+        }
 
         $cashierStage = StageCashier::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['cashier_stage'] =  $cashierStage;

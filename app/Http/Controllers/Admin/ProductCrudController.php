@@ -32,7 +32,6 @@ class ProductCrudController extends CrudController
         CRUD::setModel(\App\Models\Product::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/product');
         CRUD::setEntityNameStrings('product', 'products');
-        
     }
 
     /**
@@ -43,12 +42,42 @@ class ProductCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
+        CRUD::column([
+            'name'  => 'name',
+            'type'  => 'text'
+        ]);
 
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        CRUD::column([
+            'name'  => 'image',
+            'type'  => 'image',
+            'disk' => 'public',
+        ]);
+
+        CRUD::column([
+            'name'  => 'description',
+            'type'  => 'textarea'
+        ]);
+
+        CRUD::column([
+            'name'  => 'price',
+            'type'  => 'number'
+        ]);
+
+        CRUD::column([
+            'name'  => 'unit',
+            'type'  => 'text'
+        ]);
+
+        CRUD::column([
+            'name' => 'category.name', 
+            'label' => 'Category',
+            'type' => 'text'
+        ]);
+        CRUD::column([
+            'name' => 'subcategory.name',
+            'label' => 'Sub Category',
+            'type' => 'text'
+        ]);
     }
 
     /**
@@ -71,7 +100,7 @@ class ProductCrudController extends CrudController
         CRUD::field([
             'name' => 'unit',
             'type' => 'select_from_array',
-            'options' => ['kgs' => 'Kilograms', 'units' => 'Units', 'm'=>'Meters', 'sqm' => 'Square metres', 'Box'=>'Boxes', 'Packs'=>'Packets', 'L'=>'Litres'],
+            'options' => ['kgs' => 'Kilograms', 'units' => 'Units', 'm' => 'Meters', 'sqm' => 'Square metres', 'Box' => 'Boxes', 'Packs' => 'Packets', 'L' => 'Litres'],
             'allows_null' => false,
             'default' => 'one',
             'wrapper' => [
@@ -119,12 +148,51 @@ class ProductCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
+    protected function setupShowOperation()
+    {
+        CRUD::column([
+            'name'  => 'name',
+            'type'  => 'text'
+        ]);
+
+        CRUD::column([
+            'name'  => 'image',
+            'type'  => 'image',
+            'disk' => 'public',
+        ]);
+
+        CRUD::column([
+            'name'  => 'description',
+            'type'  => 'textarea'
+        ]);
+
+        CRUD::column([
+            'name'  => 'price',
+            'type'  => 'number'
+        ]);
+
+        CRUD::column([
+            'name'  => 'unit',
+            'type'  => 'text'
+        ]);
+
+        CRUD::column([
+            'name' => 'category.name', // Assuming 'category' is the name of the relationship
+            'label' => 'Category',
+            'type' => 'text'
+        ]);
+        CRUD::column([
+            'name' => 'subcategory.name', // Assuming 'category' is the name of the relationship
+            'label' => 'Sub Category',
+            'type' => 'text'
+        ]);
+    }
 
     public function getProducts(Request $request)
     {
         $searchTerm = $request->input('q');
         $customers = Product::where('name', 'like', '%' . $searchTerm . '%')->get(['id', 'name']);
-    
+
         return response()->json($customers);
     }
 }

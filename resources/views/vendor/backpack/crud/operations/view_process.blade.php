@@ -30,6 +30,15 @@
 @endsection
 
 @section('content')
+
+    @foreach ($reason_declines as $reasonDecline)
+        <div class="notification-bar" style="background-color: red;">
+            <strong>Process declined </strong> by
+            <strong>{{ $reasonDecline->user->name }}</strong>. The reason is <strong>{{ $reasonDecline->reason }}</strong> with
+            the following description <strong>{{ $reasonDecline->comment }}</strong>
+        
+        </div>
+    @endforeach
     <div class="row">
         <div class="col-md-12 bold-labels">
             @if ($errors->any())
@@ -46,7 +55,7 @@
                     <li role="presentation" class="nav-item">
                         <a href="#tab_process" aria-controls="tab_process" role="tab" data-toggle="tab"
                             tab_name="process" data-name="process" data-bs-toggle="tab"
-                            class="nav-link text-decoration-none active" aria-selected="true">Process Resume</a>
+                            class="nav-link text-decoration-none active" aria-selected="true">Process Summary</a>
                     </li>
                     <li role="presentation" class="nav-item">
                         <a href="#tab_cashier" aria-controls="tab_cashier" role="tab" data-toggle="tab"
@@ -199,7 +208,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <strong>Stage Name:</strong>
+                                                        <strong>Current Stage Name:</strong>
                                                     </td>
                                                     <td>
                                                         <span>
@@ -747,8 +756,9 @@
                                                         <strong>Created:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order="{{ optional($cashier_stage)->created_at }}">
-                                                            {{ optional($cashier_stage)->created_at }}
+                                                        <span
+                                                            data-order="{{ optional($authorisation_stage)->created_at }}">
+                                                            {{ optional($authorisation_stage)->created_at }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -757,8 +767,9 @@
                                                         <strong>Updated:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order=" {{ optional($cashier_stage)->updated_at }}">
-                                                            {{ optional($cashier_stage)->updated_at }}
+                                                        <span
+                                                            data-order=" {{ optional($authorisation_stage)->updated_at }}">
+                                                            {{ optional($authorisation_stage)->updated_at }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -807,7 +818,7 @@
                                         <p>No documents available</p>
                                     @endif
                                 </span>
-                     
+
                             </div>
 
                         </div>
@@ -913,7 +924,8 @@
                                                         <strong>Created:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order="{{ optional($credit_control_stage)->created_at }}">
+                                                        <span
+                                                            data-order="{{ optional($credit_control_stage)->created_at }}">
                                                             {{ optional($credit_control_stage)->created_at }}
                                                         </span>
                                                     </td>
@@ -923,7 +935,8 @@
                                                         <strong>Updated:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order=" {{ optional($credit_control_stage)->updated_at }}">
+                                                        <span
+                                                            data-order=" {{ optional($credit_control_stage)->updated_at }}">
                                                             {{ optional($credit_control_stage)->updated_at }}
                                                         </span>
                                                     </td>
@@ -996,7 +1009,7 @@
                                                         </span>
                                                     </td>
                                                 </tr>
-                                   
+
                                                 <tr>
                                                     <td>
                                                         <strong>User processed:</strong>

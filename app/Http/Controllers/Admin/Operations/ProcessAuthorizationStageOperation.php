@@ -56,6 +56,11 @@ trait ProcessAuthorizationStageOperation
         $this->data['crud'] = $this->crud;
         $this->data['title'] = CRUD::getTitle() ?? 'Process Authorization Stage '.$this->crud->entity_name;
         $this->data['entry'] = $this->crud->getCurrentEntry();
+
+        if($this->crud->getCurrentEntry()->stage_name != 'Authorisation'){
+            $errorMessage = "Error Process no longer in Authorisation Stage";
+            return response()->view('error', compact('errorMessage'), 500);
+        }
       
         $cashierStage = StageCashier::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['cashier_stage'] =  $cashierStage;

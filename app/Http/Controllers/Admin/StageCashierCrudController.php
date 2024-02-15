@@ -43,6 +43,7 @@ class StageCashierCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-cashier');
         CRUD::setEntityNameStrings('stage cashier', 'stage cashiers');
 
+        Widget::add()->type('script')->content('assets/js/production_validations.js');
         Widget::add()->type('script')->content('assets/js/create_cashier.js');
         Widget::add()->type('script')->content('assets/js/stage_config.js');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');

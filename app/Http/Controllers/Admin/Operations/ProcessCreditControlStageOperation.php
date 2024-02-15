@@ -59,6 +59,11 @@ trait ProcessCreditControlStageOperation
         $this->data['crud'] = $this->crud;
         $this->data['title'] = CRUD::getTitle() ?? 'Process Credit Control Stage '.$this->crud->entity_name;
         $this->data['entry'] = $this->crud->getCurrentEntry();
+
+        if($this->crud->getCurrentEntry()->stage_name != 'Credit Control'){
+            $errorMessage = "Error Process no longer in Credit Control Stage";
+            return response()->view('error', compact('errorMessage'), 500);
+        }
       
         $cashierStage = StageCashier::where('process_id', $this->crud->getCurrentEntry()->id)->first();
         $this->data['cashier_stage'] =  $cashierStage;

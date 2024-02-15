@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Operations;
 
 use App\Models\ProductionTask;
+use App\Models\ReasonDecline;
 use App\Models\StageAuthorisation;
 use App\Models\StageCashier;
 use App\Models\StageCreditControl;
@@ -77,6 +78,9 @@ trait ViewProcessOperation
         
         $productionTasks = ProductionTask::where('process_id', $this->crud->getCurrentEntry()->id)->get();
         $this->data['production_tasks'] = $productionTasks;
+
+        $reasonDeclines = ReasonDecline::where('process_id', $this->crud->getCurrentEntry()->id)->get();
+        $this->data['reason_declines'] = $reasonDeclines;
 
         return view('crud::operations.view_process', $this->data);
     }
