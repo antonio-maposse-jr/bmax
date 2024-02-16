@@ -53,32 +53,20 @@ $(document).ready(function() {
     });
 
 
-    $('#colorSelect').select2({
-        ajax: {
-            url: '/admin/get-colors',
-            dataType: 'json',
-            delay: 250,
-            processResults: function(data) {
-                return {
-                    results: $.map(data, function(color) {
-                        return {
-                            id: color.name,
-                            text: color.name
-                        };
-                    })
-                };
-            },
-            cache: true
-        },
-        minimumInputLength: 2, // Set a minimum input length to trigger the AJAX request
-        placeholder: 'Search for colors',
-        allowClear: true
+    $('#order_confirmation').on('change', function() {
+        var selectedOption = $(this).val();
+        console.log(selectedOption)
+        if(selectedOption === 'Call'){
+            var confirmationCallRecordGroup = document.getElementById('confirmation_call_record_group');
+            confirmationCallRecordGroup.classList.add('required');
+        }
+
+        if(selectedOption === 'In person'){
+            var signedConfirmationGroup= document.getElementById('signed_confirmation_group');
+            signedConfirmationGroup.classList.add('required');
+        }
     });
-    
-    $('#colorSelect').on('change', function() {
-        var colorSelect = $(this).val();
-        // Use the selectedCustomerId as needed
-    });
+
 
 
 });

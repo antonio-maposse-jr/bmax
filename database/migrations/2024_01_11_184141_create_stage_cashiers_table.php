@@ -29,7 +29,7 @@ return new class extends Migration
         
 
             $table->string('invoice');
-            $table->string('receipt');
+            $table->string('receipt')->nullable();
             $table->string('other')->nullable();
 
             $table->timestamps();

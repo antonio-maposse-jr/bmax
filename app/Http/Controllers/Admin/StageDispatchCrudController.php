@@ -90,9 +90,7 @@ class StageDispatchCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function createStageDispatch(Request $request){
-
-        CRUD::setValidation(StageDispatchRequest::class);
+    public function createStageDispatch(StageDispatchRequest $request){
 
         $stageDispatch = StageDispatch::firstOrNew(['process_id' => $request->process_id]);
         $stageDispatch->process_id = $request->process_id;

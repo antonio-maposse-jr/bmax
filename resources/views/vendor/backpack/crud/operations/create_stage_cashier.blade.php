@@ -188,7 +188,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <strong>Current Stage Name:</strong>
+                                                        <strong>CurrentStage Name:</strong>
                                                     </td>
                                                     <td>
                                                         <span>
@@ -537,7 +537,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-6 required">
+                                    <div class="form-group col-md-6">
                                         <div id="receiptContainer"
                                             style="display: {{ isset($cashier_stage->receipt) ? 'none' : 'block' }}">
                                             <label>Receipt</label>
@@ -560,7 +560,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-6 required">
+                                    <div class="form-group col-md-6">
                                         <div id="otherContainer"
                                             style="display: {{ isset($cashier_stage->other) ? 'none' : 'block' }}">
                                             <label>Other</label>

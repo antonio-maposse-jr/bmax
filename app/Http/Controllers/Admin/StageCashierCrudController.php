@@ -99,9 +99,8 @@ class StageCashierCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function createStageCashier(Request $request)
+    public function createStageCashier(StageCashierRequest $request)
     {
-        CRUD::setValidation(StageCashierRequest::class);
 
         $stageCashier = StageCashier::firstOrNew(['process_id' => $request->process_id]);
 

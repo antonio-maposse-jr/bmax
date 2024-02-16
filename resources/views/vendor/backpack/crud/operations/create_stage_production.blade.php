@@ -746,7 +746,8 @@
                                                         <strong>Created:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order="{{ optional($authorisation_stage)->created_at }}">
+                                                        <span
+                                                            data-order="{{ optional($authorisation_stage)->created_at }}">
                                                             {{ optional($authorisation_stage)->created_at }}
                                                         </span>
                                                     </td>
@@ -756,7 +757,8 @@
                                                         <strong>Updated:</strong>
                                                     </td>
                                                     <td>
-                                                        <span data-order=" {{ optional($authorisation_stage)->updated_at }}">
+                                                        <span
+                                                            data-order=" {{ optional($authorisation_stage)->updated_at }}">
                                                             {{ optional($authorisation_stage)->updated_at }}
                                                         </span>
                                                     </td>
@@ -922,7 +924,7 @@
             </form>
         </div>
         {{-- End Decline popup --}}
-        
+
         {{-- Return to Stage popup --}}
         <div class="overlay_rs" id="overlay_rs" onclick="closePopup()"></div>
         <div class="popup_rs">
@@ -972,14 +974,16 @@
                 <input type="hidden" name="task_id" id="popup_task_id">
                 <input type="hidden" name="task_name" id="popup_task_name">
                 <input type="hidden" name="sub_task_name" id="popup_sub_task_name">
-                <input type="hidden" name="initial_allocation_sheets" id="initial_allocation_sheets">
 
                 <input type="hidden" name="total_unallocated_sheets"
-                    value="{{ $production_stage->total_unallocated_sheets }}" id="popup_unallocated_sheets">
+                    value="{{ $production_stage->total_unallocated_sheets }}" id="initial_unallocated_sheets">
+
+                <input type="hidden" name="total_sheets"
+                    value="{{ $entry->nr_sheets }}" id="total_sheets">
 
                 <label for="nr_sheets_unallocated" class="popup_label">Nr of Sheets unllocated:</label>
-                <input type="text" value="{{ $production_stage->total_unallocated_sheets }}" readonly
-                    class="popup_input" id="nr_sheets_unallocated" name="nr_sheets_unallocated" required>
+                <input type="text" readonly class="popup_input" id="nr_sheets_unallocated"
+                    name="nr_sheets_unallocated" required>
 
                 <label for="nr_sheets_allocated" class="popup_label">Nr of Sheets to allocate:</label>
                 <input type="text" class="popup_input" id="nr_sheets_allocated" name="nr_sheets_allocated"
@@ -1004,13 +1008,11 @@
                 <input type="hidden" name="task_name" id="panel_task_name">
                 <input type="hidden" name="sub_task_name" id="panel_sub_task_name">
 
-                <input type="hidden" name="initial_allocation_panels" id="initial_allocation_panels">
-
                 <input type="hidden" name="total_unallocated_panels"
-                    value="{{ $production_stage->total_unallocated_panels }}" id="popup_unallocated_panels">
+                    value="{{ $production_stage->total_unallocated_panels }}" id="initial_unallocated_panels">
 
 
-                <label for="nr_sheets_unallocated" class="popup_label">Nr of Panels unllocated:</label>
+                <label for="nr_panels_unallocated" class="popup_label">Nr of Panels unllocated:</label>
                 <input type="text" value="{{ $production_stage->total_unallocated_panels }}" readonly
                     class="popup_input" id="nr_panels_unallocated" name="nr_panels_unallocated" required>
 
@@ -1018,7 +1020,7 @@
                 <input type="text" class="popup_input" id="nr_panels_allocated" name="nr_panels_allocated"
                     oninput="checkPanelsAllocation()" required>
 
-                <button type="submit" id="submit_panel_task_btn" disabled class="btn btn-success">
+                <button type="submit" id="submit_panel_task" disabled class="btn btn-success">
                     <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
                     <span data-value="create_new_process">Submit</span>
                 </button>

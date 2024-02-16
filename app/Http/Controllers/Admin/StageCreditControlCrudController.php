@@ -93,10 +93,8 @@ class StageCreditControlCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function createStageCreditControl(Request $request)
+    public function createStageCreditControl(StageCreditControlRequest $request)
     {
-
-        CRUD::setValidation(StageCreditControlRequest::class);
 
         $stageCreditControl = StageCreditControl::firstOrNew(['process_id' => $request->process_id]);
         $stageCreditControl->process_id = $request->process_id;

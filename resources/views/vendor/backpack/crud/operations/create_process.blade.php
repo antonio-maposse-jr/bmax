@@ -76,6 +76,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                     <div class="form-group col-md-6 required">
                         <label>Priority level</label>
                         <select name="priority_level" id="priority_level" class="form-control">
+                            <option></option>
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
@@ -85,6 +86,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                     <div class="form-group col-md-6 required">
                         <label>Order confirmation</label>
                         <select name="order_confirmation" id="order_confirmation" class="form-control">
+                            <option></option>
                             <option value="Call">Call</option>
                             <option value="Email">Email</option>
                             <option value="In person">In person</option>
@@ -143,18 +145,18 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                         <input type="file" name="quote" class="form-control">
                     </div>
 
-                    <div class="form-group col-md-6 required">
+                    <div class="form-group col-md-6" id="confirmation_call_record_group">
                         <label>Confirmation call record</label>
                         <input type="file" name="confirmation_call_record" class="form-control">
                     </div>
 
-                    <div class="form-group col-md-6 required">
+                    <div class="form-group col-md-6" id="signed_confirmation_group">
                         <label>Signed confirmation</label>
                         <input type="file" name="signed_confirmation" class="form-control">
                     </div>
 
                     <div class="form-group col-md-6 required">
-                        <label>Custom cutting list</label>
+                        <label>Customer cutting list</label>
                         <input type="file" name="custom_cutting_list" class="form-control">
                     </div>
 

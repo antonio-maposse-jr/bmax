@@ -24,24 +24,33 @@ class ProcessRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'customer_id' => 'required',
             'key_products' => 'required',
-            'user_id'=> 'required',
+            'user_id' => 'required',
             'nr_sheets' => 'required',
             'nr_panels' => 'required',
-            'order_value'=> 'required',
-            'estimated_process_time'=> 'required',
-            'date_required'=> 'required',
-            'priority_level'=> 'required',
-            'order_confirmation'=> 'required',
-            'job_layout'=> 'required',
-            'cutting_list'=> 'required',
-            'quote'=> 'required',
-            'confirmation_call_record'=> 'required',
-            'signed_confirmation'=> 'required',
-            'custom_cutting_list'=> 'required',
+            'order_value' => 'required',
+            'estimated_process_time' => 'required',
+            'date_required' => 'required',
+            'priority_level' => 'required',
+            'order_confirmation' => 'required',
+            'job_layout' => 'required',
+            'cutting_list' => 'required',
+            'quote' => 'required',
+            'custom_cutting_list' => 'required',
         ];
+
+      
+        if ($this->input('order_confirmation') === 'In person') {
+            $rules['signed_confirmation'] = 'required';
+        }
+
+        if ($this->input('order_confirmation') === 'Call') {
+            $rules['confirmation_call_record'] = 'required';
+        }
+
+        return $rules;
     }
 
     /**

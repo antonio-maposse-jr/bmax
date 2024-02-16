@@ -33,7 +33,8 @@ function openPopupSheets(button) {
     var taskName = document.getElementById('popup_task_name');
     var subTaskName = document.getElementById('popup_sub_task_name');
     var allocatedSheetsField = document.getElementById('nr_sheets_allocated');
-    var initialAllocationSheet = document.getElementById('initial_allocation_sheets');
+    var initialAllocationSheet = document.getElementById('nr_sheets_unallocated');
+
 
     var attributes = button.closest('tr').dataset;
     taskId.value = attributes.task_id;
@@ -41,8 +42,54 @@ function openPopupSheets(button) {
     subTaskName.value = attributes.sub_task_name;
 
     allocatedSheetsField.value = attributes.total_allocated_sheets;
-    initialAllocationSheet.value = attributes.total_allocated_sheets;
+    initialAllocationSheet.value = document.getElementById('initial_unallocated_sheets').value;
 
+}
+
+
+function checkSheetAllocation() {
+    var nrSheetsAllocated = parseFloat(document.getElementById('nr_sheets_allocated').value) ?? 0;
+    if (isNaN(nrSheetsAllocated)) {
+        nrSheetsAllocated = 0;
+    }
+    
+    var initialAllocatedSheets = parseFloat(document.getElementById('initial_unallocated_sheets').value);
+    
+
+    var submitBtn = document.getElementById('submit_sheet_task_btn');
+
+    var totalUnalocated = (initialAllocatedSheets - nrSheetsAllocated)
+    
+    document.getElementById('nr_sheets_unallocated').value = totalUnalocated;
+
+   // console.log('nrSheetsAllocated: '+nrSheetsAllocated+' nrSheetsUnallocated: '+nrSheetsUnallocated+' totalUnalocated: '+totalUnalocated)
+    if (nrSheetsAllocated > initialAllocatedSheets) {
+        submitBtn.disabled = true;
+    } else {
+        submitBtn.disabled = false;
+    }
+}
+
+
+function checkPanelsAllocation() {
+    var nrPanelsAllocated = parseFloat(document.getElementById('nr_panels_allocated').value);
+    
+    if (isNaN(nrPanelsAllocated)) {
+        nrPanelsAllocated = 0;
+    }
+    var initialAllocatedPanels = parseFloat(document.getElementById('initial_unallocated_panels').value);
+
+    var submitBtn = document.getElementById('submit_panel_task');
+
+    var totalUnalocated = (initialAllocatedPanels - nrPanelsAllocated)
+    
+    document.getElementById('nr_panels_unallocated').value = totalUnalocated;
+
+    if (nrPanelsAllocated > initialAllocatedPanels) {
+        submitBtn.disabled = true;
+    } else {
+        submitBtn.disabled = false;
+    }
 }
 
 function openPopupPanels(button) {
@@ -54,7 +101,7 @@ function openPopupPanels(button) {
     var subTaskName = document.getElementById('panel_sub_task_name');
 
     var allocatedPanelsField = document.getElementById('nr_panels_allocated');
-    var initialAllocationPanels = document.getElementById('initial_allocation_panels');
+    var initialAllocatedPanels = document.getElementById('nr_panels_unallocated');
 
     var attributes = button.closest('tr').dataset;
     taskId.value = attributes.task_id;
@@ -62,7 +109,7 @@ function openPopupPanels(button) {
     subTaskName.value = attributes.sub_task_name;
 
     allocatedPanelsField.value = attributes.total_allocated_panels;
-    initialAllocationPanels.value = attributes.total_allocated_panels;
+    initialAllocatedPanels.value = document.getElementById('initial_unallocated_panels').value;
 }
 
 
@@ -77,52 +124,7 @@ function closePopupPanels() {
     document.getElementById("overlay_rs").style.display = "none";
 }
 
-function checkPanelsAllocation() {
-    var nrPanelsUnallocated = parseFloat(document.getElementById('nr_panels_unallocated').value);
-    var nrPanelsAllocated = parseFloat(document.getElementById('nr_panels_allocated').value);
-    
-    if (isNaN(nrPanelsAllocated)) {
-        nrPanelsAllocated = 0;
-    }
-    var totalUnallocatedPanels = parseFloat(document.getElementById('popup_unallocated_panels').value);
-    var initialAllocatedPanels = parseFloat(document.getElementById('initial_allocation_panels').value);
-    
-    var submitBtn = document.getElementById('submit_panel_task_btn');
 
-    var totalUnalocated = ((totalUnallocatedPanels + initialAllocatedPanels) - nrPanelsAllocated)
-    
-    document.getElementById('nr_panels_unallocated').value = totalUnalocated;
-
-    if (nrPanelsAllocated > nrPanelsUnallocated) {
-        submitBtn.disabled = true;
-    } else {
-        submitBtn.disabled = false;
-    }
-}
-
-function checkSheetAllocation() {
-    var nrSheetsUnallocated = parseFloat(document.getElementById('nr_sheets_unallocated').value);
-    var nrSheetsAllocated = parseFloat(document.getElementById('nr_sheets_allocated').value) ?? 0;
-    if (isNaN(nrSheetsAllocated)) {
-        nrSheetsAllocated = 0;
-    }
-    var totalUnallocatedSheets = parseFloat(document.getElementById('popup_unallocated_sheets').value);
-    var initialAllocatedSheets = parseFloat(document.getElementById('initial_allocation_sheets').value);
-    
-
-    var submitBtn = document.getElementById('submit_sheet_task_btn');
-
-    var totalUnalocated = ((totalUnallocatedSheets + initialAllocatedSheets) - nrSheetsAllocated)
-    
-    document.getElementById('nr_sheets_unallocated').value = totalUnalocated;
-
-    
-    if (nrSheetsAllocated > nrSheetsUnallocated) {
-        submitBtn.disabled = true;
-    } else {
-        submitBtn.disabled = false;
-    }
-}
 
 function openConfirmationPopup(button, taskStatusInput) {
     var overlay = document.getElementById('overlay');
