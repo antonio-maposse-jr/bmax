@@ -119,11 +119,12 @@
                                         <select name="invoice_status"
                                             value="{{ optional($cashier_stage)->invoice_status }}" id="invoice_status"
                                             class="form-control readonly-select">
+                                            <option value="UNPAID">UNPAID</option>
                                             <option value="Excess amount Advance Payment">Excess amount Advance Payment
                                             </option>
                                             <option value="PAID">PAID</option>
                                             <option value="PARTIALLY PAID">PARTIALLY PAID</option>
-                                            <option value="UNPAID">UNPAID</option>
+                                   
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6 required">
@@ -155,9 +156,9 @@
                                     <hr>
 
                                     <div class="form-group col-md-6 required">
+                                        <label style="display: {{ isset($cashier_stage->invoice) ? 'none' : 'block' }}">Invoice</label>
                                         <div id="invoiceContainer"
                                             style="display: {{ isset($cashier_stage->invoice) ? 'none' : 'block' }}">
-                                            <label>Invoice</label>
                                             <input type="file" name="invoice" id="invoice" class="form-control">
                                         </div>
 

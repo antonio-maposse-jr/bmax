@@ -66,7 +66,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                         <input type="number" name="order_value" class="form-control">
                     </div>
                     <div class="form-group col-md-6 required">
-                        <label>Estimated process time</label>
+                        <label>Estimated process time (hours)</label>
                         <input type="number" name="estimated_process_time" class="form-control">
                     </div>
                     <div class="form-group col-md-6 required">

@@ -59,11 +59,17 @@ $(document).ready(function() {
         if(selectedOption === 'Call'){
             var confirmationCallRecordGroup = document.getElementById('confirmation_call_record_group');
             confirmationCallRecordGroup.classList.add('required');
+
+            var signedConfirmationGroup= document.getElementById('signed_confirmation_group');
+            signedConfirmationGroup.classList.remove('required');
         }
 
         if(selectedOption === 'In person'){
             var signedConfirmationGroup= document.getElementById('signed_confirmation_group');
             signedConfirmationGroup.classList.add('required');
+
+            var confirmationCallRecordGroup = document.getElementById('confirmation_call_record_group');
+            confirmationCallRecordGroup.classList.remove('required');
         }
     });
 
