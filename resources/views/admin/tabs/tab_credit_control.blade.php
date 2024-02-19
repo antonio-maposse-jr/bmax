@@ -17,7 +17,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>Process ID:</strong>
+                                    <strong>Order ID:</strong>
                                 </td>
                                 <td>
                                     <span>

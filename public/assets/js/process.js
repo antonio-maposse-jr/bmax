@@ -71,6 +71,14 @@ $(document).ready(function() {
             var confirmationCallRecordGroup = document.getElementById('confirmation_call_record_group');
             confirmationCallRecordGroup.classList.remove('required');
         }
+
+        if(selectedOption === 'Email'){
+            var signedConfirmationGroup= document.getElementById('signed_confirmation_group');
+            signedConfirmationGroup.classList.remove('required');
+
+            var confirmationCallRecordGroup = document.getElementById('confirmation_call_record_group');
+            confirmationCallRecordGroup.classList.remove('required');
+        }
     });
 
 

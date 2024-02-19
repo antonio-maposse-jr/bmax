@@ -44,6 +44,17 @@ class StageAuthorisationCrudController extends CrudController
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
         Widget::add()->type('script')->content('assets/js/production_validations.js');
+
+        $permissions = [
+            'list' => 'stage_authorisations_list',
+            'processAuthorizationStage' => 'stage_authorisations_show',
+        ];
+        
+        foreach ($permissions as $operation => $permission) {
+            if (!backpack_user()->can($permission, 'backpack')) {
+                $this->crud->denyAccess([$operation]);
+            }
+        }
     }
 
     /**
@@ -93,9 +104,11 @@ class StageAuthorisationCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function createStageAuthorisation(Request $request)
+    public function createStageAuthorisation(StageAuthorisationsRequest $request)
     {
-        CRUD::setValidation(StageAuthorisationsRequest::class);
+        if (!backpack_user()->can('stage_authorisations_create', 'backpack')) {
+            abort(403, 'Unauthorized access - you do not have the necessary permissions to see this page.');
+        }
 
         $stageAuthorization = StageAuthorisation::firstOrNew(['process_id' => $request->process_id]);
         $stageAuthorization->process_id = $request->process_id;

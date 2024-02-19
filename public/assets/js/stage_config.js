@@ -62,6 +62,13 @@ function validateAmountPaid() {
         statusField.value = "UNPAID";
     }
 
+    if(totalAmountPaid>0){
+        var recieptRefGroup= document.getElementById('reciept_ref_group');
+        recieptRefGroup.classList.add('required');
+    }else{
+        var recieptRefGroup= document.getElementById('reciept_ref_group');
+        recieptRefGroup.classList.remove('required');
+    }
     balanceToBePaid.value = invoiceAmount - totalAmountPaid;
 }
 

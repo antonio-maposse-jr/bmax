@@ -44,6 +44,17 @@ class StageCreditControlCrudController extends CrudController
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
 
         Widget::add()->type('script')->content('assets/js/production_validations.js');
+
+        $permissions = [
+            'list' => 'stage_credit_controls_list',
+            'processCreditControlStage' => 'stage_credit_controls_show',
+        ];
+        
+        foreach ($permissions as $operation => $permission) {
+            if (!backpack_user()->can($permission, 'backpack')) {
+                $this->crud->denyAccess([$operation]);
+            }
+        }
     }
 
     /**
@@ -95,6 +106,10 @@ class StageCreditControlCrudController extends CrudController
 
     public function createStageCreditControl(StageCreditControlRequest $request)
     {
+
+        if (!backpack_user()->can('stage_credit_controls_create', 'backpack')) {
+            abort(403, 'Unauthorized access - you do not have the necessary permissions to see this page.');
+        }
 
         $stageCreditControl = StageCreditControl::firstOrNew(['process_id' => $request->process_id]);
         $stageCreditControl->process_id = $request->process_id;

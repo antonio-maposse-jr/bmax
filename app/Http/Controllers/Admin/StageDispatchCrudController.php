@@ -39,8 +39,18 @@ class StageDispatchCrudController extends CrudController
         Widget::add()->type('script')->content('assets/js/stage_config.js');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
-
         Widget::add()->type('script')->content('assets/js/production_validations.js');
+
+        $permissions = [
+            'list' => 'stage_dispatches_list',
+            'processDispatchStage' => 'stage_dispatches_show',
+        ];
+        
+        foreach ($permissions as $operation => $permission) {
+            if (!backpack_user()->can($permission, 'backpack')) {
+                $this->crud->denyAccess([$operation]);
+            }
+        }
     }
 
     /**

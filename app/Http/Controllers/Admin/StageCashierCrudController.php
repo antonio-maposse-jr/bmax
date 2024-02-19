@@ -49,6 +49,17 @@ class StageCashierCrudController extends CrudController
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('script')->content('assets/js/file_control.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
+
+        $permissions = [
+            'list' => 'stage_cashiers_list',
+            'processCashierStage' => 'stage_cashiers_show',
+        ];
+        
+        foreach ($permissions as $operation => $permission) {
+            if (!backpack_user()->can($permission, 'backpack')) {
+                $this->crud->denyAccess([$operation]);
+            }
+        }
      
     }
 
@@ -101,6 +112,9 @@ class StageCashierCrudController extends CrudController
 
     public function createStageCashier(StageCashierRequest $request)
     {
+        if (!backpack_user()->can('stage_cashiers_create', 'backpack')) {
+            abort(403, 'Unauthorized access - you do not have the necessary permissions to see this page.');
+        }
 
         $stageCashier = StageCashier::firstOrNew(['process_id' => $request->process_id]);
 

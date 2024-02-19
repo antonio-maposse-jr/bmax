@@ -29,6 +29,20 @@ class CategoryCrudController extends CrudController
         CRUD::setModel(\App\Models\Category::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/category');
         CRUD::setEntityNameStrings('category', 'categories');
+
+        $permissions = [
+            'list' => 'categories_list',
+            'create' => 'categories_create',
+            'update' => 'categories_update',
+            'delete' => 'categories_delete',
+            'show' => 'categories_show',
+        ];
+        
+        foreach ($permissions as $operation => $permission) {
+            if (!backpack_user()->can($permission, 'backpack')) {
+                $this->crud->denyAccess([$operation]);
+            }
+        }
     }
 
     /**

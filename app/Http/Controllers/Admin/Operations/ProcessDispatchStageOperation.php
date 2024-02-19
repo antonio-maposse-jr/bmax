@@ -60,7 +60,7 @@ trait ProcessDispatchStageOperation
         $this->data['title'] = CRUD::getTitle() ?? 'Process Dispatch Stage '.$this->crud->entity_name;
         $this->data['entry'] = $this->crud->getCurrentEntry();
 
-        if($this->crud->getCurrentEntry()->stage_name != 'Credit Control'){
+        if($this->crud->getCurrentEntry()->stage_name != 'Dispatch'){
             $errorMessage = "Error Process no longer in Dispatch Stage";
             return response()->view('error', compact('errorMessage'), 500);
         }

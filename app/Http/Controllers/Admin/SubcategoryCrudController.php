@@ -29,6 +29,20 @@ class SubcategoryCrudController extends CrudController
         CRUD::setModel(\App\Models\Subcategory::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/subcategory');
         CRUD::setEntityNameStrings('subcategory', 'subcategories');
+
+        $permissions = [
+            'list' => 'subcategories_list',
+            'create' => 'subcategories_create',
+            'update' => 'subcategories_update',
+            'delete' => 'subcategories_delete',
+            'show' => 'subcategories_show',
+        ];
+        
+        foreach ($permissions as $operation => $permission) {
+            if (!backpack_user()->can($permission, 'backpack')) {
+                $this->crud->denyAccess([$operation]);
+            }
+        }
     }
 
     /**

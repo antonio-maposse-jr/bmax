@@ -43,8 +43,18 @@ class StageProductionCrudController extends CrudController
         Widget::add()->type('script')->content('assets/js/file_control.js');
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('script')->content('assets/js/production_validations.js');
-
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
+
+        $permissions = [
+            'list' => 'stage_productions_list',
+            'processProductionStage' => 'stage_productions_show',
+        ];
+        
+        foreach ($permissions as $operation => $permission) {
+            if (!backpack_user()->can($permission, 'backpack')) {
+                $this->crud->denyAccess([$operation]);
+            }
+        }
     }
 
     /**

@@ -8,6 +8,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
 
+
 /**
  * Class CustomerCrudController
  * @package App\Http\Controllers\Admin
@@ -16,10 +17,11 @@ use Illuminate\Http\Request;
 class CustomerCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -31,6 +33,20 @@ class CustomerCrudController extends CrudController
         CRUD::setModel(\App\Models\Customer::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/customer');
         CRUD::setEntityNameStrings('customer', 'customers');
+
+        $permissions = [
+            'list' => 'customers_list',
+            'create' => 'customers_create',
+            'update' => 'customers_update',
+            'delete' => 'customers_delete',
+            'show' => 'customers_show',
+        ];
+        
+        foreach ($permissions as $operation => $permission) {
+            if (!backpack_user()->can($permission, 'backpack')) {
+                $this->crud->denyAccess([$operation]);
+            }
+        }
     }
 
     /**

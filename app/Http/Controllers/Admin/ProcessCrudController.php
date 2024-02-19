@@ -23,9 +23,9 @@ class ProcessCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \App\Http\Controllers\Admin\Operations\ViewProcessOperation;
-    use \Backpack\ActivityLog\Http\Controllers\Operations\ModelActivityOperation;
+    // use \Backpack\ActivityLog\Http\Controllers\Operations\ModelActivityOperation;
 
 
     /**
@@ -42,12 +42,28 @@ class ProcessCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/process');
         CRUD::setEntityNameStrings('process', 'processes');
 
+        $permissions = [
+            'list' => 'processes_list',
+            'create' => 'processes_create',
+            'update' => 'processes_update',
+            'delete' => 'processes_delete',
+            'viewProcess' => 'processes_show',
+        ];
+        
+        foreach ($permissions as $operation => $permission) {
+            if (!backpack_user()->can($permission, 'backpack')) {
+                $this->crud->denyAccess([$operation]);
+            }
+        }
+
+
         Widget::add()->type('style')->content('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css');
         Widget::add()->type('script')->content('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js');
         Widget::add()->type('script')->content('assets/js/process.js');
         Widget::add()->type('style')->content('assets/css/select2_custom.css');
-        
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
+
+        
 
     }
 

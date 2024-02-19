@@ -101,70 +101,74 @@
 
                     {{-- Dispatch Stage form --}}
                     <div role="tabpanel" class="tab-pane" id="tab_dispatch">
-                        <form method="post" action="{{ route('submit-stage-dispatch-data') }}"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="card">
-                                <div class="card-body row">
-                                    <div class="form-group col-md-6 required">
-                                        <label>Process ID</label>
-                                        <input type="text" name="process_id" value=" {{ $entry->id }}"
-                                            class="form-control" readonly>
-                                    </div>
+                        @if (Auth::user()->can('stage_dispatches_create'))
+                            <form method="post" action="{{ route('submit-stage-dispatch-data') }}"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="card">
+                                    <div class="card-body row">
+                                        <div class="form-group col-md-6 required">
+                                            <label>Order ID</label>
+                                            <input type="text" name="process_id" value=" {{ $entry->id }}"
+                                                class="form-control" readonly>
+                                        </div>
 
-                                    <div class="form-group col-md-6 required">
-                                        <label>Status</label>
-                                        <select name="dispatch_status"
-                                            value="{{ optional($dispatch_stage)->dispatch_status }}" id="dispatch_status"
-                                            class="form-control" id="dispatch_status" onchange="partialDispatch()">
-                                            <option value="Full Dispatch">Full Dispatch</option>
-                                            <option value="Partial Dispatch">Partial Dispatch</option>
-                                        </select>
-                                    </div>
+                                        <div class="form-group col-md-6 required">
+                                            <label>Status</label>
+                                            <select name="dispatch_status"
+                                                value="{{ optional($dispatch_stage)->dispatch_status }}"
+                                                id="dispatch_status" class="form-control" id="dispatch_status"
+                                                onchange="partialDispatch()">
+                                                <option value="Full Dispatch">Full Dispatch</option>
+                                                <option value="Partial Dispatch">Partial Dispatch</option>
+                                            </select>
+                                        </div>
 
-                                    <div class="form-group col-md-6 required">
-                                        <label>Comment</label>
-                                        <input type="text" value="{{ optional($dispatch_stage)->comment }}"
-                                            name="comment" class="form-control">
-                                    </div>
+                                        <div class="form-group col-md-6 required">
+                                            <label>Comment</label>
+                                            <input type="text" value="{{ optional($dispatch_stage)->comment }}"
+                                                name="comment" class="form-control">
+                                        </div>
 
-                                    <div class="form-group col-md-6 ">
-                                        <label>Number of Panels</label>
-                                        <input type="number" value="{{ optional($dispatch_stage)->nr_panels }}"
-                                            name="nr_panels" id="nr_panels" class="form-control" disabled
-                                            onchange="controlInputDataDispatch()">
-                                    </div>
+                                        <div class="form-group col-md-6 ">
+                                            <label>Number of Panels</label>
+                                            <input type="number" value="{{ optional($dispatch_stage)->nr_panels }}"
+                                                name="nr_panels" id="nr_panels" class="form-control" disabled
+                                                onchange="controlInputDataDispatch()">
+                                        </div>
 
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="d-none" id="parentLoadedAssets">[]</div>
-                            <div id="saveActions" class="form-group my-3">
-                                <input type="hidden" name="_save_action" value="submit_complete_process">
-                                <button type="submit" class="btn btn-success" id="submit_btn">
-                                    <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
-                                    <span data-value="create_new_process">Complete Process</span>
-                                </button>
+                                <div class="d-none" id="parentLoadedAssets">[]</div>
+                                <div id="saveActions" class="form-group my-3">
+                                    <input type="hidden" name="_save_action" value="submit_complete_process">
+                                    <button type="submit" class="btn btn-success" id="submit_btn">
+                                        <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
+                                        <span data-value="create_new_process">Complete Process</span>
+                                    </button>
 
-                                <button type="button" onclick="openPopupDecline()" class="btn btn-danger">
-                                    <span class="la la-window-close" role="presentation"
-                                        aria-hidden="true"></span>
-                                    &nbsp;
-                                    <span data-value="create_new_process">Decline Process</span>
-                                </button>
+                                    <button type="button" onclick="openPopupDecline()" class="btn btn-danger">
+                                        <span class="la la-window-close" role="presentation" aria-hidden="true"></span>
+                                        &nbsp;
+                                        <span data-value="create_new_process">Decline Process</span>
+                                    </button>
 
-                                <button type="button" onclick="openPopup()" class="btn btn-info">
-                                    <span class="la la-sync-alt" role="presentation" aria-hidden="true"></span> &nbsp;
-                                    <span data-value="create_new_process">Return stages</span>
-                                </button>
-                                <div class="btn-group" role="group">
+                                    <button type="button" onclick="openPopup()" class="btn btn-info">
+                                        <span class="la la-sync-alt" role="presentation" aria-hidden="true"></span>
+                                        &nbsp;
+                                        <span data-value="create_new_process">Return stages</span>
+                                    </button>
+                                    <div class="btn-group" role="group">
+                                    </div>
+                                    <a href="{{ url($crud->route) }}" class="btn btn-default"><span
+                                            class="la la-ban"></span>
+                                        &nbsp;Cancel</a>
                                 </div>
-                                <a href="{{ url($crud->route) }}" class="btn btn-default"><span
-                                        class="la la-ban"></span>
-                                    &nbsp;Cancel</a>
-                            </div>
-                        </form>
-
+                            </form>
+                        @else
+                            @include('admin.tabs.tab_unauthorized')
+                        @endif
 
                     </div>
                     {{-- End of Dispatch Stage form --}}
@@ -175,35 +179,35 @@
 
         <div class="overlay_rs" onclick="closePopup()"></div>
 
-             {{-- Decline popup --}}
-     <div class="popup_sheets" id="popup_decline">
-        <div class="close-btn_rs" onclick="closePopupDecline()">X</div>
-        <h2 style="color: #333; text-align: center;">Decline process</h2>
-        <form action="{{ backpack_url('decline-process') }}" method="post">
-            @csrf
-            <input type="hidden" name="process_id" value=" {{ $entry->id }}" class="form-control" readonly>
+        {{-- Decline popup --}}
+        <div class="popup_sheets" id="popup_decline">
+            <div class="close-btn_rs" onclick="closePopupDecline()">X</div>
+            <h2 style="color: #333; text-align: center;">Decline process</h2>
+            <form action="{{ backpack_url('decline-process') }}" method="post">
+                @csrf
+                <input type="hidden" name="process_id" value=" {{ $entry->id }}" class="form-control" readonly>
 
 
-            <label for="reason" class="popup_label">Reason for decline:</label>
-            <select name="reason" id="reason_decline" class="popup_input">
-                <option value="Customer Cancelled Order">Customer Cancelled Order</option>
-                <option value="Process Duplicated">Process Duplicated</option>
-                <option value="Process Exceeds Limits">Process Exceeds Limits</option>
-                <option value="Process Eontains Excessive Inconsistencies">Process Eontains Excessive Inconsistencies
-                </option>
-                <option value="Other">Other</option>
-            </select>
+                <label for="reason" class="popup_label">Reason for decline:</label>
+                <select name="reason" id="reason_decline" class="popup_input">
+                    <option value="Customer Cancelled Order">Customer Cancelled Order</option>
+                    <option value="Process Duplicated">Process Duplicated</option>
+                    <option value="Process Exceeds Limits">Process Exceeds Limits</option>
+                    <option value="Process Eontains Excessive Inconsistencies">Process Eontains Excessive Inconsistencies
+                    </option>
+                    <option value="Other">Other</option>
+                </select>
 
-            <label for="comment" class="popup_label">Comment</label>
-            <input type="text" class="popup_input" id="comment_decline" name="comment" required>
+                <label for="comment" class="popup_label">Comment</label>
+                <input type="text" class="popup_input" id="comment_decline" name="comment" required>
 
-            <button type="submit" id="submit_panel_task_btn" class="btn btn-success">
-                <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
-                <span data-value="create_new_process">Submit</span>
-            </button>
-        </form>
-    </div>
-    {{-- End Decline popup --}}
+                <button type="submit" id="submit_panel_task_btn" class="btn btn-success">
+                    <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
+                    <span data-value="create_new_process">Submit</span>
+                </button>
+            </form>
+        </div>
+        {{-- End Decline popup --}}
 
         <div class="popup_rs">
             <div class="close-btn_rs" onclick="closePopup()">X</div>

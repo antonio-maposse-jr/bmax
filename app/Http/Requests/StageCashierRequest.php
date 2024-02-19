@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\StageCashier;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StageCashierRequest extends FormRequest
@@ -24,15 +25,30 @@ class StageCashierRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-         'invoice_reference' => 'required',
-         'invoice_amount' => 'required',
-         'total_amount_paid' => 'required',
-         'balance_to_be_paid' => 'required',
-         'invoice' => 'required'
+        $rules = [
+            'invoice_reference' => 'required',
+            'invoice_amount' => 'required',
+            'total_amount_paid' => 'required',
+            'balance_to_be_paid' => 'required',
+            'process_id' => 'required',
         ];
+
+        // Check if the invoice doesn't exist in the database
+        if (!$this->invoiceExistsInDatabase()) {
+            $rules['invoice'] = 'required';
+        }
+
+        if($this->input('total_amount_paid')>0){
+            $rules['reciept_reference'] = 'required';
+        }
+
+        return $rules;
     }
 
+    protected function invoiceExistsInDatabase()
+    {
+        return StageCashier::where('id', $this->input('process_id'))->exists();
+    }
     /**
      * Get the validation attributes that apply to the request.
      *

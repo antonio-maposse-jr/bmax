@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Traits\HasRoles;
 
 class CustomerCategory extends Model
 {
@@ -14,6 +15,7 @@ class CustomerCategory extends Model
     use HasFactory;
     use SoftDeletes;
     use LogsActivity;
+    use HasRoles; 
 
     /*
     |--------------------------------------------------------------------------

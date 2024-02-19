@@ -100,77 +100,80 @@
 
                     {{-- Credit control Stage form --}}
                     <div role="tabpanel" class="tab-pane" id="tab_credit_control">
-                        <form method="post" action="{{ route('submit-stage-credit-control-data') }}"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="card">
-                                <div class="card-body row">
-                                    <div class="form-group col-md-6 required">
-                                        <label>Process ID</label>
-                                        <input type="text" name="process_id" value=" {{ $entry->id }}"
-                                            class="form-control" readonly>
-                                    </div>
+                        @if (Auth::user()->can('stage_credit_controls_create'))
+                            <form method="post" action="{{ route('submit-stage-credit-control-data') }}"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="card">
+                                    <div class="card-body row">
+                                        <div class="form-group col-md-6 required">
+                                            <label>Order ID</label>
+                                            <input type="text" name="process_id" value=" {{ $entry->id }}"
+                                                class="form-control" readonly>
+                                        </div>
 
 
-                                    <div class="form-group col-md-6 required">
-                                        <label>DECISION</label>
-                                        <select name="decision" value="{{ optional($credit_control_stage)->decision }}"
-                                            id="decision_cc" onchange="decisionCreditControl()" class="form-control">
-                                            <option value=""></option>
-                                            <option value="APPROVED">APPROVED</option>
-                                            <option value="APPROVED WITH CONDITIONS">APPROVED WITH CONDITIONS</option>
-                                            <option value="REJECTED">REJECTED</option>
-                                        </select>
-                                    </div>
+                                        <div class="form-group col-md-6 required">
+                                            <label>DECISION</label>
+                                            <select name="decision" value="{{ optional($credit_control_stage)->decision }}"
+                                                id="decision_cc" onchange="decisionCreditControl()" class="form-control">
+                                                <option value=""></option>
+                                                <option value="APPROVED">APPROVED</option>
+                                                <option value="APPROVED WITH CONDITIONS">APPROVED WITH CONDITIONS</option>
+                                                <option value="REJECTED">REJECTED</option>
+                                            </select>
+                                        </div>
 
-                                    <div class="form-group col-md-6 required">
-                                        <label>Comment</label>
-                                        <input type="text" value="{{ optional($credit_control_stage)->comment }}"
-                                            name="comment" class="form-control">
-                                    </div>
+                                        <div class="form-group col-md-6 required">
+                                            <label>Comment</label>
+                                            <input type="text" value="{{ optional($credit_control_stage)->comment }}"
+                                                name="comment" class="form-control">
+                                        </div>
 
-                                    <div class="form-group col-md-12 ">
-                                        <label>List of special conditions</label>
-                                        <textarea name="comments" onchange="controlInputDataCreditControl()" id="list_special_conditions"
-                                            class="form-control" disabled>{{ optional($credit_control_stage)->comments }}</textarea>
-                                    </div>
+                                        <div class="form-group col-md-12 ">
+                                            <label>List of special conditions</label>
+                                            <textarea name="comments" onchange="controlInputDataCreditControl()" id="list_special_conditions"
+                                                class="form-control" disabled>{{ optional($credit_control_stage)->comments }}</textarea>
+                                        </div>
 
-                                    <hr>
+                                        <hr>
 
-                                    <div class="form-group col-md-6">
-                                        <label>Other documents</label>
-                                        <input type="file" name="other_documents" class="form-control">
+                                        <div class="form-group col-md-6">
+                                            <label>Other documents</label>
+                                            <input type="file" name="other_documents" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="d-none" id="parentLoadedAssets">[]</div>
-                            <div id="saveActions" class="form-group my-3">
-                                <input type="hidden" name="_save_action" value="submit_credit_control">
-                                <button type="submit" class="btn btn-success" id="submit_btn">
-                                    <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
-                                    <span data-value="create_new_process">Submit to dispatch</span>
-                                </button>
+                                <div class="d-none" id="parentLoadedAssets">[]</div>
+                                <div id="saveActions" class="form-group my-3">
+                                    <input type="hidden" name="_save_action" value="submit_credit_control">
+                                    <button type="submit" class="btn btn-success" id="submit_btn">
+                                        <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
+                                        <span data-value="create_new_process">Submit to dispatch</span>
+                                    </button>
 
-                                <button type="button" onclick="openPopupDecline()" class="btn btn-danger">
-                                    <span class="la la-window-close" role="presentation"
-                                        aria-hidden="true"></span>
-                                    &nbsp;
-                                    <span data-value="create_new_process">Decline Process</span>
-                                </button>
+                                    <button type="button" onclick="openPopupDecline()" class="btn btn-danger">
+                                        <span class="la la-window-close" role="presentation" aria-hidden="true"></span>
+                                        &nbsp;
+                                        <span data-value="create_new_process">Decline Process</span>
+                                    </button>
 
-                                <button type="button" onclick="openPopup()" class="btn btn-info">
-                                    <span class="la la-sync-alt" role="presentation" aria-hidden="true"></span> &nbsp;
-                                    <span data-value="create_new_process">Return stages</span>
-                                </button>
-                                <div class="btn-group" role="group">
+                                    <button type="button" onclick="openPopup()" class="btn btn-info">
+                                        <span class="la la-sync-alt" role="presentation" aria-hidden="true"></span>
+                                        &nbsp;
+                                        <span data-value="create_new_process">Return stages</span>
+                                    </button>
+                                    <div class="btn-group" role="group">
+                                    </div>
+                                    <a href="{{ url($crud->route) }}" class="btn btn-default"><span
+                                            class="la la-ban"></span>
+                                        &nbsp;Cancel</a>
                                 </div>
-                                <a href="{{ url($crud->route) }}" class="btn btn-default"><span
-                                        class="la la-ban"></span>
-                                    &nbsp;Cancel</a>
-                            </div>
-                        </form>
-
+                            </form>
+                        @else
+                            @include('admin.tabs.tab_unauthorized')
+                        @endif
 
                     </div>
                     {{-- End of Credit control Stage form --}}

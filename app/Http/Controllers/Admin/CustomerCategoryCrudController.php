@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\CustomerCategoryRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class CustomerCategoryCrudController
@@ -29,6 +30,21 @@ class CustomerCategoryCrudController extends CrudController
         CRUD::setModel(\App\Models\CustomerCategory::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/customer-category');
         CRUD::setEntityNameStrings('customer category', 'customer categories');
+
+        $permissions = [
+            'list' => 'customer_categories_list',
+            'create' => 'customer_categories_create',
+            'update' => 'customer_categories_update',
+            'delete' => 'customer_categories_delete',
+            'show' => 'customer_categories_show',
+        ];
+        
+        foreach ($permissions as $operation => $permission) {
+            if (!backpack_user()->can($permission, 'backpack')) {
+                $this->crud->denyAccess([$operation]);
+            }
+        }
+        
     }
 
     /**
@@ -39,6 +55,11 @@ class CustomerCategoryCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        
+        //dd(backpack_user()->can('customer_categories_management'));
+        if (!backpack_user()->can('customer_categories_list', 'backpack')) {
+            abort(403, 'Sorry, you dont have permission to perform this action. If you believe you should have access, please contact your administrator for assistance.');
+        }
         CRUD::setFromDb(); // set columns from db columns.
 
         /**
@@ -55,6 +76,9 @@ class CustomerCategoryCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+        if (!backpack_user()->can('customer_categories_create', 'backpack')) {
+            abort(403, 'Sorry, you dont have permission to perform this action. If you believe you should have access, please contact your administrator for assistance.');
+        }
         CRUD::setValidation(CustomerCategoryRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 

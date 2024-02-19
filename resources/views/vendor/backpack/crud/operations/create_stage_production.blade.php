@@ -91,119 +91,125 @@
 
                     {{-- Production Stage form --}}
                     <div role="tabpanel" class="tab-pane" id="tab_production">
-                        <div class="card">
-                            <div class="card-body row">
-                                <table id="taskTable">
-                                    <tr>
-                                        <th>Task</th>
-                                        <th>Sheets Alocated</th>
-                                        <th>Panels Alocated</th>
-                                        <th>Total Work (Min)</th>
-                                        <th>Total Iddle Time (Min)</th>
-                                        <th>Task Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    @foreach ($production_tasks as $task)
-                                        <tr data-task_id="{{ $task->id }}" data-task_name="{{ $task->task_name }}"
-                                            data-sub_task_name="{{ $task->sub_task_name }}"
-                                            data-total_allocated_sheets="{{ $task->total_allocated_sheets }}"
-                                            data-total_allocated_panels="{{ $task->total_allocated_panels }}">
-                                            <td>{{ $task->sub_task_name }}</td>
-                                            <td>{{ $task->total_allocated_sheets }}</td>
-                                            <td>{{ $task->total_allocated_panels }}</td>
-                                            <td>{{ $task->total_work_time }}</td>
-                                            <td>{{ $task->total_iddle_time }}</td>
-                                            <td>{{ $task->task_status }}</td>
-                                            <td>
-                                                @php
-                                                    $commonAttributes = 'onclick="openConfirmationPopup(this)"';
-                                                    $disabledAttribute = 'disabled';
-                                                @endphp
+                        @if (Auth::user()->can('stage_productions_create'))
+                            <div class="card">
+                                <div class="card-body row">
+                                    <table id="taskTable">
+                                        <tr>
+                                            <th>Task</th>
+                                            <th>Sheets Alocated</th>
+                                            <th>Panels Alocated</th>
+                                            <th>Total Work (Min)</th>
+                                            <th>Total Iddle Time (Min)</th>
+                                            <th>Task Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        @foreach ($production_tasks as $task)
+                                            <tr data-task_id="{{ $task->id }}" data-task_name="{{ $task->task_name }}"
+                                                data-sub_task_name="{{ $task->sub_task_name }}"
+                                                data-total_allocated_sheets="{{ $task->total_allocated_sheets }}"
+                                                data-total_allocated_panels="{{ $task->total_allocated_panels }}">
+                                                <td>{{ $task->sub_task_name }}</td>
+                                                <td>{{ $task->total_allocated_sheets }}</td>
+                                                <td>{{ $task->total_allocated_panels }}</td>
+                                                <td>{{ $task->total_work_time }}</td>
+                                                <td>{{ $task->total_iddle_time }}</td>
+                                                <td>{{ $task->task_status }}</td>
+                                                <td>
+                                                    @php
+                                                        $commonAttributes = 'onclick="openConfirmationPopup(this)"';
+                                                        $disabledAttribute = 'disabled';
+                                                    @endphp
 
-                                                <button type="submit" class="btn btn-info"
-                                                    @if ($task->task_name == 'cutting') onclick="openPopupSheets(this)"
+                                                    <button type="submit" class="btn btn-info"
+                                                        @if ($task->task_name == 'cutting') onclick="openPopupSheets(this)"
                                                     @elseif($task->task_name == 'edging')
                                                     onclick="openPopupPanels(this)" 
                                                     @else
                                                     onclick="openConfirmationPopup(this, 'PROCESSING')" @endif
-                                                    {!! $task->task_status == 'PENDING' || $task->task_status == 'PAUSED' ? '' : $disabledAttribute !!}>
-                                                    Assign
-                                                </button>
+                                                        {!! $task->task_status == 'PENDING' || $task->task_status == 'PAUSED' ? '' : $disabledAttribute !!}>
+                                                        Assign
+                                                    </button>
 
-                                                <button type="submit" class="btn btn-danger" {!! 'onclick=\'openConfirmationPopup(this, "PAUSED")\'' !!}
-                                                    {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
-                                                    Hold
-                                                </button>
+                                                    <button type="submit" class="btn btn-danger" {!! 'onclick=\'openConfirmationPopup(this, "PAUSED")\'' !!}
+                                                        {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
+                                                        Hold
+                                                    </button>
 
-                                                <button type="submit" class="btn btn-success" {!! 'onclick=\'openConfirmationPopup(this, "COMPLETED")\'' !!}
-                                                    {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
-                                                    Completed
-                                                </button>
-                                            </td>
+                                                    <button type="submit" class="btn btn-success" {!! 'onclick=\'openConfirmationPopup(this, "COMPLETED")\'' !!}
+                                                        {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
+                                                        Completed
+                                                    </button>
+                                                </td>
 
-                                        </tr>
-                                    @endforeach
+                                            </tr>
+                                        @endforeach
 
-                                </table>
-                                <hr>
-                                <form method="post" action="{{ route('submit-stage-production-data') }}"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="form-group col-md-6 required">
-                                        <div id="otherContainer"
-                                            style="display: {{ isset($production_stage->other) ? 'none' : 'block' }}">
-                                            <label>Other Document </label>
-                                            <input type="hidden" name="process_id" value="{{ $entry->id }}">
-                                            <input type="file" name="other" id="other" class="form-control">
+                                    </table>
+                                    <hr>
+                                    <form method="post" action="{{ route('submit-stage-production-data') }}"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group col-md-6 required">
+                                            <div id="otherContainer"
+                                                style="display: {{ isset($production_stage->other) ? 'none' : 'block' }}">
+                                                <label>Other Document </label>
+                                                <input type="hidden" name="process_id" value="{{ $entry->id }}">
+                                                <input type="file" name="other" id="other" class="form-control">
+                                            </div>
+
+                                            <div class="existing-file"
+                                                style="display: {{ isset($production_stage->other) ? 'block' : 'none' }}"
+                                                id="fileDisplayOther">
+                                                @if (isset($production_stage->other))
+                                                    <a href="{{ Storage::url($production_stage->other) }}"
+                                                        target="_blank">Download/View Other</a>
+                                                    <button type="button"
+                                                        onclick="removeFile('other', 'fileDisplayOther', 'otherContainer')"
+                                                        class="file_clear_button btn btn-light btn-sm float-right"
+                                                        title="Clear file"
+                                                        data-filename="{{ $production_stage->other }}"><i
+                                                            class="la la-remove"></i></button>
+                                                    <div class="clearfix"></div>
+                                                @endif
+                                            </div>
                                         </div>
 
-                                        <div class="existing-file"
-                                            style="display: {{ isset($production_stage->other) ? 'block' : 'none' }}"
-                                            id="fileDisplayOther">
-                                            @if (isset($production_stage->other))
-                                                <a href="{{ Storage::url($production_stage->other) }}"
-                                                    target="_blank">Download/View Other</a>
-                                                <button type="button"
-                                                    onclick="removeFile('other', 'fileDisplayOther', 'otherContainer')"
-                                                    class="file_clear_button btn btn-light btn-sm float-right"
-                                                    title="Clear file" data-filename="{{ $production_stage->other }}"><i
-                                                        class="la la-remove"></i></button>
-                                                <div class="clearfix"></div>
-                                            @endif
-                                        </div>
-                                    </div>
+                                        <div class="d-none" id="parentLoadedAssets">[]</div>
+                                        <div id="saveActions" class="form-group my-3">
+                                            <input type="hidden" name="_save_action" value="submit_cashier_stage">
+                                            <button type="submit" class="btn btn-success" id="submit_btn" disabled>
+                                                <span class="la la-save" role="presentation"aria-hidden="true"></span>
+                                                &nbsp;
+                                                <span data-value="create_new_process">Submit</span>
+                                            </button>
+                                            <button type="button" onclick="openPopup()" class="btn btn-info">
+                                                <span class="la la-sync-alt" role="presentation"
+                                                    aria-hidden="true"></span>
+                                                &nbsp;
+                                                <span data-value="create_new_process">Return stages</span>
+                                            </button>
 
-                                    <div class="d-none" id="parentLoadedAssets">[]</div>
-                                    <div id="saveActions" class="form-group my-3">
-                                        <input type="hidden" name="_save_action" value="submit_cashier_stage">
-                                        <button type="submit" class="btn btn-success" id="submit_btn" disabled>
-                                            <span class="la la-save" role="presentation"aria-hidden="true"></span> &nbsp;
-                                            <span data-value="create_new_process">Submit</span>
-                                        </button>
-                                        <button type="button" onclick="openPopup()" class="btn btn-info">
-                                            <span class="la la-sync-alt" role="presentation" aria-hidden="true"></span>
-                                            &nbsp;
-                                            <span data-value="create_new_process">Return stages</span>
-                                        </button>
-
-                                        <button type="button" onclick="openPopupDecline()" class="btn btn-danger">
-                                            <span class="la la-window-close" role="presentation"
-                                                aria-hidden="true"></span>
-                                            &nbsp;
-                                            <span data-value="create_new_process">Decline Process</span>
-                                        </button>
-                                        <div class="btn-group" role="group">
+                                            <button type="button" onclick="openPopupDecline()" class="btn btn-danger">
+                                                <span class="la la-window-close" role="presentation"
+                                                    aria-hidden="true"></span>
+                                                &nbsp;
+                                                <span data-value="create_new_process">Decline Process</span>
+                                            </button>
+                                            <div class="btn-group" role="group">
+                                            </div>
+                                            <a href="{{ url($crud->route) }}" class="btn btn-default"><span
+                                                    class="la la-ban"></span>
+                                                &nbsp;Cancel</a>
                                         </div>
-                                        <a href="{{ url($crud->route) }}" class="btn btn-default"><span
-                                                class="la la-ban"></span>
-                                            &nbsp;Cancel</a>
-                                    </div>
-                                </form>
+                                    </form>
+
+                                </div>
 
                             </div>
-
-                        </div>
-
+                        @else
+                            @include('admin.tabs.tab_unauthorized')
+                        @endif
                     </div>
                     {{-- End of Production Stage form --}}
 
@@ -294,8 +300,7 @@
                 <input type="hidden" name="total_unallocated_sheets"
                     value="{{ $production_stage->total_unallocated_sheets }}" id="initial_unallocated_sheets">
 
-                <input type="hidden" name="total_sheets"
-                    value="{{ $entry->nr_sheets }}" id="total_sheets">
+                <input type="hidden" name="total_sheets" value="{{ $entry->nr_sheets }}" id="total_sheets">
 
                 <label for="nr_sheets_unallocated" class="popup_label">Nr of Sheets unllocated:</label>
                 <input type="text" readonly class="popup_input" id="nr_sheets_unallocated"
