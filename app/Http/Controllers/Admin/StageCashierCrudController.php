@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\SMSHelper;
 use App\Http\Requests\StageCashierRequest;
+use App\Models\Customer;
+use App\Models\CustomerSystemNotification;
 use App\Models\Process;
 use App\Models\ProductionTask;
 use App\Models\ReturnStage;
@@ -54,13 +57,12 @@ class StageCashierCrudController extends CrudController
             'list' => 'stage_cashiers_list',
             'processCashierStage' => 'stage_cashiers_show',
         ];
-        
+
         foreach ($permissions as $operation => $permission) {
             if (!backpack_user()->can($permission, 'backpack')) {
                 $this->crud->denyAccess([$operation]);
             }
         }
-     
     }
 
     /**
@@ -112,10 +114,7 @@ class StageCashierCrudController extends CrudController
 
     public function createStageCashier(StageCashierRequest $request)
     {
-        if (!backpack_user()->can('stage_cashiers_create', 'backpack')) {
-            abort(403, 'Unauthorized access - you do not have the necessary permissions to see this page.');
-        }
-
+       
         $stageCashier = StageCashier::firstOrNew(['process_id' => $request->process_id]);
 
         $stageCashier->process_id = $request->process_id;
@@ -150,26 +149,26 @@ class StageCashierCrudController extends CrudController
 
         $process = Process::find($request->process_id);
 
-        if($request->has('special_authorization')){
+        if ($request->has('special_authorization')) {
             $process->stage_id = 3;
             $process->stage_name = 'Authorisation';
             $process->save();
-        }else{
+        } else {
             $process->stage_id = 4;
             $process->stage_name = 'Production';
             $process->save();
         }
-  
+
         // Create Production Stage tasks
         $productionStage = StageProduction::firstOrNew(['process_id' => $request->process_id]);
-        $productionStage->process_id= $process->id;
-        $productionStage->user_id= Auth::user()->id;
-        
+        $productionStage->process_id = $process->id;
+        $productionStage->user_id = Auth::user()->id;
+
         if ($productionStage->total_unallocated_sheets === null || $productionStage->total_unallocated_sheets == 0) {
-            $productionStage->total_unallocated_sheets= $process->nr_sheets;
+            $productionStage->total_unallocated_sheets = $process->nr_sheets;
         }
         if ($productionStage->total_unallocated_panels === null || $productionStage->total_unallocated_panels == 0) {
-            $productionStage->total_unallocated_panels= $process->nr_panels;
+            $productionStage->total_unallocated_panels = $process->nr_panels;
         }
         $productionStage->save();
 
@@ -183,7 +182,7 @@ class StageCashierCrudController extends CrudController
             ['name' => 'wrapping', 'subTaskNames' => ['WRAPPING']],
             ['name' => 'hardware', 'subTaskNames' => ['HARDWARE']],
         ];
-        
+
         foreach ($processes as $processData) {
             if ($process->{$processData['name']}) {
                 foreach ($processData['subTaskNames'] as $subTaskName) {
@@ -197,10 +196,30 @@ class StageCashierCrudController extends CrudController
             }
         }
 
+        //Check if SMS should be sent
+        $notificationExists = CustomerSystemNotification::whereHas('systemNotification', function ($query) {
+            $query->where('code', 'ORDER_INVOICING');
+        })
+            ->where('customer_id', $process->customer_id)
+            ->exists();
+        //end check
+
+      
+        if ($notificationExists) {
+            $customer = $process->customer;
+            $message = "Dear $customer->name, your Order No. $process->id has been invoiced. Invoice amount $$request->invoice_amount, Invoice balance $$request->balance_to_be_paid. Thank you for doing Business with BoardmartZW";
+            $smsResult =  SMSHelper::sendSMS($customer->phone, $message);
+
+            if ($smsResult === 'SMS Sent Successfully.') {
+                session()->flash('success', 'SMS sent successfully.');
+            } else {
+                session()->flash('error', 'Failed to send SMS.');
+            }
+        }
 
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
-        
+
         return redirect(url($this->crud->route));
     }
 }

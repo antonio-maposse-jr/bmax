@@ -315,7 +315,7 @@
 
             <label for="destination_stage_nr" class="popup_label">Select the destination stage:</label>
             <select id="destination_stage_nr" name="destination_stage_nr" class="popup_input" required>
-                <option value="1">Process Stage</option>
+                <option value="1">Sales Stage</option>
             </select>
 
             <label for="reason" class="popup_label">Select the reason to return:</label>

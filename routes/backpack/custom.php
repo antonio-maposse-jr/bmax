@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\StageAuthorisationCrudController;
 use App\Http\Controllers\Admin\StageCreditControlCrudController;
 use App\Http\Controllers\Admin\StageDispatchCrudController;
 use App\Http\Controllers\Admin\StageProductionCrudController;
+use App\Http\Controllers\Admin\SystemNotificationCrudController;
 use App\Models\StageProduction;
 
 // --------------------------
@@ -51,6 +52,9 @@ Route::group([
     Route::post('assign-prod-task', [StageProductionCrudController::class,'assignTask'])->name('assign-prod-task');
     Route::post('assign-prod-panels', [StageProductionCrudController::class,'assignPanels'])->name('assign-prod-panels');
     Route::post('decline-process', [ReasonDeclineCrudController::class,'declineProcess'])->name('decline-process');
+    
+    //Notifications
+    Route::post('save-notifications', [SystemNotificationCrudController::class,'saveNotifications'])->name('save-notifications');
 
     //Reports
     Route::post('get-users-report', [RegularReportsController::class,'reportsIndex'])->name('get-users-report');
@@ -70,4 +74,6 @@ Route::group([
     Route::crud('completed-process', 'CompletedProcessCrudController');
     Route::get('regular_reports', 'RegularReportsController@index')->name('page.regular_reports.index');
     Route::get('sales_report', 'SalesReportController@index')->name('page.sales_report.index');
+    Route::crud('stage-sales', 'StageSalesCrudController');
+    Route::crud('system-notification', 'SystemNotificationCrudController');
 }); // this should be the absolute last line of this file

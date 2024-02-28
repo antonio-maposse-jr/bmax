@@ -3,8 +3,8 @@
 @php
     $defaultBreadcrumbs = [
         trans('backpack::crud.admin') => url(config('backpack.base.route_prefix'), 'dashboard'),
-        'Stage Cashiers' => url('') . '/admin/stage-cashier',
-        'Add Stage Cashier' => false,
+        'Stage Production' => url('') . '/admin/stage-production',
+        'Add Stage Production' => false,
     ];
     // if breadcrumbs aren't defined in the CrudController, use the default breadcrumbs
     $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;

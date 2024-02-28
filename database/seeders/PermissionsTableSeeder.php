@@ -25,6 +25,8 @@ class PermissionsTableSeeder extends Seeder
             'subcategories',
             'products',
             'processes',
+            'notifications',
+            'stage_sales',
             'stage_cashiers',
             'stage_authorisations',
             'stage_productions',

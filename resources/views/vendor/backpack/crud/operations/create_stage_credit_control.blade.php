@@ -3,8 +3,8 @@
 @php
     $defaultBreadcrumbs = [
         trans('backpack::crud.admin') => url(config('backpack.base.route_prefix'), 'dashboard'),
-        'Stage Cashiers' => url('') . '/admin/stage-cashier',
-        'Add Stage Cashier' => false,
+        'Stage Credit Control' => url('') . '/admin/stage-credit-control',
+        'Add Stage Credit Control' => false,
     ];
     // if breadcrumbs aren't defined in the CrudController, use the default breadcrumbs
     $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
@@ -225,7 +225,7 @@
 
                 <label for="destination_stage_nr" class="popup_label">Select the destination stage:</label>
                 <select id="destination_stage_nr" name="destination_stage_nr" class="popup_input" required>
-                    <option value="1">Process Stage</option>
+                    <option value="1">Sales Stage</option>
                     <option value="2">Cashier Stage</option>
                     <option value="3">Authorization Stage</option>
                     <option value="4">Production Stage</option>

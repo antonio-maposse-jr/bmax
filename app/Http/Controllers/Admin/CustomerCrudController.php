@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
+use App\Models\CustomerSystemNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Http\Request;
 
 
@@ -21,6 +23,7 @@ class CustomerCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \App\Http\Controllers\Admin\Operations\NotificationsOperation;
 
 
     /**
@@ -34,6 +37,13 @@ class CustomerCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/customer');
         CRUD::setEntityNameStrings('customer', 'customers');
 
+        Widget::add()->type('style')->content('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css');
+        Widget::add()->type('script')->content('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js');
+        Widget::add()->type('script')->content('assets/js/phone_field.js');
+        Widget::add()->type('script')->content('assets/css/phone_field.css');
+
+        CRUD::setShowView('crud::operations.view_customer');
+      
         $permissions = [
             'list' => 'customers_list',
             'create' => 'customers_create',
@@ -57,12 +67,11 @@ class CustomerCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
-
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        $this->crud->column('name');
+        $this->crud->column('phone');
+        $this->crud->column('email');
+        $this->crud->column('address');
+        $this->crud->column('customerCategory')->label('Category');
     }
 
     /**
@@ -113,7 +122,11 @@ class CustomerCrudController extends CrudController
             'name' => 'phone',
             'wrapper' => [
                 'class' => 'form-group col-md-6'
-            ]
+            ],
+            'attributes' => [
+                'class'       => 'form-control some-class',
+                'id'          => 'id_phone'
+              ]
         ]);
         CRUD::field([
             'name' => 'email',

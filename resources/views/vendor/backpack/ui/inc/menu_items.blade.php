@@ -3,12 +3,12 @@
         {{ trans('backpack::base.dashboard') }}</a></li>
 
 @if (Auth::user()->can('users_list'))
-<x-backpack::menu-dropdown title="User Management" icon="la la-users">
-    <x-backpack::menu-dropdown-header title="Authentication" />
-    <x-backpack::menu-dropdown-item title="Users" icon="la la-user" :link="backpack_url('user')" />
-    <x-backpack::menu-dropdown-item title="Roles" icon="la la-group" :link="backpack_url('role')" />
-    <x-backpack::menu-dropdown-item title="Permissions" icon="la la-key" :link="backpack_url('permission')" />
-</x-backpack::menu-dropdown>
+    <x-backpack::menu-dropdown title="User Management" icon="la la-users">
+        <x-backpack::menu-dropdown-header title="Authentication" />
+        <x-backpack::menu-dropdown-item title="Users" icon="la la-user" :link="backpack_url('user')" />
+        <x-backpack::menu-dropdown-item title="Roles" icon="la la-group" :link="backpack_url('role')" />
+        <x-backpack::menu-dropdown-item title="Permissions" icon="la la-key" :link="backpack_url('permission')" />
+    </x-backpack::menu-dropdown>
 @endif
 
 @if (Auth::user()->can('customer_categories_list') || Auth::user()->can('customers_list'))
@@ -39,12 +39,11 @@
 @endif
 
 @if (Auth::user()->can('processes_list'))
-    <x-backpack::menu-dropdown title="Order Management" icon="la la-file-alt">
-        <x-backpack::menu-dropdown-item title="All Order" icon="la la-folder" :link="backpack_url('process')" />
-        <x-backpack::menu-dropdown-item title="Pending Orders" icon="la la-edit" :link="backpack_url('pendig-process')" />
-        <x-backpack::menu-dropdown-item title="Declined Orders" icon="la la-window-close" :link="backpack_url('reason-decline')" />
-        <x-backpack::menu-dropdown-item title="Completed Orders" icon="la la-check-circle" :link="backpack_url('completed-process')" />
+    <x-backpack::menu-dropdown title="Process Management" icon="la la-file-alt">
         <x-backpack::menu-dropdown-header title="Process Workflow" />
+        @can('stage_sales_list')
+            <x-backpack::menu-dropdown-item title="Sales Stage" icon="la la-money-bill-wave" :link="backpack_url('stage-sales')" />
+        @endcan
         @can('stage_cashiers_list')
             <x-backpack::menu-dropdown-item title="Cashiers Stage" icon="la la-cash-register" :link="backpack_url('stage-cashier')" />
         @endcan
@@ -60,6 +59,11 @@
         @can('stage_dispatches_list')
             <x-backpack::menu-dropdown-item title="Dispatch Stage" icon="la la-rocket" :link="backpack_url('stage-dispatch')" />
         @endcan
+        <x-backpack::menu-dropdown-header title="Process States" />
+        <x-backpack::menu-dropdown-item title="All Processes" icon="la la-folder" :link="backpack_url('process')" />
+        <x-backpack::menu-dropdown-item title="Pending Processes" icon="la la-edit" :link="backpack_url('pendig-process')" />
+        <x-backpack::menu-dropdown-item title="Declined Processes" icon="la la-window-close" :link="backpack_url('reason-decline')" />
+        <x-backpack::menu-dropdown-item title="Completed Processes" icon="la la-check-circle" :link="backpack_url('completed-process')" />
     </x-backpack::menu-dropdown>
 @endif
 
@@ -70,6 +74,7 @@
     </x-backpack::menu-dropdown>
 @endif
 
+<x-backpack::menu-item title="System notifications" icon="la la-envelope-open" :link="backpack_url('system-notification')" />
 
 @if (Auth::user()->can('activity_log_list'))
     <x-backpack::menu-item title="Activity Logs" icon="la la-stream" :link="backpack_url('activity-log')" />
@@ -77,3 +82,4 @@
 @if (Auth::user()->can('logs_list'))
     <x-backpack::menu-item title='Logs' icon='la la-terminal' :link="backpack_url('log')" />
 @endif
+

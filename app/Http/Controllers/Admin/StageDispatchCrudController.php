@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\SMSHelper;
 use App\Http\Requests\StageDispatchRequest;
+use App\Models\Customer;
+use App\Models\CustomerSystemNotification;
 use App\Models\StageDispatch;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -65,7 +68,6 @@ class StageDispatchCrudController extends CrudController
         CRUD::addClause('where', 'status', 'PENDING');
         $this->crud->column('id');
         $this->crud->column('customer_id');
-        $this->crud->column('product');
         $this->crud->column('date_required');
         $this->crud->column('priority_level');
         $this->crud->column('stage_name');
@@ -121,6 +123,26 @@ class StageDispatchCrudController extends CrudController
 
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
+
+          //Check if SMS should be sent
+          $notificationExists = CustomerSystemNotification::whereHas('systemNotification', function ($query) {
+            $query->where('code', 'ORDER_DISPATCH');
+        })
+        ->where('customer_id', $process->customer_id)
+        ->exists();
+        //end check
+
+        if ($notificationExists) {
+            $customer = $process->customer;
+            $message = "Dear $customer->name, your Order No. $process->id is now fully dispatched. Thank you for partnering BoardmartZW. Delivering Cutting Edge Quality"; 
+            $smsResult =  SMSHelper::sendSMS($customer->phone, $message);
+
+            if ($smsResult === 'SMS Sent Successfully.') {
+                session()->flash('success', 'SMS sent successfully.');
+            } else {
+                session()->flash('error', 'Failed to send SMS.');
+            }
+        }
 
         return redirect(url($this->crud->route));
     }

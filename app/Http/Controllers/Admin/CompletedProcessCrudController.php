@@ -44,7 +44,6 @@ class CompletedProcessCrudController extends CrudController
 
         $this->crud->column('id');
         $this->crud->column('customer_id');
-        $this->crud->column('product');
         $this->crud->column('date_required');
         $this->crud->column('priority_level');
         $this->crud->column('stage_name');

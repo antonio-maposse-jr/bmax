@@ -3,7 +3,7 @@
 @php
     $defaultBreadcrumbs = [
         trans('backpack::crud.admin') => url(config('backpack.base.route_prefix'), 'dashboard'),
-        'Stage Cashiers' => url('') . '/admin/stage-cashier',
+        'Stage Cashiers' => url('') . '/admin/stage-dispatch',
         'Add Stage Cashier' => false,
     ];
     // if breadcrumbs aren't defined in the CrudController, use the default breadcrumbs
@@ -119,6 +119,7 @@
                                                 value="{{ optional($dispatch_stage)->dispatch_status }}"
                                                 id="dispatch_status" class="form-control" id="dispatch_status"
                                                 onchange="partialDispatch()">
+                                                <option></option>
                                                 <option value="Full Dispatch">Full Dispatch</option>
                                                 <option value="Partial Dispatch">Partial Dispatch</option>
                                             </select>
@@ -221,7 +222,7 @@
 
                 <label for="destination_stage_nr" class="popup_label">Select the destination stage:</label>
                 <select id="destination_stage_nr" name="destination_stage_nr" class="popup_input" required>
-                    <option value="1">Process Stage</option>
+                    <option value="1">Sales Stage</option>
                     <option value="2">Cashier Stage</option>
                     <option value="3">Authorization Stage</option>
                     <option value="4">Production Stage</option>
