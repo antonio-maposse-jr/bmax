@@ -98,6 +98,7 @@
                                             <label>Invoice Amount</label>
                                             <input type="number" value="{{ optional($cashier_stage)->invoice_amount }}"
                                                 name="invoice_amount" id="invoice_amount" class="form-control"
+                                                step="0.01" placeholder="0.00" min="0.01"
                                                 onchange="validateAmount()">
                                             <input type="hidden" value="{{ optional($entry)->order_value }}"
                                                 name="quote_amount" id="quote_amount" class="form-control">
@@ -113,14 +114,15 @@
                                             <label>Total Amount Paid</label>
                                             <input type="number" value="{{ optional($cashier_stage)->total_amount_paid }}"
                                                 name="total_amount_paid" id="total_amount_paid" class="form-control"
+                                                step="0.01" placeholder="0.00" min="0.01"
                                                 onchange="validateAmountPaid()">
                                         </div>
 
                                         <div class="form-group col-md-6 required">
                                             <label>Invoice Status</label>
                                             <select name="invoice_status"
-                                                value="{{ optional($cashier_stage)->invoice_status }}" id="invoice_status"
-                                                class="form-control readonly-select">
+                                                value="{{ optional($cashier_stage)->invoice_status }}"
+                                                id="invoice_status" class="form-control readonly-select">
                                                 <option value="UNPAID">UNPAID</option>
                                                 <option value="Excess amount Advance Payment">Excess amount Advance Payment
                                                 </option>

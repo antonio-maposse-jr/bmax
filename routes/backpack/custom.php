@@ -35,10 +35,12 @@ Route::group([
     Route::crud('subcategory', 'SubcategoryCrudController');
     Route::crud('product', 'ProductCrudController');
     
-   
+    //Route::get('/send-email', [CustomerCrudController::class, 'sendEmail'])->name('send.email');
+    Route::post('create-customer-with-notifications', [CustomerCrudController::class,'createCustomerData'])->name('create-customer-with-notifications');
     Route::crud('customer-category', 'CustomerCategoryCrudController');
     Route::crud('process', 'ProcessCrudController');
 
+  
     Route::post('return-stage', [ProcessCrudController::class,'returnStage'])->name('return-stage');
     
     Route::post('create-new-process', [ProcessCrudController::class,'createNewProcess'])->name('create-new-process');

@@ -25,15 +25,20 @@ class CustomerRequest extends FormRequest
      */
     public function rules()
     {
+        // Determine if the 'id_number' should be unique based on 'save_action' value
+        $uniqueRule = $this->input('save_action') === 'save_and_preview'
+            ? Rule::unique('customers')->where(function ($query) {
+                return $query->where('id_type', $this->id_type);
+            })
+            : '';
+
         return [
             'name' => 'required|min:5|max:255',
             'customer_category_id' => 'required',
             'id_type' => 'required',
             'id_number' => [
                 'required',
-                Rule::unique('customers')->where(function ($query) {
-                    return $query->where('id_type', $this->id_type);
-                })
+               $uniqueRule,
             ],
             'phone' => 'required',
             'address' => 'required',

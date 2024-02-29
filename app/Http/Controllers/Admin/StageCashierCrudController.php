@@ -11,10 +11,11 @@ use App\Models\ProductionTask;
 use App\Models\ReturnStage;
 use App\Models\StageCashier;
 use App\Models\StageProduction;
+use App\Notifications\CashierMailNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -77,7 +78,6 @@ class StageCashierCrudController extends CrudController
         CRUD::addClause('where', 'status', 'PENDING');
         $this->crud->column('id');
         $this->crud->column('customer_id');
-        $this->crud->column('product');
         $this->crud->column('date_required');
         $this->crud->column('priority_level');
         $this->crud->column('stage_name');
@@ -114,7 +114,7 @@ class StageCashierCrudController extends CrudController
 
     public function createStageCashier(StageCashierRequest $request)
     {
-       
+
         $stageCashier = StageCashier::firstOrNew(['process_id' => $request->process_id]);
 
         $stageCashier->process_id = $request->process_id;
@@ -204,7 +204,7 @@ class StageCashierCrudController extends CrudController
             ->exists();
         //end check
 
-      
+
         if ($notificationExists) {
             $customer = $process->customer;
             $message = "Dear $customer->name, your Order No. $process->id has been invoiced. Invoice amount $$request->invoice_amount, Invoice balance $$request->balance_to_be_paid. Thank you for doing Business with BoardmartZW";
@@ -216,6 +216,16 @@ class StageCashierCrudController extends CrudController
                 session()->flash('error', 'Failed to send SMS.');
             }
         }
+
+        $order = [
+            'order_number' => $process->id,
+            'invoice_value' => $request->invoice_amount,
+            'amount_paid' => '$'.$request->total_amount_paid,
+            'sales_person' => Auth::user()->name,
+            'customer_name' => $process->customer->name,
+        ];
+        Notification::route('mail', $process->customer->email)
+            ->notify(new CashierMailNotification($order));
 
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();

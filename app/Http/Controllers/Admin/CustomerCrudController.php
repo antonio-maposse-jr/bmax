@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use App\Models\CustomerSystemNotification;
+use App\Notifications\CashierMailNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 /**
  * Class CustomerCrudController
@@ -22,8 +24,9 @@ class CustomerCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \App\Http\Controllers\Admin\Operations\NotificationsOperation;
+    use \App\Http\Controllers\Admin\Operations\CreateCustomerOperation;
 
 
     /**
@@ -46,7 +49,7 @@ class CustomerCrudController extends CrudController
       
         $permissions = [
             'list' => 'customers_list',
-            'create' => 'customers_create',
+            'createCustomer' => 'customers_create',
             'update' => 'customers_update',
             'delete' => 'customers_delete',
             'show' => 'customers_show',
@@ -201,5 +204,71 @@ class CustomerCrudController extends CrudController
         $customers = Customer::where('name', 'like', '%' . $searchTerm . '%')->get(['id', 'name']);
     
         return response()->json($customers);
+    }
+
+    public function createCustomerData(CustomerRequest $request){
+        $customer = new Customer();
+
+        $customer->name = $request->name;
+        $customer->id_type = $request->id_type;
+        $customer->id_number = $request->id_number;
+        $customer->customer_category_id = $request->customer_category_id;
+        $customer->email = $request->email;
+        $customer->phone = $request->phone;
+        $customer->address = $request->address;
+        $customer->tax_number = $request->tax_number;
+        $customer->contact_person_name = $request->contact_person_name;
+        $customer->contact_person_phone = $request->contact_person_phone;
+        $customer->contact_person_email = $request->contact_person_email;
+      
+        if ($request->hasFile('id_document')) {
+            $idDocPath = $request->file('id_document')->store('documents', 'public');
+            $customer->id_document = $idDocPath;
+        }
+
+        if ($request->hasFile('company_reg_document')) {
+            $companyRegDocPath = $request->file('company_reg_document')->store('documents', 'public');
+            $customer->company_reg_document = $companyRegDocPath;
+        }
+
+        $customer->save();
+
+        $selectedNotifications = $request->input('notifications', []);
+
+        // Delete existing notifications for this customer
+        CustomerSystemNotification::where('customer_id', $customer->id)->delete();
+
+        // Save the new notifications for this customer
+        foreach ($selectedNotifications as $notificationId) {
+            CustomerSystemNotification::create([
+                'customer_id' => $customer->id,
+                'system_notification_id' => $notificationId,
+            ]);
+        }
+        \Alert::success(trans('backpack::crud.insert_success'))->flash();
+
+        return redirect(url($this->crud->route));
+    }
+    
+
+    public function sendEmail()
+    {
+        // Assuming you have an order to send confirmation for
+        $order = [
+            'order_number' => '12345',
+            'invoice_value' => '$1000',
+            'amount_paid' => '$800',
+            'sales_person' => 'John Doe',
+            'customer_name' => 'Mariah Carey',
+        ];
+
+        $customerEmail = 'antonio.maposse.jr@gmail.com'; // Replace with the customer's email address
+
+        // Send email using the OrderConfirmation Mailable class
+        Notification::route('mail', $customerEmail)
+        ->notify(new CashierMailNotification($order));
+
+
+        return 'Email sent successfully';
     }
 }
