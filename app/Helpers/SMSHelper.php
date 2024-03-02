@@ -11,12 +11,12 @@ class SMSHelper
     {
         $sid = env('TWILIO_SID');
         $token = env('TWILIO_AUTH_TOKEN');
-        $fromNumber = env('TWILIO_PHONE_NUMBER');
+        $messagingServiceSid = env('TWILIO_MESSAGING_SERVICE_SID');
 
         try {
             $client = new Client($sid, $token);
             $client->messages->create($receiverNumber, [
-                'from' => $fromNumber,
+                'messagingServiceSid' => $messagingServiceSid,
                 'body' => $message
             ]);
 
