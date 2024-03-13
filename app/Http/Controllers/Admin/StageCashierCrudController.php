@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\SMSHelper;
+use App\Helpers\WhatsappHelper;
 use App\Http\Requests\StageCashierRequest;
 use App\Models\Customer;
 use App\Models\CustomerSystemNotification;
@@ -207,13 +208,20 @@ class StageCashierCrudController extends CrudController
 
         if ($notificationExists) {
             $customer = $process->customer;
-            $message = "Dear $customer->name, your Order No. $process->id has been invoiced. Invoice amount $$request->invoice_amount, Invoice balance $$request->balance_to_be_paid. Thank you for doing Business with BoardmartZW";
-            $smsResult =  SMSHelper::sendSMS($customer->phone, $message);
+            $message= [
+                "customer_name" => "$customer->name",
+                "process_id" => "$process->id",
+                "invoice_amount" => "$stageCashier->invoice_amount",
+                "invoice_balance" => "$stageCashier->balance_to_be_paid",
+            ];
+            $messageSid = "HXb0a6037da4cf12f3015b1aee78c72e02";
+            $whatsappResult =  WhatsappHelper::sendWhatsapp($customer->phone, $message, $messageSid);
 
-            if ($smsResult === 'SMS Sent Successfully.') {
-                session()->flash('success', 'SMS sent successfully.');
+       
+            if ($whatsappResult === 'Message Sent Successfully.') {
+                session()->flash('success', 'Message sent successfully.');
             } else {
-                session()->flash('error', 'Failed to send SMS.');
+                session()->flash('error', 'Failed to send Message.');
             }
         }
 

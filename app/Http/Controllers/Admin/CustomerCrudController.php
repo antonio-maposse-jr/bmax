@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\WhatsappHelper;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use App\Models\CustomerSystemNotification;
@@ -270,5 +271,21 @@ class CustomerCrudController extends CrudController
 
 
         return 'Email sent successfully';
+    }
+
+    public function sendWhatsapp(){
+        $message= [
+            "customer_name" => "Genius Nhavira",
+            "order_value" => "23",
+            "process_id" => "100",
+        ];
+        $messageSid = "HX7833d83cb0c6359169bc457524947099";
+        $smsResult =  WhatsappHelper::sendWhatsapp("+258848299673", $message, $messageSid);
+
+        if ($smsResult === 'SMS Sent Successfully.') {
+            dd('success', 'SMS sent successfully.');
+        } else {
+            dd('error', 'Failed to send SMS.');
+        }
     }
 }

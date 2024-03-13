@@ -36,6 +36,7 @@ Route::group([
     Route::crud('product', 'ProductCrudController');
     
     //Route::get('/send-email', [CustomerCrudController::class, 'sendEmail'])->name('send.email');
+    Route::get('/send-whatsapp', [CustomerCrudController::class, 'sendWhatsapp'])->name('send.whatsapp');
     Route::post('create-customer-with-notifications', [CustomerCrudController::class,'createCustomerData'])->name('create-customer-with-notifications');
     Route::crud('customer-category', 'CustomerCategoryCrudController');
     Route::crud('process', 'ProcessCrudController');

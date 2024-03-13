@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\SMSHelper;
+use App\Helpers\WhatsappHelper;
 use App\Http\Requests\StageProductionRequest;
 use App\Models\Customer;
 use App\Models\CustomerSystemNotification;
@@ -14,8 +15,11 @@ use App\Models\Process;
 use App\Models\ProductionTask;
 use App\Models\ReturnStage;
 use App\Models\StageCashier;
+use App\Notifications\ProductionStageComplete;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class StageProductionCrudController
@@ -144,18 +148,35 @@ class StageProductionCrudController extends CrudController
         })
             ->where('customer_id', $process->customer_id)
             ->exists();
+
+     
         //end check
         if ($notificationExists) {
             $customer = $process->customer;
-            $message = "Dear $customer->name, your Order No. $process->id is now ready for dispatch. If order has not been fully paid for, please ensure you do so before collection. Contact our sales team for info.";
-            $smsResult =  SMSHelper::sendSMS($customer->phone, $message);
+            $message= [
+                "customer_name" => "$customer->name",
+                "process_id" => "$process->id",
+            ];
+            $messageSid = "HX2e5ef0b57c29c4e9739f19cd7861cfb9";
+            $whatsappResult =  WhatsappHelper::sendWhatsapp($customer->phone, $message, $messageSid);
 
-            if ($smsResult === 'SMS Sent Successfully.') {
-                session()->flash('success', 'SMS sent successfully.');
+            if ($whatsappResult === 'Message Sent Successfully.') {
+                session()->flash('success', 'Message sent successfully.');
             } else {
-                session()->flash('error', 'Failed to send SMS.');
+                session()->flash('error', 'Failed to send Message.');
             }
         }
+
+        $orderData = [
+            'customer_name' =>  $process->customer->name,
+            'order_number' => $process->id,
+            'invoice_value' => $cashierStage->invoice_amount,
+            'amount_paid' => '$'.$cashierStage->total_amount_paid,
+            'sales_person' => $process->user->name,
+            'customer_name' => $process->customer->name,
+        ];
+        Notification::route('mail', $process->customer->email)
+            ->notify(new ProductionStageComplete($orderData));
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 
@@ -192,7 +213,9 @@ class StageProductionCrudController extends CrudController
 
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 
-        return redirect()->back();
+        $route = 'admin/stage-production/'.$productionTask->process_id.'/process-production-stage#production';
+        
+        return redirect($route);
     }
 
     public function assignTask(Request $request)
@@ -218,7 +241,9 @@ class StageProductionCrudController extends CrudController
 
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 
-        return redirect()->back();
+        $route = 'admin/stage-production/'.$productionTask->process_id.'/process-production-stage#production';
+        
+        return redirect($route);
     }
 
     public function assignPanels(Request $request)
@@ -244,6 +269,8 @@ class StageProductionCrudController extends CrudController
 
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 
-        return redirect()->back();
+        $route = 'admin/stage-production/'.$productionTask->process_id.'/process-production-stage#production';
+        
+        return redirect($route);
     }
 }

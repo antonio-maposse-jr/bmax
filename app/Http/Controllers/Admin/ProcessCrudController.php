@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\SMSHelper;
+use App\Helpers\WhatsappHelper;
 use App\Http\Requests\ProcessRequest;
 use App\Models\Customer;
 use App\Models\CustomerSystemNotification;
@@ -13,10 +14,8 @@ use Illuminate\Http\Request;
 use App\Models\Process;
 use App\Models\ProcessProduct;
 use App\Models\ReturnStage;
-use App\Models\SystemNotification;
-use Exception;
 use Illuminate\Support\Facades\Auth;
-use Twilio\Rest\Client;
+
 
 /**
  * Class ProcessCrudController
@@ -390,16 +389,21 @@ class ProcessCrudController extends CrudController
         ->exists();
         //end check
 
+       // dd($notificationExists);
         if ($notificationExists) {
             $customer = Customer::with('notifications')->find($request->customer_id);
+            $message= [
+                "customer_name" => "$customer->name",
+                "order_value" => "$process->order_value",
+                "process_id" => "$process->id",
+            ];
+            $messageSid = "HX7833d83cb0c6359169bc457524947099";
+            $whatsappResult =  WhatsappHelper::sendWhatsapp($customer->phone, $message, $messageSid);
 
-            $message = "Dear $customer->name, your order has been created under Order No. $process->id. Thank you for doing Business with BoardmartZW"; 
-            $smsResult =  SMSHelper::sendSMS($customer->phone, $message);
-
-            if ($smsResult === 'SMS Sent Successfully.') {
-                session()->flash('success', 'SMS sent successfully.');
+            if ($whatsappResult === 'Message Sent Successfully.') {
+                session()->flash('success', 'Message sent successfully.');
             } else {
-                session()->flash('error', 'Failed to send SMS.');
+                session()->flash('error', 'Failed to send Message.');
             }
         }
 

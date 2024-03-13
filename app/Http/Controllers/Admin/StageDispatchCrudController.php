@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\SMSHelper;
+use App\Helpers\WhatsappHelper;
 use App\Http\Requests\StageDispatchRequest;
-use App\Models\Customer;
 use App\Models\CustomerSystemNotification;
 use App\Models\StageDispatch;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Models\Process;
 use App\Models\ReturnStage;
+use App\Models\StageCashier;
+use App\Notifications\DispatchStageComplete;
 use Backpack\CRUD\app\Library\Widget;
+use Illuminate\Support\Facades\Notification;
+
 /**
  * Class StageDispatchCrudController
  * @package App\Http\Controllers\Admin
@@ -131,18 +133,34 @@ class StageDispatchCrudController extends CrudController
         ->where('customer_id', $process->customer_id)
         ->exists();
         //end check
-
+       
         if ($notificationExists) {
             $customer = $process->customer;
-            $message = "Dear $customer->name, your Order No. $process->id is now fully dispatched. Thank you for partnering BoardmartZW. Delivering Cutting Edge Quality"; 
-            $smsResult =  SMSHelper::sendSMS($customer->phone, $message);
+            $message= [
+                "customer_name" => "$customer->name",
+                "process_id" => "$process->id",
+            ];
+            $messageSid = "HX39667afb98a2d98e994360ce420494d0";
+            $whatsappResult =  WhatsappHelper::sendWhatsapp($customer->phone, $message, $messageSid);
 
-            if ($smsResult === 'SMS Sent Successfully.') {
-                session()->flash('success', 'SMS sent successfully.');
+            if ($whatsappResult === 'Message Sent Successfully.') {
+                session()->flash('success', 'Message sent successfully.');
             } else {
-                session()->flash('error', 'Failed to send SMS.');
+                session()->flash('error', 'Failed to send Message.');
             }
         }
+        $cashierStage = StageCashier::where('process_id', $request->process_id)->first();
+
+        $orderData = [
+            'customer_name' =>  $process->customer->name,
+            'order_number' => $process->id,
+            'invoice_value' => $cashierStage->invoice_amount,
+            'amount_paid' => '$'.$cashierStage->total_amount_paid,
+            'sales_person' => $process->user->name,
+            'customer_name' => $process->customer->name,
+        ];
+        Notification::route('mail', $process->customer->email)
+            ->notify(new DispatchStageComplete($orderData));
 
         return redirect(url($this->crud->route));
     }
