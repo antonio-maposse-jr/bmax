@@ -228,8 +228,8 @@ class StageCashierCrudController extends CrudController
         $order = [
             'order_number' => $process->id,
             'invoice_value' => $request->invoice_amount,
-            'amount_paid' => '$'.$request->total_amount_paid,
-            'sales_person' => Auth::user()->name,
+            'amount_paid' => $request->total_amount_paid,
+            'sales_person' => $process->user->name,
             'customer_name' => $process->customer->name,
         ];
         Notification::route('mail', $process->customer->email)

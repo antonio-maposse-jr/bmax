@@ -41,8 +41,8 @@ class CashierMailNotification extends Notification  implements ShouldQueue
             ->line('Thank you for trusting BoardmartZW to Deliver Cutting Edge Quality for your project.')
             ->line('We are pleased to advise you that your Order has been created and invoiced and shall be proceeding to Production under the following details:')
             ->line('Order Number: ' . $this->orderData['order_number'])
-            ->line('Invoice Value: ' . $this->orderData['invoice_value'])
-            ->line('Amount paid: ' . $this->orderData['amount_paid'])
+            ->line('Invoice Value: $' . $this->orderData['invoice_value'])
+            ->line('Amount paid: $' . $this->orderData['amount_paid'])
             ->line('Sales Person: ' . $this->orderData['sales_person'])
             ->line('Please find attached documents for your files. Should there be any discrepancies, please contact the Sales Person.')
             ->salutation('Kind Regards, BoardmartZW');

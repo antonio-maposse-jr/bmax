@@ -171,7 +171,7 @@ class StageProductionCrudController extends CrudController
             'customer_name' =>  $process->customer->name,
             'order_number' => $process->id,
             'invoice_value' => $cashierStage->invoice_amount,
-            'amount_paid' => '$'.$cashierStage->total_amount_paid,
+            'amount_paid' => $cashierStage->total_amount_paid,
             'sales_person' => $process->user->name,
             'customer_name' => $process->customer->name,
         ];
