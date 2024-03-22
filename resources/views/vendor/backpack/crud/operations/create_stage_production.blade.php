@@ -114,14 +114,39 @@
                                                 <td>{{ $task->total_allocated_panels }}</td>
                                                 <td>{{ $task->total_work_time }}</td>
                                                 <td>{{ $task->total_iddle_time }}</td>
-                                                <td>{{ $task->task_status }}</td>
+                                                <td>
+                                                    @switch($task->task_status)
+                                                        @case('PROCESSING')
+                                                            <span
+                                                                class="badge badge-pill badge-info">{{ $task->task_status }}</span>
+                                                        @break
+
+                                                        @case('PENDING')
+                                                            <span
+                                                                class="badge badge-pill badge-warning">{{ $task->task_status }}</span>
+                                                        @break
+
+                                                        @case('PAUSED')
+                                                            <span
+                                                                class="badge badge-pill badge-danger">{{ $task->task_status }}</span>
+                                                        @break
+
+                                                        @case('COMPLETED')
+                                                            <span
+                                                                class="badge badge-pill badge-success">{{ $task->task_status }}</span>
+                                                        @break
+
+                                                        @default
+                                                            <!-- Default case if none of the above conditions are met -->
+                                                    @endswitch
+
                                                 <td>
                                                     @php
                                                         $commonAttributes = 'onclick="openConfirmationPopup(this)"';
                                                         $disabledAttribute = 'disabled';
                                                     @endphp
 
-                                                    <button type="submit" class="btn btn-info"
+                                                    <button type="submit" class="btn btn-outline-info"
                                                         @if ($task->task_name == 'cutting') onclick="openPopupSheets(this)"
                                                     @elseif($task->task_name == 'edging')
                                                     onclick="openPopupPanels(this)" 
@@ -131,15 +156,28 @@
                                                         Assign
                                                     </button>
 
-                                                    <button type="submit" class="btn btn-danger" {!! 'onclick=\'openConfirmationPopup(this, "PAUSED")\'' !!}
+                                                    <button type="submit" class="btn btn-outline-danger" {!! 'onclick=\'openConfirmationPopup(this, "PAUSED")\'' !!}
                                                         {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
                                                         Hold
                                                     </button>
 
-                                                    <button type="submit" class="btn btn-success" {!! 'onclick=\'openConfirmationPopup(this, "COMPLETED")\'' !!}
+                                                    <button type="submit" class="btn btn-outline-success" {!! 'onclick=\'openConfirmationPopup(this, "COMPLETED")\'' !!}
                                                         {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
                                                         Completed
                                                     </button>
+
+                                                    @if ($task->task_name == 'cutting')
+                                                        <button type="submit" class="btn btn-outline-warning"
+                                                            {!! 'onclick=\'openPopupSheets(this, "edit")\'' !!} {!! $task->task_status == 'PROCESSING' || $task->task_status == 'PAUSED' ? '' : $disabledAttribute !!}>
+                                                            Edit
+                                                        </button>
+                                                    @endif
+                                                    @if ($task->task_name == 'edging')
+                                                        <button type="submit" class="btn btn-outline-warning"
+                                                            {!! 'onclick=\'openPopupPanels(this, "edit")\'' !!} {!! $task->task_status == 'PROCESSING' || $task->task_status == 'PAUSED' ? '' : $disabledAttribute !!}>
+                                                            Edit
+                                                        </button>
+                                                    @endif
                                                 </td>
 
                                             </tr>
@@ -155,7 +193,8 @@
                                                 style="display: {{ isset($production_stage->other) ? 'none' : 'block' }}">
                                                 <label>Other Document </label>
                                                 <input type="hidden" name="process_id" value="{{ $entry->id }}">
-                                                <input type="file" name="other" id="other" class="form-control">
+                                                <input type="file" name="other" id="other"
+                                                    class="form-control">
                                             </div>
 
                                             <div class="existing-file"
@@ -289,7 +328,7 @@
         {{-- Assign Sheets --}}
         <div class="popup_sheets" id="popup_sheets">
             <div class="close-btn_rs" onclick="closePopupSheets()">X</div>
-            <h2 style="color: #333; text-align: center;">Assign Sheets</h2>
+            <h2 style="color: #333; text-align: center;" id="popup_sheet_title">Assign Sheets</h2>
             <form action="{{ route('assign-prod-task') }}" method="post">
                 @csrf
                 <input type="hidden" name="process_id" value=" {{ $entry->id }}">
@@ -297,10 +336,17 @@
                 <input type="hidden" name="task_name" id="popup_task_name">
                 <input type="hidden" name="sub_task_name" id="popup_sub_task_name">
 
+                <input type="hidden" name="option" id="popup_option">
+                <input type="hidden" id="initial_allocated_sheets_task">
+                <input type="hidden" name="total_sheets" value="{{ $entry->nr_sheets }}" id="total_sheets">
+
                 <input type="hidden" name="total_unallocated_sheets"
                     value="{{ $production_stage->total_unallocated_sheets }}" id="initial_unallocated_sheets">
 
-                <input type="hidden" name="total_sheets" value="{{ $entry->nr_sheets }}" id="total_sheets">
+
+
+                <label class="popup_label">Total Sheets:</label>
+                <input type="text" value="{{ $entry->nr_sheets }}" readonly class="popup_input">
 
                 <label for="nr_sheets_unallocated" class="popup_label">Nr of Sheets unllocated:</label>
                 <input type="text" readonly class="popup_input" id="nr_sheets_unallocated"
@@ -321,7 +367,7 @@
         {{-- Assign Panels --}}
         <div class="popup_sheets" id="popup_panels">
             <div class="close-btn_rs" onclick="closePopupPanels()">X</div>
-            <h2 style="color: #333; text-align: center;">Assign Panels</h2>
+            <h2 style="color: #333; text-align: center;" id="popup_panel_title">Assign Panels</h2>
             <form action="{{ route('assign-prod-panels') }}" method="post">
                 @csrf
                 <input type="hidden" name="process_id" value=" {{ $entry->id }}" class="form-control" readonly>
@@ -329,9 +375,15 @@
                 <input type="hidden" name="task_name" id="panel_task_name">
                 <input type="hidden" name="sub_task_name" id="panel_sub_task_name">
 
+                <input type="hidden" id="popup_option_panels">
+                <input type="hidden" id="initial_allocated_panels_task">
+                <input type="hidden" name="total_panels" value="{{ $entry->nr_panels }}" id="total_panels">
+
                 <input type="hidden" name="total_unallocated_panels"
                     value="{{ $production_stage->total_unallocated_panels }}" id="initial_unallocated_panels">
 
+                <label class="popup_label">Total Panels:</label>
+                <input type="text" value="{{ $entry->nr_panels }}" readonly class="popup_input">
 
                 <label for="nr_panels_unallocated" class="popup_label">Nr of Panels unllocated:</label>
                 <input type="text" value="{{ $production_stage->total_unallocated_panels }}" readonly

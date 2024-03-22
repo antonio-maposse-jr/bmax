@@ -86,7 +86,29 @@ class ProcessCrudController extends CrudController
         $this->crud->column('date_required');
         $this->crud->column('priority_level');
         $this->crud->column('stage_name');
-        $this->crud->column('status');
+        $this->crud->addColumn([
+            'name' => 'status',
+            'label' => 'Status',
+            'type' => 'custom_html',
+            'value' => function ($entry) {
+                switch ($entry->status) {
+                    case 'PROCESSING':
+                        return '<span class="badge badge-pill badge-info">' . $entry->status . '</span>';
+                        break;
+                    case 'PENDING':
+                        return '<span class="badge badge-pill badge-warning">' . $entry->status . '</span>';
+                        break;
+                    case 'PAUSED':
+                        return '<span class="badge badge-pill badge-danger">' . $entry->status . '</span>';
+                        break;
+                    case 'COMPLETED':
+                        return '<span class="badge badge-pill badge-success">' . $entry->status . '</span>';
+                        break;
+                    default:
+                        return $entry->status;
+                }
+            }
+        ]);
     }
 
     /**
@@ -397,7 +419,7 @@ class ProcessCrudController extends CrudController
                 "order_value" => "$process->order_value",
                 "process_id" => "$process->id",
             ];
-            $messageSid = "HX7833d83cb0c6359169bc457524947099";
+            $messageSid = "HXf754a97259f0450c1f7b069fdf843dcb";
             $whatsappResult =  WhatsappHelper::sendWhatsapp($customer->phone, $message, $messageSid);
 
             if ($whatsappResult === 'Message Sent Successfully.') {

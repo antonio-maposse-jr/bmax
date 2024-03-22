@@ -36,7 +36,7 @@ class CashierMailNotification extends Notification  implements ShouldQueue
      */public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Order Confirmation')
+            ->subject('Order Confirmation: Order No. '.$this->orderData['order_number'])
             ->greeting('Dear ' . $this->orderData['customer_name'])
             ->line('Thank you for trusting BoardmartZW to Deliver Cutting Edge Quality for your project.')
             ->line('We are pleased to advise you that your Order has been created and invoiced and shall be proceeding to Production under the following details:')
@@ -45,7 +45,8 @@ class CashierMailNotification extends Notification  implements ShouldQueue
             ->line('Amount paid: $' . $this->orderData['amount_paid'])
             ->line('Sales Person: ' . $this->orderData['sales_person'])
             ->line('Please find attached documents for your files. Should there be any discrepancies, please contact the Sales Person.')
-            ->salutation('Kind Regards, BoardmartZW');
+            ->salutation('Kind Regards, BoardmartZW')
+            ->attach(storage_path('app/public/'.$this->orderData['attachment']));
     }
 
     /**

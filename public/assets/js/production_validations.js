@@ -25,7 +25,7 @@ function closePopupDecline() {
     document.getElementById("overlay_rs").style.display = "none";
 }
 
-function openPopupSheets(button) {
+function openPopupSheets(button, option) {
     document.getElementById("popup_sheets").style.display = "block";
     document.getElementById("overlay_rs").style.display = "block";
 
@@ -43,6 +43,15 @@ function openPopupSheets(button) {
 
     allocatedSheetsField.value = attributes.total_allocated_sheets;
     initialAllocationSheet.value = document.getElementById('initial_unallocated_sheets').value;
+    document.getElementById('popup_option').value = option;
+
+    document.getElementById('initial_allocated_sheets_task').value = attributes.total_allocated_sheets;
+
+    if (option == 'edit') {
+        document.getElementById('popup_sheet_title').innerHTML= 'Edit Sheet Allocation';
+    }else{
+        document.getElementById('popup_sheet_title').innerHTML= 'Assign Sheet Allocation';
+    }
 
 }
 
@@ -52,18 +61,27 @@ function checkSheetAllocation() {
     if (isNaN(nrSheetsAllocated)) {
         nrSheetsAllocated = 0;
     }
-    
-    var initialAllocatedSheets = parseFloat(document.getElementById('initial_unallocated_sheets').value);
+    var initialUnallocatedSheets = parseFloat(document.getElementById('initial_unallocated_sheets').value);
+    var totalNumberSheets = parseFloat(document.getElementById('total_sheets').value);
+    var option = document.getElementById('popup_option').value;
     
 
     var submitBtn = document.getElementById('submit_sheet_task_btn');
+    // var totalAllocated = totalNumberSheets - initialUnallocatedSheets;
+    var totalUnalocated = 0;
 
-    var totalUnalocated = (initialAllocatedSheets - nrSheetsAllocated)
+    if (option == 'edit') {
+        initial_allocated_sheets_task = parseFloat(document.getElementById('initial_allocated_sheets_task').value);
+        totalUnalocated = (initialUnallocatedSheets + initial_allocated_sheets_task) - nrSheetsAllocated;
+    }else{
+        totalUnalocated = initialUnallocatedSheets - nrSheetsAllocated;
+    }
+   
     
     document.getElementById('nr_sheets_unallocated').value = totalUnalocated;
 
    // console.log('nrSheetsAllocated: '+nrSheetsAllocated+' nrSheetsUnallocated: '+nrSheetsUnallocated+' totalUnalocated: '+totalUnalocated)
-    if (nrSheetsAllocated > initialAllocatedSheets) {
+    if (nrSheetsAllocated > totalNumberSheets || totalUnalocated < 0) {
         submitBtn.disabled = true;
     } else {
         submitBtn.disabled = false;
@@ -77,22 +95,33 @@ function checkPanelsAllocation() {
     if (isNaN(nrPanelsAllocated)) {
         nrPanelsAllocated = 0;
     }
-    var initialAllocatedPanels = parseFloat(document.getElementById('initial_unallocated_panels').value);
 
+    var totalNumberPanels = parseFloat(document.getElementById('total_panels').value);
+    var initialUnallocatedPanels = parseFloat(document.getElementById('initial_unallocated_panels').value);
     var submitBtn = document.getElementById('submit_panel_task');
+    var option = document.getElementById('popup_option_panels').value;
 
-    var totalUnalocated = (initialAllocatedPanels - nrPanelsAllocated)
+    var totalUnalocated = 0;
     
+
+    if (option == 'edit') {
+        initial_allocated_panels_task = parseFloat(document.getElementById('initial_allocated_panels_task').value);
+        totalUnalocated = (initialUnallocatedPanels + initial_allocated_panels_task) - nrPanelsAllocated;
+    }else{
+        totalUnalocated = initialUnallocatedPanels - nrPanelsAllocated;
+    }
+   
     document.getElementById('nr_panels_unallocated').value = totalUnalocated;
 
-    if (nrPanelsAllocated > initialAllocatedPanels) {
+
+    if (nrPanelsAllocated > totalNumberPanels || totalUnalocated < 0) {
         submitBtn.disabled = true;
     } else {
         submitBtn.disabled = false;
     }
 }
 
-function openPopupPanels(button) {
+function openPopupPanels(button, option) {
     document.getElementById("popup_panels").style.display = "block";
     document.getElementById("overlay_rs").style.display = "block";
 
@@ -110,6 +139,16 @@ function openPopupPanels(button) {
 
     allocatedPanelsField.value = attributes.total_allocated_panels;
     initialAllocatedPanels.value = document.getElementById('initial_unallocated_panels').value;
+
+    document.getElementById('popup_option_panels').value = option;
+
+    document.getElementById('initial_allocated_panels_task').value = attributes.total_allocated_panels;
+
+    if (option == 'edit') {
+        document.getElementById('popup_panel_title').innerHTML= 'Edit Panels Allocation';
+    }else{
+        document.getElementById('popup_panel_title').innerHTML= 'Assign Panels Allocation';
+    }
 }
 
 

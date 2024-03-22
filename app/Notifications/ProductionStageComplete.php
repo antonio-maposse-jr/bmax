@@ -35,7 +35,7 @@ class ProductionStageComplete extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-        ->subject('Production stage is complete')
+        ->subject('Production stage is complete: Order No. '.$this->orderData['order_number'])
         ->greeting('Dear ' . $this->orderData['customer_name'])
         ->line('We are pleased to advise you that your Order has been fully processed and is ready for collection.  To prepare for dispatch, please contact our Sales Team to check if there are any unpaid balances on the Order.')
         ->line('Order Number: ' . $this->orderData['order_number'])

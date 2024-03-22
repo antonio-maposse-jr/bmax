@@ -37,7 +37,7 @@ class DispatchStageComplete extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-        ->subject('Order Dipatched')
+        ->subject('Order Dipatched: Order No. '.$this->orderData['order_number'])
         ->greeting('Dear ' . $this->orderData['customer_name'])
         ->line('Your order with the details below has been fully dispatched. Thank you for Trusting BoardmartZW to Deliver Cutting edge quality to your projects.')
         ->line('Order Number: ' . $this->orderData['order_number'])

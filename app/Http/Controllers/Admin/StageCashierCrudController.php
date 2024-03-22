@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\SMSHelper;
 use App\Helpers\WhatsappHelper;
 use App\Http\Requests\StageCashierRequest;
 use App\Models\Customer;
@@ -82,9 +81,32 @@ class StageCashierCrudController extends CrudController
         $this->crud->column('date_required');
         $this->crud->column('priority_level');
         $this->crud->column('stage_name');
-        $this->crud->column('status');
+        $this->crud->addColumn([
+            'name' => 'status',
+            'label' => 'Status',
+            'type' => 'custom_html',
+            'value' => function ($entry) {
+                switch ($entry->status) {
+                    case 'PROCESSING':
+                        return '<span class="badge badge-pill badge-info">' . $entry->status . '</span>';
+                        break;
+                    case 'PENDING':
+                        return '<span class="badge badge-pill badge-warning">' . $entry->status . '</span>';
+                        break;
+                    case 'PAUSED':
+                        return '<span class="badge badge-pill badge-danger">' . $entry->status . '</span>';
+                        break;
+                    case 'COMPLETED':
+                        return '<span class="badge badge-pill badge-success">' . $entry->status . '</span>';
+                        break;
+                    default:
+                        return $entry->status;
+                }
+            }
+        ]);
     }
 
+    
     /**
      * Define what happens when the Create operation is loaded.
      * 
@@ -149,7 +171,7 @@ class StageCashierCrudController extends CrudController
         ReturnStage::where('process_id', $request->process_id)->update(['message_status' => false]);
 
         $process = Process::find($request->process_id);
-
+        $process->status = 'PROCESSING';
         if ($request->has('special_authorization')) {
             $process->stage_id = 3;
             $process->stage_name = 'Authorisation';
@@ -214,7 +236,7 @@ class StageCashierCrudController extends CrudController
                 "invoice_amount" => "$stageCashier->invoice_amount",
                 "invoice_balance" => "$stageCashier->balance_to_be_paid",
             ];
-            $messageSid = "HXb0a6037da4cf12f3015b1aee78c72e02";
+            $messageSid = "HXa0bd5b952fcc3feb3764649667e63fae";
             $whatsappResult =  WhatsappHelper::sendWhatsapp($customer->phone, $message, $messageSid);
 
        
@@ -231,7 +253,10 @@ class StageCashierCrudController extends CrudController
             'amount_paid' => $request->total_amount_paid,
             'sales_person' => $process->user->name,
             'customer_name' => $process->customer->name,
+            'attachment' => $stageCashier->invoice,
         ];
+    
+        
         Notification::route('mail', $process->customer->email)
             ->notify(new CashierMailNotification($order));
 
