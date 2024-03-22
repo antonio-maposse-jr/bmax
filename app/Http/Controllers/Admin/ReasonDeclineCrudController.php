@@ -37,6 +37,7 @@ class ReasonDeclineCrudController extends CrudController
         CRUD::setEntityNameStrings('reason decline', 'reason declines');
 
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
+        Widget::add()->type('style')->content('assets/css/other.css');
     }
 
     /**

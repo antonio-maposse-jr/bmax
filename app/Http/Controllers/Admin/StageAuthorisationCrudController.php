@@ -67,7 +67,7 @@ class StageAuthorisationCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::addClause('where', 'stage_id', '3');
-        CRUD::addClause('where', 'status', 'PENDING');
+        CRUD::addClause('where', 'status', 'PROCESSING');
         $this->crud->column('id');
         $this->crud->column('customer_id');
         $this->crud->column('date_required');

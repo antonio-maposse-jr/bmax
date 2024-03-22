@@ -87,7 +87,7 @@ class StageCashierCrudController extends CrudController
             'label' => 'Status',
             'type' => 'custom_html',
             'value' => '<span class="badge badge-pill badge-info">PROCESSING</span>'
-        ]);
+        ]); 
     }
 
     

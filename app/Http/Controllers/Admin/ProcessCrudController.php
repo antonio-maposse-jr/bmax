@@ -69,9 +69,6 @@ class ProcessCrudController extends CrudController
         Widget::add()->type('style')->content('assets/css/select2_custom.css');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
         Widget::add()->type('style')->content('assets/css/other.css');
-
-        
-
     }
 
     /**
@@ -473,7 +470,10 @@ class ProcessCrudController extends CrudController
         $process = Process::find($request->process_id);
         $process->stage_id = $request->destination_stage_nr;
         $process->stage_name = $this->getStageById($request->destination_stage_nr);
-
+        
+        if($request->destination_stage_nr == 1 || $request->destination_stage_nr == 2){
+            $process->status = 'PENDING';
+        }
         $process->save();
 
         \Alert::success(trans('backpack::crud.insert_success'))->flash();

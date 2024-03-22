@@ -91,7 +91,7 @@
                                         <div class="form-group col-md-6" id="reciept_ref_group">
                                             <label>Reciept Reference</label>
                                             <input type="text" name="reciept_reference"
-                                                value="{{ optional($cashier_stage)->reciept_reference }}"
+                                                value="{{optional($cashier_stage)->reciept_reference }}"
                                                 class="form-control">
                                         </div>
                                         <div class="form-group col-md-6 required">
