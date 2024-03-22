@@ -99,7 +99,7 @@ class ProcessCrudController extends CrudController
                     case 'PENDING':
                         return '<span class="badge badge-pill badge-warning">' . $entry->status . '</span>';
                         break;
-                    case 'PAUSED':
+                    case 'DECLINED':
                         return '<span class="badge badge-pill badge-danger">' . $entry->status . '</span>';
                         break;
                     case 'COMPLETED':

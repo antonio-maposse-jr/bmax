@@ -50,28 +50,12 @@ class PendigProcessCrudController extends CrudController
         $this->crud->column('date_required');
         $this->crud->column('priority_level');
         $this->crud->column('stage_name');
+
         $this->crud->addColumn([
             'name' => 'status',
             'label' => 'Status',
             'type' => 'custom_html',
-            'value' => function ($entry) {
-                switch ($entry->status) {
-                    case 'PROCESSING':
-                        return '<span class="badge badge-pill badge-info">' . $entry->status . '</span>';
-                        break;
-                    case 'PENDING':
-                        return '<span class="badge badge-pill badge-warning">' . $entry->status . '</span>';
-                        break;
-                    case 'PAUSED':
-                        return '<span class="badge badge-pill badge-danger">' . $entry->status . '</span>';
-                        break;
-                    case 'COMPLETED':
-                        return '<span class="badge badge-pill badge-success">' . $entry->status . '</span>';
-                        break;
-                    default:
-                        return $entry->status;
-                }
-            }
+            'value' => '<span class="badge badge-pill badge-warning">PENDING</span>'
         ]);
     }
 

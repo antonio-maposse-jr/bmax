@@ -54,7 +54,7 @@ class StageCashierCrudController extends CrudController
         Widget::add()->type('script')->content('assets/js/file_control.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
         Widget::add()->type('style')->content('assets/css/other.css');
-        
+
         $permissions = [
             'list' => 'stage_cashiers_list',
             'processCashierStage' => 'stage_cashiers_show',
@@ -86,24 +86,7 @@ class StageCashierCrudController extends CrudController
             'name' => 'status',
             'label' => 'Status',
             'type' => 'custom_html',
-            'value' => function ($entry) {
-                switch ($entry->status) {
-                    case 'PROCESSING':
-                        return '<span class="badge badge-pill badge-info">' . $entry->status . '</span>';
-                        break;
-                    case 'PENDING':
-                        return '<span class="badge badge-pill badge-warning">' . $entry->status . '</span>';
-                        break;
-                    case 'PAUSED':
-                        return '<span class="badge badge-pill badge-danger">' . $entry->status . '</span>';
-                        break;
-                    case 'COMPLETED':
-                        return '<span class="badge badge-pill badge-success">' . $entry->status . '</span>';
-                        break;
-                    default:
-                        return $entry->status;
-                }
-            }
+            'value' => '<span class="badge badge-pill badge-info">PROCESSING</span>'
         ]);
     }
 
