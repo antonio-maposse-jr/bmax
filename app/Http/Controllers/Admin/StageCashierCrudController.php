@@ -53,7 +53,8 @@ class StageCashierCrudController extends CrudController
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('script')->content('assets/js/file_control.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
-
+        Widget::add()->type('style')->content('assets/css/other.css');
+        
         $permissions = [
             'list' => 'stage_cashiers_list',
             'processCashierStage' => 'stage_cashiers_show',

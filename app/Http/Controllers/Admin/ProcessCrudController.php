@@ -68,6 +68,7 @@ class ProcessCrudController extends CrudController
         Widget::add()->type('script')->content('assets/js/process.js');
         Widget::add()->type('style')->content('assets/css/select2_custom.css');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
+        Widget::add()->type('style')->content('assets/css/other.css');
 
         
 

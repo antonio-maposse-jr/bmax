@@ -44,6 +44,7 @@ class StageAuthorisationCrudController extends CrudController
         Widget::add()->type('script')->content('assets/js/return_stage_popup.js');
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
         Widget::add()->type('script')->content('assets/js/production_validations.js');
+        Widget::add()->type('style')->content('assets/css/other.css');
 
         $permissions = [
             'list' => 'stage_authorisations_list',

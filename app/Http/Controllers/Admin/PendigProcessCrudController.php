@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\PendigProcessRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class PendigProcessCrudController
@@ -30,6 +31,8 @@ class PendigProcessCrudController extends CrudController
         CRUD::setModel(\App\Models\Process::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/pendig-process');
         CRUD::setEntityNameStrings('pendig process', 'pendig processes');
+
+        Widget::add()->type('style')->content('assets/css/other.css');
     }
 
     /**

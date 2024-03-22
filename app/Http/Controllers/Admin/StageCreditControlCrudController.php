@@ -44,6 +44,7 @@ class StageCreditControlCrudController extends CrudController
         Widget::add()->type('style')->content('assets/css/return_stage_popup.css');
 
         Widget::add()->type('script')->content('assets/js/production_validations.js');
+        Widget::add()->type('style')->content('assets/css/other.css');
 
         $permissions = [
             'list' => 'stage_credit_controls_list',

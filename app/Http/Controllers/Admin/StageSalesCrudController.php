@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StageSalesRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class StageSalesCrudController
@@ -29,6 +30,8 @@ class StageSalesCrudController extends CrudController
         CRUD::setModel(\App\Models\Process::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/stage-sales');
         CRUD::setEntityNameStrings('stage sales', 'stage sales');
+
+        Widget::add()->type('style')->content('assets/css/other.css');
 
         $permissions = [
             'list' => 'stage_sales_list',

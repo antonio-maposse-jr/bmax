@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\CompletedProcessRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class CompletedProcessCrudController
@@ -30,6 +31,8 @@ class CompletedProcessCrudController extends CrudController
         CRUD::setModel(\App\Models\Process::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/completed-process');
         CRUD::setEntityNameStrings('completed process', 'completed processes');
+
+        Widget::add()->type('style')->content('assets/css/other.css');
     }
 
     /**
