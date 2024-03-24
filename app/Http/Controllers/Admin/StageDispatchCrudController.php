@@ -14,6 +14,7 @@ use App\Models\ReturnStage;
 use App\Models\StageCashier;
 use App\Notifications\DispatchStageComplete;
 use Backpack\CRUD\app\Library\Widget;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 /**
@@ -165,9 +166,13 @@ class StageDispatchCrudController extends CrudController
             'sales_person' => $process->user->name,
             'customer_name' => $process->customer->name,
         ];
+
+        try{
         Notification::route('mail', $process->customer->email)
             ->notify(new DispatchStageComplete($orderData));
-
+        }catch (\Exception $e) {
+            Log::error('Error sending email: ' . $e->getMessage());
+        }
         return redirect(url($this->crud->route));
     }
 }

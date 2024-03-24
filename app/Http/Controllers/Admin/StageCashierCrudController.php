@@ -17,6 +17,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class StageCashierCrudController
@@ -240,10 +241,12 @@ class StageCashierCrudController extends CrudController
             'attachment' => $stageCashier->invoice,
         ];
     
-        
+        try{
         Notification::route('mail', $process->customer->email)
             ->notify(new CashierMailNotification($order));
-
+        }catch (\Exception $e) {
+            Log::error('Error sending email: ' . $e->getMessage());
+        }
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 

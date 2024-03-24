@@ -18,6 +18,7 @@ use App\Models\StageCashier;
 use App\Notifications\ProductionStageComplete;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
 
@@ -181,8 +182,13 @@ class StageProductionCrudController extends CrudController
             'sales_person' => $process->user->name,
             'customer_name' => $process->customer->name,
         ];
+
+        try{
         Notification::route('mail', $process->customer->email)
             ->notify(new ProductionStageComplete($orderData));
+        }catch (\Exception $e) {
+            Log::error('Error sending email: ' . $e->getMessage());
+        }
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 

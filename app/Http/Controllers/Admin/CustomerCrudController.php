@@ -11,6 +11,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
@@ -263,12 +264,15 @@ class CustomerCrudController extends CrudController
             'customer_name' => 'Mariah Carey',
         ];
 
-        $customerEmail = 'antonio.maposse.jr@gmail.com'; // Replace with the customer's email address
+        $customerEmail = 'TinasheN@boardmart.co.zw'; // Replace with the customer's email address
 
         // Send email using the OrderConfirmation Mailable class
-        Notification::route('mail', $customerEmail)
-        ->notify(new CashierMailNotification($order));
-
+        try {
+            Notification::route('mail', $customerEmail)
+            ->notify(new CashierMailNotification($order));
+        } catch (\Exception $e) {
+            Log::error('Error sending email: ' . $e->getMessage());
+        }
 
         return 'Email sent successfully';
     }

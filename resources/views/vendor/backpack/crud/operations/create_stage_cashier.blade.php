@@ -91,7 +91,7 @@
                                         <div class="form-group col-md-6" id="reciept_ref_group">
                                             <label>Reciept Reference</label>
                                             <input type="text" name="reciept_reference"
-                                                value="{{optional($cashier_stage)->reciept_reference }}"
+                                                value="{{ optional($cashier_stage)->reciept_reference }}"
                                                 class="form-control">
                                         </div>
                                         <div class="form-group col-md-6 required">
@@ -120,14 +120,21 @@
 
                                         <div class="form-group col-md-6 required">
                                             <label>Invoice Status</label>
-                                            <select name="invoice_status"
-                                                value="{{ optional($cashier_stage)->invoice_status }}"
-                                                id="invoice_status" class="form-control readonly-select">
-                                                <option value="UNPAID">UNPAID</option>
-                                                <option value="Excess amount Advance Payment">Excess amount Advance Payment
+                                            <select name="invoice_status" id="invoice_status"
+                                                class="form-control readonly-select">
+                                                <option value="UNPAID"
+                                                    {{ optional($cashier_stage)->invoice_status == 'UNPAID' ? 'selected' : '' }}>
+                                                    UNPAID</option>
+                                                <option value="Excess amount Advance Payment"
+                                                    {{ optional($cashier_stage)->invoice_status == 'Excess amount Advance Payment' ? 'selected' : '' }}>
+                                                    Excess amount Advance Payment
                                                 </option>
-                                                <option value="PAID">PAID</option>
-                                                <option value="PARTIALLY PAID">PARTIALLY PAID</option>
+                                                <option value="PAID"
+                                                    {{ optional($cashier_stage)->invoice_status == 'PAID' ? 'selected' : '' }}>
+                                                    PAID</option>
+                                                <option value="PARTIALLY PAID"
+                                                    {{ optional($cashier_stage)->invoice_status == 'PARTIALLY PAID' ? 'selected' : '' }}>
+                                                    PARTIALLY PAID</option>
 
                                             </select>
                                         </div>
