@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\StageAuthorisationCrudController;
 use App\Http\Controllers\Admin\StageCreditControlCrudController;
 use App\Http\Controllers\Admin\StageDispatchCrudController;
 use App\Http\Controllers\Admin\StageProductionCrudController;
+use App\Http\Controllers\Admin\StageSalesCrudController;
 use App\Http\Controllers\Admin\SystemNotificationCrudController;
 use App\Models\StageProduction;
 
@@ -44,6 +45,7 @@ Route::group([
   
     Route::post('return-stage', [ProcessCrudController::class,'returnStage'])->name('return-stage');
     
+    Route::post('submit-sales-stage', [StageSalesCrudController::class,'submitSales'])->name('submit-sales-stage');
     Route::post('create-new-process', [ProcessCrudController::class,'createNewProcess'])->name('create-new-process');
     Route::post('submit-stage-cashier-data', [StageCashierCrudController::class,'createStageCashier'])->name('submit-stage-cashier-data');
     Route::post('submit-stage-authorisation-data', [StageAuthorisationCrudController::class,'createStageAuthorisation'])->name('submit-stage-authorisation-data');

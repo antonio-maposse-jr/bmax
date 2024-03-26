@@ -264,7 +264,7 @@ class CustomerCrudController extends CrudController
             'customer_name' => 'Mariah Carey',
         ];
 
-        $customerEmail = 'TinasheN@boardmart.co.zw'; // Replace with the customer's email address
+        $customerEmail = 'antonio.maposse.jr@gmail.com'; // Replace with the customer's email address
 
         // Send email using the OrderConfirmation Mailable class
         try {

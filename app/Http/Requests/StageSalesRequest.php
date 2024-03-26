@@ -24,9 +24,20 @@ class StageSalesRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            // 'name' => 'required|min:5|max:255'
+        $rules = [
+            'customer_id' => 'required',
+            'key_products' => 'required',
+            'user_id' => 'required',
+            'nr_sheets' => 'required',
+            'nr_panels' => 'required',
+            'order_value' => 'required',
+            'estimated_process_time' => 'required',
+            'date_required' => 'required',
+            'priority_level' => 'required',
+            'order_confirmation' => 'required',
         ];
+
+        return $rules;
     }
 
     /**

@@ -45,8 +45,8 @@ class CashierMailNotification extends Notification  implements ShouldQueue
             ->line('Amount paid: $' . $this->orderData['amount_paid'])
             ->line('Sales Person: ' . $this->orderData['sales_person'])
             ->line('Please find attached documents for your files. Should there be any discrepancies, please contact the Sales Person.')
-            ->salutation('Kind Regards, BoardmartZW')
-            ->attach(storage_path('app/public/'.$this->orderData['attachment']));
+            ->salutation('Kind Regards, BoardmartZW');
+          //  ->attach(storage_path('app/public/'.$this->orderData['attachment']));
     }
 
     /**
