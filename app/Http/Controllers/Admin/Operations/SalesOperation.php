@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Operations;
 
+use App\Models\ReturnStage;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,10 @@ trait SalesOperation
         $this->data['crud'] = $this->crud;
         $this->data['title'] = CRUD::getTitle() ?? 'Sales '.$this->crud->entity_name;
         $this->data['entry'] = $this->crud->getCurrentEntry();
+        
+        $returnStages = ReturnStage::where('process_id', $this->crud->getCurrentEntry()->id)
+        ->where('message_status', '1')->get();
+        $this->data['return_stages'] = $returnStages;
         // load the view
         return view('crud::operations.sales', $this->data);
     }

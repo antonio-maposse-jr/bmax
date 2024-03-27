@@ -30,6 +30,14 @@
 @endsection
 
 @section('content')
+    @foreach ($return_stages as $returnStage)
+        <div class="notification-bar">
+            <strong>Process returned to {{ $returnStage->destination_stage_name }}</strong> by
+            <strong>{{ $returnStage->user->name }}</strong>. The reason is <strong>{{ $returnStage->reason }}</strong> with
+            the following description <strong>{{ $returnStage->comment }}</strong>
+            <span class="close-btn-notfication-rs" onclick="closeNotification()">×</span>
+        </div>
+    @endforeach
     <div class="row">
         <div class="col-md-12 bold-labels">
             @if ($errors->any())
@@ -48,7 +56,7 @@
                         <div class="form-group col-md-6 required">
                             <label>Customer </label>
                             <input value="{{ $entry->customer->name }}" class="form-control" disabled>
-                            <input name="process_id" value="{{$entry->id }}" type="hidden">
+                            <input name="process_id" value="{{ $entry->id }}" type="hidden">
                             <input name="user_id" value="{{ Auth::user()->id }}" type="hidden">
                             <input name="customer_id" value="{{ $entry->customer_id }}" type="hidden">
                         </div>
@@ -56,7 +64,8 @@
                             <label>Key Products </label>
                             <select id="productSelect" class="form-control" name="key_products[]" multiple>
                                 @foreach ($entry->products as $keyProduct)
-                                    <option value="{{ $keyProduct->product->id }}" selected>{{ $keyProduct->product->name }}</option>
+                                    <option value="{{ $keyProduct->product->id }}" selected>
+                                        {{ $keyProduct->product->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -132,7 +141,8 @@
                                             name="hinge_boring"> Hinge Boring </label>
                                 </div>
                                 <div class="col-sm-3">
-                                    <label><input type="checkbox" {{ $entry->wrapping ? 'checked' : '' }} name="wrapping">
+                                    <label><input type="checkbox" {{ $entry->wrapping ? 'checked' : '' }}
+                                            name="wrapping">
                                         Wrapping </label>
                                 </div>
                                 <div class="col-sm-3">

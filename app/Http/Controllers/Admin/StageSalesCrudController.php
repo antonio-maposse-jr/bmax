@@ -18,8 +18,8 @@ class StageSalesCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    // use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    // use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \App\Http\Controllers\Admin\Operations\SalesOperation;
     /**
@@ -38,9 +38,7 @@ class StageSalesCrudController extends CrudController
         $permissions = [
             'list' => 'stage_sales_list',
             'create' => 'stage_sales_create',
-            'update' => 'stage_sales_update',
-            'delete' => 'stage_sales_delete',
-            'show' => 'stage_sales_show'
+            'sales' => 'stage_sales_show'
         ];
         
         foreach ($permissions as $operation => $permission) {
