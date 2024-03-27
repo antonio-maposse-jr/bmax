@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StageSalesRequest;
 use App\Models\Process;
 use App\Models\ProcessProduct;
+use App\Models\ReturnStage;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
@@ -361,7 +362,7 @@ class StageSalesCrudController extends CrudController
         $process->hardware = $request->has('hardware');
 
         $process->stage_id = 2;
-
+        $process->stage_name = 'Cashier';
         $process->save();
 
         $selectedProductIds = $request->key_products;
@@ -372,6 +373,7 @@ class StageSalesCrudController extends CrudController
 
           $processProduct->save();
         }
+        ReturnStage::where('process_id', $process->id)->update(['message_status' => false]);
 
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
