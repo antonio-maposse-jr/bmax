@@ -35,6 +35,7 @@ class StageSalesCrudController extends CrudController
         CRUD::setEntityNameStrings('stage sales', 'stage sales');
 
         Widget::add()->type('style')->content('assets/css/other.css');
+        CRUD::setCreateView('crud::operations.create_process');
 
         $permissions = [
             'list' => 'stage_sales_list',
