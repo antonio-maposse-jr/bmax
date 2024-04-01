@@ -1,140 +1,1706 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="shortcut icon" href="https://elkadi.ca/wp-content/uploads/2022/01/cropped-MK-logo-300x300-1.png"
+    type="image/webp">
+<link rel="icon" href="https://elkadi.ca/wp-content/uploads/2022/01/cropped-MK-logo-300x300-1.png" type="image/webp">
+<meta name="description" content="Data Analyst &amp; Business Development">
+<meta property="og:title" content="Mazen EL Kadi ALL Links">
+<link rel="canonical" href="https://elkadi.ca/Links">
+<meta property="og:url" content="https://elkadi.ca/Links">
+<meta property="og:description" content="Data Analyst &amp; Business Development">
+<meta property="og:image:secure_url" content="https://elkadi.ca/wp-content/uploads/2022/02/Mazen_avatar.jpg">
+<meta property="og:image" content="https://elkadi.ca/wp-content/uploads/2022/02/Mazen_avatar.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mazen EL Kadi ALL Links">
+<meta name="twitter:image" content="https://elkadi.ca/wp-content/uploads/2022/02/Mazen_avatar.jpg">
+<meta name="twitter:url" content="https://elkadi.ca/Links">
+<link rel="preload" as="image" href="https://elkadi.ca/wp-content/uploads/2022/02/Mazen_avatar.jpg">
+<title>Mazen EL Kadi ALL Links</title>
+<link rel="apple-touch-icon" sizes="180x180"
+    href="https://elkadi.ca/wp-content/uploads/2022/01/cropped-MK-logo-300x300-1.png">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&amp;display=swap" rel="stylesheet">
 
-        <title>Laravel</title>
+<style>
+    body,
+    html {
+        -ms-scroll-chaining: none;
+        margin: 0;
+        overscroll-behavior: none;
+        padding: 0
+    }
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    @-webkit-keyframes slidetounlock {
+        0% {
+            background-position: -100px 0
+        }
 
-        <!-- Styles -->
-        <style>
-            /* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Figtree, sans-serif;font-feature-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::-webkit-backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.relative{position:relative}.mx-auto{margin-left:auto;margin-right:auto}.mx-6{margin-left:1.5rem;margin-right:1.5rem}.ml-4{margin-left:1rem}.mt-16{margin-top:4rem}.mt-6{margin-top:1.5rem}.mt-4{margin-top:1rem}.-mt-px{margin-top:-1px}.mr-1{margin-right:0.25rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.h-16{height:4rem}.h-7{height:1.75rem}.h-6{height:1.5rem}.h-5{height:1.25rem}.min-h-screen{min-height:100vh}.w-auto{width:auto}.w-16{width:4rem}.w-7{width:1.75rem}.w-6{width:1.5rem}.w-5{width:1.25rem}.max-w-7xl{max-width:80rem}.shrink-0{flex-shrink:0}.scale-100{--tw-scale-x:1;--tw-scale-y:1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.items-center{align-items:center}.justify-center{justify-content:center}.gap-6{gap:1.5rem}.gap-4{gap:1rem}.self-center{align-self:center}.rounded-lg{border-radius:0.5rem}.rounded-full{border-radius:9999px}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity))}.bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242 / var(--tw-bg-opacity))}.bg-dots-darker{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E")}.from-gray-700\/50{--tw-gradient-from:rgb(55 65 81 / 0.5);--tw-gradient-to:rgb(55 65 81 / 0);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:rgb(0 0 0 / 0);--tw-gradient-stops:var(--tw-gradient-from), transparent, var(--tw-gradient-to)}.bg-center{background-position:center}.stroke-red-500{stroke:#ef4444}.stroke-gray-400{stroke:#9ca3af}.p-6{padding:1.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.text-center{text-align:center}.text-right{text-align:right}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.font-semibold{font-weight:600}.leading-relaxed{line-height:1.625}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-gray-500\/20{--tw-shadow-color:rgb(107 114 128 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.selection\:bg-red-500 *::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.selection\:bg-red-500::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-gray-900:hover{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.hover\:text-gray-700:hover{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity))}.focus\:rounded-sm:focus{border-radius:0.125rem}.focus\:outline:focus{outline-style:solid}.focus\:outline-2:focus{outline-width:2px}.focus\:outline-red-500:focus{outline-color:#ef4444}.group:hover .group-hover\:stroke-gray-600{stroke:#4b5563}.z-10{z-index: 10}@media (prefers-reduced-motion: no-preference){.motion-safe\:hover\:scale-\[1\.01\]:hover{--tw-scale-x:1.01;--tw-scale-y:1.01;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}}@media (prefers-color-scheme: dark){.dark\:bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity))}.dark\:bg-gray-800\/50{background-color:rgb(31 41 55 / 0.5)}.dark\:bg-red-800\/20{background-color:rgb(153 27 27 / 0.2)}.dark\:bg-dots-lighter{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E")}.dark\:bg-gradient-to-bl{background-image:linear-gradient(to bottom left, var(--tw-gradient-stops))}.dark\:stroke-gray-600{stroke:#4b5563}.dark\:text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.dark\:text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.dark\:shadow-none{--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.dark\:ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.dark\:ring-inset{--tw-ring-inset:inset}.dark\:ring-white\/5{--tw-ring-color:rgb(255 255 255 / 0.05)}.dark\:hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.group:hover .dark\:group-hover\:stroke-gray-400{stroke:#9ca3af}}@media (min-width: 640px){.sm\:fixed{position:fixed}.sm\:top-0{top:0px}.sm\:right-0{right:0px}.sm\:ml-0{margin-left:0px}.sm\:flex{display:flex}.sm\:items-center{align-items:center}.sm\:justify-center{justify-content:center}.sm\:justify-between{justify-content:space-between}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:gap-8{gap:2rem}.lg\:p-8{padding:2rem}}
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-                    @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+        10% {
+            background-position: -100px 0
+        }
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+        50% {
+            background-position: 100px 0
+        }
 
-            <div class="max-w-7xl mx-auto p-6 lg:p-8">
-                <div class="flex justify-center">
-                    <svg viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto bg-gray-100 dark:bg-gray-900">
-                        <path d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716 63.8838 24.6467 63.8689 24.6205 63.8589C24.5657 63.8389 24.5084 63.8215 24.456 63.7916L0.501061 49.9987C0.348882 49.9113 0.222437 49.7853 0.134469 49.6334C0.0465019 49.4816 0.000120578 49.3092 0 49.1337L0 8.10652C0 8.01678 0.0124642 7.92953 0.0348998 7.84477C0.0423783 7.8161 0.0598282 7.78993 0.0697995 7.76126C0.0884958 7.70891 0.105946 7.65531 0.133367 7.6067C0.152063 7.5743 0.179485 7.54812 0.20192 7.51821C0.230588 7.47832 0.256763 7.43719 0.290416 7.40229C0.319084 7.37362 0.356476 7.35243 0.388883 7.32751C0.425029 7.29759 0.457436 7.26518 0.498568 7.2415L12.4779 0.345059C12.6296 0.257786 12.8015 0.211853 12.9765 0.211853C13.1515 0.211853 13.3234 0.257786 13.475 0.345059L25.4531 7.2415H25.4556C25.4955 7.26643 25.5292 7.29759 25.5653 7.32626C25.5977 7.35119 25.6339 7.37362 25.6625 7.40104C25.6974 7.43719 25.7224 7.47832 25.7523 7.51821C25.7735 7.54812 25.8021 7.5743 25.8196 7.6067C25.8483 7.65656 25.8645 7.70891 25.8844 7.76126C25.8944 7.78993 25.9118 7.8161 25.9193 7.84602C25.9423 7.93096 25.954 8.01853 25.9542 8.10652V33.7317L35.9355 27.9844V14.8846C35.9355 14.7973 35.948 14.7088 35.9704 14.6253C35.9792 14.5954 35.9954 14.5692 36.0053 14.5405C36.0253 14.4882 36.0427 14.4346 36.0702 14.386C36.0888 14.3536 36.1163 14.3274 36.1375 14.2975C36.1674 14.2576 36.1923 14.2165 36.2272 14.1816C36.2559 14.1529 36.292 14.1317 36.3244 14.1068C36.3618 14.0769 36.3942 14.0445 36.4341 14.0208L48.4147 7.12434C48.5663 7.03694 48.7383 6.99094 48.9133 6.99094C49.0883 6.99094 49.2602 7.03694 49.4118 7.12434L61.3899 14.0208C61.4323 14.0457 61.4647 14.0769 61.5021 14.1055C61.5333 14.1305 61.5694 14.1529 61.5981 14.1803C61.633 14.2165 61.6579 14.2576 61.6878 14.2975C61.7103 14.3274 61.7377 14.3536 61.7551 14.386C61.7838 14.4346 61.8 14.4882 61.8199 14.5405C61.8312 14.5692 61.8474 14.5954 61.8548 14.6253ZM59.893 27.9844V16.6121L55.7013 19.0252L49.9104 22.3593V33.7317L59.8942 27.9844H59.893ZM47.9149 48.5566V37.1768L42.2187 40.4299L25.953 49.7133V61.2003L47.9149 48.5566ZM1.99677 9.83281V48.5566L23.9562 61.199V49.7145L12.4841 43.2219L12.4804 43.2194L12.4754 43.2169C12.4368 43.1945 12.4044 43.1621 12.3682 43.1347C12.3371 43.1097 12.3009 43.0898 12.2735 43.0624L12.271 43.0586C12.2386 43.0275 12.2162 42.9888 12.1887 42.9539C12.1638 42.9203 12.1339 42.8916 12.114 42.8567L12.1127 42.853C12.0903 42.8156 12.0766 42.7707 12.0604 42.7283C12.0442 42.6909 12.023 42.656 12.013 42.6161C12.0005 42.5688 11.998 42.5177 11.9931 42.4691C11.9881 42.4317 11.9781 42.3943 11.9781 42.3569V15.5801L6.18848 12.2446L1.99677 9.83281ZM12.9777 2.36177L2.99764 8.10652L12.9752 13.8513L22.9541 8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133 9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219 31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z" fill="#FF2D20"/>
-                    </svg>
-                </div>
+        to {
+            background-position: 100px 0
+        }
+    }
 
-                <div class="mt-16">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                        <a href="https://laravel.com/docs" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                    </svg>
-                                </div>
+    @keyframes slidetounlock {
+        0% {
+            background-position: -100px 0
+        }
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Documentation</h2>
+        10% {
+            background-position: -100px 0
+        }
 
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel has wonderful documentation covering every aspect of the framework. Whether you are a newcomer or have prior experience with Laravel, we recommend reading our documentation from beginning to end.
-                                </p>
-                            </div>
+        50% {
+            background-position: 100px 0
+        }
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
+        to {
+            background-position: 100px 0
+        }
+    }
 
-                        <a href="https://laracasts.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-                                    </svg>
-                                </div>
+    .min-h-full {
+        min-height: 100vh
+    }
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laracasts</h2>
+    .flex {
+        display: flex
+    }
 
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                                </p>
-                            </div>
+    .flex-both-center {
+        align-items: center;
+        display: flex;
+        justify-content: center
+    }
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
+    .flex-wrap {
+        flex-wrap: wrap
+    }
 
-                        <a href="https://laravel-news.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                                    </svg>
-                                </div>
+    .flex-h-center {
+        display: flex;
+        justify-content: center
+    }
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laravel News</h2>
+    .item-center {
+        align-items: center
+    }
 
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </p>
-                            </div>
+    .flex-dir-c {
+        flex-direction: column
+    }
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
+    .mx-auto {
+        margin-left: auto;
+        margin-right: auto
+    }
 
-                        <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                                    </svg>
-                                </div>
+    .mt-2 {
+        margin-top: 2px
+    }
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</h2>
+    .mt-4 {
+        margin-top: 4px
+    }
 
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Forge</a>, <a href="https://vapor.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Vapor</a>, <a href="https://nova.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Nova</a>, and <a href="https://envoyer.io" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Telescope</a>, and more.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    .mt-8 {
+        margin-top: 8px
+    }
 
-                <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
-                        <div class="flex items-center gap-4">
-                            <a href="https://github.com/sponsors/taylorotwell" class="group inline-flex items-center hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="-mt-px mr-1 w-5 h-5 stroke-gray-400 dark:stroke-gray-600 group-hover:stroke-gray-600 dark:group-hover:stroke-gray-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                </svg>
-                                Sponsor
-                            </a>
-                        </div>
-                    </div>
+    .mt-12 {
+        margin-top: 12px
+    }
 
-                    <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
-                </div>
+    .mt-16 {
+        margin-top: 16px
+    }
+
+    .mt-24 {
+        margin-top: 24px
+    }
+
+    .mt-32 {
+        margin-top: 32px
+    }
+
+    .mt-48 {
+        margin-top: 48px
+    }
+
+    .mt-120 {
+        margin-top: 120px
+    }
+
+    .mb-48 {
+        margin-bottom: 48px
+    }
+
+    .m-auto {
+        margin: auto
+    }
+
+    .ml-6 {
+        margin-left: 6px
+    }
+
+    .py-10 {
+        padding: 10px
+    }
+
+    .ln-h-22 {
+        line-height: 22px
+    }
+
+    .ln-h-32 {
+        line-height: 32px
+    }
+
+    .text-fs-14 {
+        font-size: 14px
+    }
+
+    .text-fs-16 {
+        font-size: 16px
+    }
+
+    .text-fs-18 {
+        font-size: 18px
+    }
+
+    .text-fs-20 {
+        font-size: 20px
+    }
+
+    .text-fs-22 {
+        font-size: 22px
+    }
+
+    .font-inter {
+        font-family: Inter, sans-serif
+    }
+
+    .font-weight-500 {
+        font-weight: 500
+    }
+
+    .font-weight-600 {
+        font-weight: 600
+    }
+
+    .color-white {
+        color: #fff
+    }
+
+    .color-gray {
+        color: hsla(0, 0%, 100%, .9)
+    }
+
+    .color-dark {
+        color: #222
+    }
+
+    .color-danger {
+        color: #ff4963
+    }
+
+    .page-bg {
+        height: 100vh;
+        inset: 0;
+        position: fixed;
+        width: 100vw;
+        z-index: -1
+    }
+
+    .w-full {
+        width: 100%
+    }
+
+    .w-250 {
+        width: 250px
+    }
+
+    .h-150,
+    .h-165 {
+        height: 150px
+    }
+
+    .background-overlay {
+        height: 100%;
+        position: fixed;
+        width: 100%;
+        z-index: 0
+    }
+
+    .page-overlay {
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        background: rgba(0, 0, 0, .1);
+        height: 100vh;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        z-index: 100
+    }
+
+    .page-overlay-btn {
+        background: transparent;
+        border-radius: 6px;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Inter, sans-serif;
+        font-size: 1.2em;
+        padding: 10px 30px;
+        text-decoration: none
+    }
+
+    .page-overlay-title {
+        font-family: sans-serif;
+        font-size: 30px
+    }
+
+    .page-overlay-text {
+        font-size: 18px
+    }
+
+    .page-image {
+        height: 100vh;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100vw
+    }
+
+    .display-image,
+    .page-image {
+        -o-object-fit: cover;
+        object-fit: cover
+    }
+
+    .display-image {
+        border-radius: 50%;
+        display: block;
+        height: 96px;
+        width: 96px
+    }
+
+    .text-center {
+        text-align: center
+    }
+
+    .page-title {
+        margin-bottom: 0
+    }
+
+    .page-bioline {
+        font-weight: 500
+    }
+
+    .button-subscription-area {
+        margin-top: 16px
+    }
+
+    .button-subscription,
+    .button-subscription-area {
+        align-items: center;
+        display: flex;
+        justify-content: center
+    }
+
+    .button-subscription {
+        background: transparent;
+        border: 1.5px solid rgba(13, 12, 34, .1);
+        border-radius: 45px;
+        cursor: pointer;
+        font-weight: 600;
+        gap: 8px;
+        padding: 10px 14px
+    }
+
+    .button-subscription,
+    .button-subscription:hover {
+        transition: transform .15s cubic-bezier(.17, .67, .29, 2.71) 0s
+    }
+
+    .button-subscription:hover {
+        transform: scale(1.025)
+    }
+
+    .page-full-wrap {
+        padding-bottom: 176px;
+        width: 680px;
+        z-index: 10
+    }
+
+    .page-item-wrap {
+        transition: transform .15s cubic-bezier(.17, .67, .29, 2.71) 0s
+    }
+
+    .page-item-wrap.show-embed {
+        border-radius: 30px;
+        transform: unset;
+        transition: unset
+    }
+
+    .page-item-wrap.show-embed:hover {
+        transform: unset
+    }
+
+    .page-item-wrap.show-embed:hover .page-item:after,
+    .page-item-wrap.show-embed:hover .page-item:before {
+        -webkit-animation: unset;
+        animation: unset
+    }
+
+    .show-embed-item {
+        overflow: hidden;
+        transition: all .3s ease-in-out
+    }
+
+    .page-item-wrap.show-embed .show-embed-item {
+        overflow: visible
+    }
+
+    .embed-ind-arrow-icon {
+        transform: rotate(-90deg)
+    }
+
+    .page-item-wrap.show-embed .embed-ind-arrow-icon {
+        transform: rotate(0deg)
+    }
+
+    .page-item {
+        box-sizing: border-box;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: -1
+    }
+
+    .page-social {
+        cursor: pointer;
+        display: block;
+        margin: 0 12px 12px
+    }
+
+    .page-social svg {
+        height: 28px;
+        width: 28px
+    }
+
+    .relative {
+        position: relative
+    }
+
+    .link-each-image {
+        height: 43px;
+        left: 9px;
+        -o-object-fit: cover;
+        object-fit: cover;
+        position: absolute;
+        width: 43px
+    }
+
+    .page-logo {
+        bottom: 32px;
+        left: calc(50% - 15px);
+        position: absolute
+    }
+
+    .page-logo:hover svg .bl-logo-br {
+        opacity: 1
+    }
+
+    .rounded-md {
+        border-radius: 8px
+    }
+
+    .close-embed {
+        background: #fff;
+        border-radius: 50%;
+        height: 25px;
+        opacity: .7;
+        width: 25px
+    }
+
+    .embed-wrap {
+        box-sizing: border-box;
+        height: 100%;
+        padding: 8px;
+        width: 100%
+    }
+
+    .embed-ind-arrow {
+        height: 14px;
+        margin-bottom: 16px;
+        position: absolute;
+        right: 24px;
+        top: calc(50% - 7px)
+    }
+
+    .embed-ind-arrow-icon {
+        transition: all .4s ease-in-out
+    }
+
+    .close-embed:hover {
+        opacity: 1
+    }
+
+    .cursor-pointer {
+        cursor: pointer
+    }
+
+    .page-item-each {
+        box-sizing: border-box;
+        overflow: hidden;
+        text-decoration: none;
+        z-index: 10
+    }
+
+    .item-title {
+        width: 55%;
+        word-break: break-word
+    }
+
+    .social-icon-anchor {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%
+    }
+
+    .page-social:hover {
+        transform: scale(1.1);
+        transition: all .1s ease-in-out
+    }
+
+    .page-item-title {
+        font-weight: 700;
+        margin-bottom: 16px
+    }
+
+    .embed-wrap-inside {
+        background-color: #fff;
+        box-sizing: border-box;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        overflow: hidden;
+        padding: 10px
+    }
+
+    .embed-wrap-inside iframe {
+        min-width: 500px;
+        width: auto
+    }
+
+    .embed-wrap-inside {
+        position: relative
+    }
+
+    .embed-wrap-inside:after {
+        border: 10px solid #fff;
+        content: "";
+        height: 85%;
+        pointer-events: none;
+        position: absolute;
+        transition-duration: .2s;
+        transition-property: border;
+        width: 495px
+    }
+
+    .subscribers-img {
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .05);
+        height: 66px;
+        margin-bottom: 8px;
+        width: 66px
+    }
+
+    .subsc-count {
+        color: hsla(0, 0%, 100%, .9);
+        font-weight: 300;
+        line-height: 24px
+    }
+
+    .subsc-err {
+        height: 40px;
+        transition: all .25s ease-in-out
+    }
+
+    .w-400 {
+        width: 400px
+    }
+
+    .subsc-button {
+        align-items: center;
+        background: #000;
+        border: 1px solid #000;
+        border-radius: 0 2px 2px 0;
+        color: #fff;
+        cursor: pointer;
+        height: 40px;
+        justify-content: center;
+        line-height: 32px;
+        padding: 0 16px;
+        text-decoration: none;
+        text-transform: capitalize
+    }
+
+    .thank-you-btn {
+        border-radius: 2px
+    }
+
+    .dark-btn {
+        background: #222;
+        border: 1.5px solid #222;
+        color: #fff;
+        height: 48px;
+        padding: 0 24px
+    }
+
+    .subsc-button:focus {
+        outline: none
+    }
+
+    .subsc-email {
+        background: hsla(0, 0%, 100%, .1);
+        border: 1.5px solid #000;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        font-size: 14px;
+        height: 40px;
+        padding: 0 12px
+    }
+
+    .dark-input {
+        border: 1.5px solid #222;
+        color: #222;
+        font-size: 16px;
+        height: 48px;
+        width: calc(100% - 100px)
+    }
+
+    .subsc-email::-moz-placeholder {
+        color: hsla(0, 0%, 100%, .5);
+        font-family: Inter, sans-serif;
+        font-size: 14px;
+        line-height: 19px
+    }
+
+    .subsc-email:-ms-input-placeholder {
+        color: hsla(0, 0%, 100%, .5);
+        font-family: Inter, sans-serif;
+        font-size: 14px;
+        line-height: 19px
+    }
+
+    .subsc-email::placeholder {
+        color: hsla(0, 0%, 100%, .5);
+        font-family: Inter, sans-serif;
+        font-size: 14px;
+        line-height: 19px
+    }
+
+    .dark-input::-moz-placeholder {
+        color: #6e6d7a;
+        font-size: 16px
+    }
+
+    .dark-input:-ms-input-placeholder {
+        color: #6e6d7a;
+        font-size: 16px
+    }
+
+    .dark-input::placeholder {
+        color: #6e6d7a;
+        font-size: 16px
+    }
+
+    .subsc-email:focus {
+        background: hsla(0, 0%, 100%, 0);
+        border: 1.5px solid #ff5858;
+        outline: none
+    }
+
+    .featured-subscribers {
+        background: rgba(0, 0, 0, .5);
+        bottom: 0;
+        box-shadow: 0 1.60588px 4.41618px rgba(24, 39, 75, .12), 0 2.81029px 12.8471px rgba(24, 39, 75, .12);
+        box-sizing: border-box;
+        height: auto;
+        left: 0;
+        opacity: 1;
+        position: fixed;
+        right: 0;
+        top: 0;
+        transition: all .27s cubic-bezier(.1, .9, .9, .9);
+        width: 100%;
+        z-index: 100
+    }
+
+    .featured-subscribers,
+    .featured-subscribers-inside {
+        align-items: center;
+        display: flex;
+        flex-flow: column;
+        justify-content: center
+    }
+
+    .featured-subscribers-inside {
+        background: #fff;
+        border-radius: 8px;
+        gap: 8px;
+        max-width: 660px;
+        padding: 32px
+    }
+
+    .featured-subscribers .featured-head {
+        line-height: 24px;
+        width: 500px
+    }
+
+    .featured-subscribers .unsubsc_sec {
+        color: #6e6d7a;
+        cursor: pointer;
+        display: flex;
+        flex-flow: column;
+        font-family: Inter;
+        font-weight: 600;
+        margin-top: 48px;
+        width: 100%
+    }
+
+    .featured-subscribers .unsubsc_btn {
+        border-bottom: 1px solid rgba(13, 12, 34, .1);
+        color: #ff4963;
+        display: block;
+        height: 32px;
+        margin-bottom: 20px
+    }
+
+    .featured-subscribers .close-subsc {
+        position: absolute;
+        right: 32px;
+        top: 32px
+    }
+
+    .featured-subscribers .subsc-banner {
+        display: flex;
+        justify-content: space-between;
+        width: 100%
+    }
+
+    .featured-subscribers .subsc-button,
+    .featured-subscribers .subsc-email,
+    .featured-subscribers .subsc-email-out {
+        border-radius: 4px;
+        height: 48px
+    }
+
+    .featured-subscribers .subsc-email-out {
+        background: #f0f0f0
+    }
+
+    .featured-subscribers .subsc-email {
+        background: #f0f0f0;
+        border: none;
+        margin: 1px
+    }
+
+    .featured-subscribers .subsc-email::-moz-placeholder {
+        color: #666
+    }
+
+    .featured-subscribers .subsc-email:-ms-input-placeholder {
+        color: #666
+    }
+
+    .featured-subscribers .subsc-email::placeholder {
+        color: #666
+    }
+
+    .featured-subscribers .subsc-email-out:focus-within {
+        background: linear-gradient(167.97deg, #ff5858 1.57%, #c058ff 97.89%)
+    }
+
+    .featured-subscribers .subsc-email:focus {
+        background: #fff
+    }
+
+    .subsc-verify-out {
+        display: flex;
+        flex-flow: row;
+        gap: 8px;
+        justify-content: center
+    }
+
+    .invisible {
+        opacity: 0;
+        position: absolute
+    }
+
+    .subsc-verify-out input {
+        background: #f0f0f0;
+        border: none;
+        border-radius: 4px;
+        font-family: Inter;
+        font-size: 18px;
+        font-weight: 700;
+        height: 48px;
+        margin: 1px;
+        text-align: center;
+        width: 69px
+    }
+
+    .subsc-verify-out input:focus-within {
+        background: #fff;
+        outline: none
+    }
+
+    .subsc-verify-out input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0
+    }
+
+    .verify-inp-out {
+        border-radius: 4px
+    }
+
+    .verify-inp-out:focus-within {
+        background: linear-gradient(167.97deg, #ff5858 1.57%, #c058ff 97.89%)
+    }
+
+    .featured-subscribers .subsc-button {
+        margin-top: 24px
+    }
+
+    .featured-subscribers .subsc-bottom {
+        color: #6e6d7a;
+        font-family: Inter;
+        font-size: 14px;
+        margin-top: 24px
+    }
+
+    .featured-subscribers .subsc-email-out,
+    .featured-subscribers .subscribers-email-wrap {
+        display: flex;
+        flex-flow: column;
+        width: 600px
+    }
+
+    .subscribers-email-wrap.error-wrap .subsc-email-out {
+        background: red
+    }
+
+    .subscribers-email-wrap.error-wrap .subsc-email {
+        border-right: none
+    }
+
+    /*    !*background: -webkit-gradient(linear, left top, right top, color-stop(0, #aaa), color-stop(0.35, #aaa), color-stop(0.5, white), color-stop(0.65, #aaa), color-stop(1, #aaa));*!*/
+    /*    !*-webkit-background-clip: text;*!*/
+    /*    !*width: 200px;*!*/
+    /*    !*-moz-text-fill-color: transparent;*!*/
+    /*    !*-webkit-text-fill-color: transparent;*!*/
+    /*    !*animation: slidetounlock 5s infinite linear;*!*/
+    /*    !*animation-fill-mode: forwards;*!*/
+    /*    !*-webkit-text-size-adjust: none;*!*/
+    .featured-subscribers.hide-subscribers {
+        display: none
+    }
+
+    .subscribers-btn {
+        align-items: center;
+        border-radius: 30px;
+        display: flex;
+        height: 30px;
+        justify-content: center;
+        position: absolute;
+        right: 16px;
+        top: 14px;
+        transition: all .2s ease-out;
+        width: 30px
+    }
+
+    .subscribers-btn svg path {
+        opacity: .5;
+        transition: all 75ms ease
+    }
+
+    .subscribers-btn:hover svg path {
+        opacity: 1;
+        transition: all 75ms ease
+    }
+
+    .op-0 {
+        opacity: 0
+    }
+
+    .hidden {
+        display: none
+    }
+
+    .campaign-main-wrap {
+        width: 400px
+    }
+
+    .campaign-email {
+        border: 1px solid #e7e7e9;
+        border-radius: 50%;
+        height: 80px;
+        -o-object-fit: cover;
+        object-fit: cover;
+        width: 80px
+    }
+
+    .campaign-subsc-count {
+        color: rgba(34, 34, 34, .9)
+    }
+
+    .campaign-user-link {
+        -webkit-backdrop-filter: blur(200px);
+        backdrop-filter: blur(200px);
+        background: rgba(0, 0, 0, .05);
+        border-radius: 68px;
+        bottom: 36px;
+        height: 42px;
+        margin: 0 auto;
+        padding: 0 12px;
+        position: fixed;
+        text-decoration: none;
+        transition: all .15s ease-out
+    }
+
+    .campaign-user-link:hover {
+        background: rgba(0, 0, 0, .1)
+    }
+
+    .campaign-user-image {
+        border-radius: 50%;
+        height: 24px;
+        margin-right: 12px;
+        width: 24px
+    }
+
+    .bl-circle-loader {
+        -webkit-animation: spin 1s linear infinite;
+        animation: spin 1s linear infinite;
+        border-radius: 50%;
+        border-right: 3px solid transparent;
+        border-top: 3px solid transparent;
+        border-color: #fff #fff transparent transparent;
+        border-style: solid;
+        border-width: 3px;
+        height: 15px;
+        position: absolute;
+        width: 15px
+    }
+
+    .dark-btn .bl-circle-loader {
+        border-right: 3px solid #000;
+        border-top: 3px solid #000
+    }
+
+    .red-btn {
+        -webkit-animation: spin 1s linear infinite;
+        animation: spin 1s linear infinite;
+        border-radius: 50%;
+        border-right: 3px solid transparent;
+        border-top: 3px solid transparent;
+        border-color: #ff4963 #ff4963 transparent transparent;
+        border-style: solid;
+        border-width: 3px;
+        height: 15px;
+        margin-left: -10px;
+        position: absolute;
+        width: 15px
+    }
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg)
+        }
+
+        to {
+            -webkit-transform: rotate(1turn)
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg)
+        }
+
+        to {
+            transform: rotate(1turn)
+        }
+    }
+
+    @media (max-width:768px) {
+        .page-full-wrap {
+            width: 90%
+        }
+
+        .embed-wrap-inside iframe {
+            min-width: unset;
+            width: 100%
+        }
+
+        .featured-subscribers .featured-head,
+        .featured-subscribers .subsc-email-out,
+        .featured-subscribers .subscribers-email-wrap {
+            width: 100%
+        }
+
+        .page-overlay-title {
+            font-size: 24px;
+            margin: 16px 0
+        }
+
+        .embed-wrap-inside:after {
+            width: 93%
+        }
+    }
+
+    @media (max-width:480px) {
+        .featured-subscribers {
+            justify-content: end
+        }
+
+        .featured-subscribers-inside {
+            border-radius: 8px 8px 0 0
+        }
+
+        .campaign-main-wrap {
+            padding: 0 24px;
+            width: 100%
+        }
+
+        .xs-hidden {
+            display: none
+        }
+
+        .xs-w-100 {
+            width: 100%
+        }
+
+        .xs-w-150 {
+            width: 150px
+        }
+
+        .h-165 {
+            height: 165px
+        }
+
+        .xs-mt-6 {
+            margin-top: 6px
+        }
+
+        .xs-mt-8 {
+            margin-top: 8px
+        }
+
+        .xs-mt-16 {
+            margin-top: 16px
+        }
+
+        .xs-mt-32 {
+            margin-top: 32px
+        }
+
+        .xs-mx-24 {
+            margin: auto 24px
+        }
+
+        .xs-block {
+            display: block
+        }
+
+        .thank-you-btn {
+            border-radius: 4px
+        }
+
+        .dark-input {
+            border: 1.5px solid #222
+        }
+    }
+
+    @media (max-width:400px) {
+        .embed-wrap-inside:after {
+            width: 90%
+        }
+    }
+</style>
+
+
+<style>
+    .page-image {
+        object-position: center;
+
+    }
+
+
+    .page-title {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .page-bioline {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .page-item-title {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .page-item-each {
+        color: #000000;
+        font-family: 'Balsamiq Sans', cursive;
+        font-size: 16px;
+        font-weight: 400;
+        text-transform: none;
+        border-radius: 30px;
+
+        min-height: 60px;
+    }
+
+    .page-item-wrap {
+        margin: 16px 0;
+    }
+
+    .page-item-wrap:last-child {
+        margin-bottom: 0;
+    }
+
+    .page-item-wrap:hover {
+        transform: translate3d(0px, 0px, 0px) scale(1.015);
+    }
+
+
+    .page-item {
+        border: 0px solid transparent;
+        background: #eaeaea;
+        border-radius: 30px;
+
+    }
+
+
+    .embed-wrap iframe,
+    .embed-wrap-inside {
+        border-radius: 0px 0px 22px 22px;
+    }
+
+    .link-each-image,
+    .page-item-wrap {
+        border-radius: 30px;
+    }
+
+    .page-text-font {
+        font-family: 'Balsamiq Sans', cursive;
+        text-transform: none;
+
+    }
+
+    .page-text-color {
+        color: #000000;
+    }
+
+    .social-icon-fill path,
+    .social-icon-fill circle,
+    .social-icon-fill rect {
+        fill: #000000;
+    }
+
+    .page-overlay-btn {
+        border: 2px solid #000000;
+    }
+</style>
+<style>
+</style>
+
+
+
+
+<div class="min-h-full flex-h-center" id="background_div">
+    <input type="hidden" value="https://elkadi.ca" id="app-url">
+    <input type="hidden" value="null" id="is-featured">
+    <input type="hidden" value="" id="enabled_subscribers">
+
+    <div class="mt-48 page-full-wrap relative ">
+        <input type="hidden" value="creator-page" id="page-type">
+        <img class="display-image m-auto"
+            data-src="{{ asset('images/low_logo.png') }}"
+            src="{{ asset('images/low_logo.png') }}" alt="Mazen EL Kadi">
+        <h2 class="page-title page-text-color page-text-font mt-16 text-center">
+            Boardmart ZW
+        </h2>
+        <div class="page-bioline text-fs-16 page-text-color page-text-font mt-12 ln-h-22 text-center">Bring Magic to home</div>
+
+
+        <div class="flex-both-center flex-wrap mt-16">
+
+            <div class="page-social relative">
+                <a class="social-icon-anchor" data-id="Email" data-type="social_link" target="_blank"
+                    rel="noopener nofollow" href="mailto:info@boardmart.co.zw"></a>
+                <img class="social-icon-fill" src="{{ asset('images/Email.png') }}" alt="Email.png"
+                    style="width:30px;height:30px;">
+
+            </div>
+            {{-- <div class="page-social relative">
+                <a class="social-icon-anchor" data-id="Linkedin" data-type="social_link" target="_blank"
+                    rel="noopener nofollow" href="#"></a>
+                <img class="social-icon-fill" src="https://elkadi.ca/wp-content/uploads/2022/01/Linkedin.png"
+                    style="width:30px;height:30px;">
+
+            </div> --}}
+
+
+            <div class="page-social relative">
+                <a class="social-icon-anchor" data-id="Instagram" data-type="social_link" target="_blank"
+                    rel="noopener nofollow" href="https://www.instagram.com/boardmart_zw/"></a>
+                <img class="social-icon-fill" src="{{ asset('images/Instagram.png') }}" alt="Instagram.png"
+                    style="width:30px;height:30px;">
+
+            </div>
+
+            <div class="page-social relative">
+                <a class="social-icon-anchor" data-id="Facebook" data-type="social_link" target="_blank"
+                    rel="noopener nofollow" href="https://www.facebook.com/BoardmartZW"></a>
+                <img class="social-icon-fill" src="{{ asset('images/Facebook.png') }}" alt="Facebook.png"
+                    style="width:30px;height:30px;">
+
+            </div>
+
+
+            <div class="page-social relative">
+                <a class="social-icon-anchor" data-id="Whatsapp" data-type="social_link" target="_blank"
+                    rel="noopener nofollow" href="tel:+263786893300"></a>
+                <img class="social-icon-fill" src="{{ asset('images/Whatsapp.png') }}" alt="Whatsapp.png"
+                    style="width:30px;height:30px;">
+
+            </div>
+
+        </div>
+
+        <div class="mt-24">
+            <div class="page-item-wrap relative">
+                <div class="page-item flex-both-center absolute"></div>
+                <a target="_blank" rel="noopener nofollow" class="page-item-each py-10 flex-both-center"
+                    href="https://boardmartzw.com" data-id="331933" data-type="page_item">
+                    <img class="link-each-image" data-src="{{ asset('images/Website.png') }}"
+                        src="{{ asset('images/Website.png') }}" alt="Website">
+                    <span class=" item-title text-center">Website</span>
+                </a>
             </div>
         </div>
-    </body>
-</html>
+
+    </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+<script>
+    (() => {
+        var t, e = {
+                757: (t, e, r) => {
+                    t.exports = r(666)
+                },
+                80: (t, e, r) => {
+                    "use strict";
+                    r(757);
+
+                    function n(t) {
+                        var e = t.target.closest(".page-item-wrap"),
+                            r = e.querySelector(".show-embed-item"),
+                            n = e.querySelector(".embed-iframe"),
+                            o = parseInt(r.getAttribute("data-height")),
+                            i = 0;
+                        r.getAttribute("data-type") && (i = 20), e.classList.toggle("show-embed"), n.src = n
+                            .getAttribute("data-src"), n.style.cssText = "height: ".concat(0 == n.offsetHeight ?
+                                o - i : 0, "px"), r.style.cssText = "height: ".concat(0 == r.offsetHeight ? o +
+                                16 : "0", "px")
+                    }
+
+                    function o(t) {
+                        for (var e = t + "=", r = document.cookie.split(";"), n = 0; n < r.length; n++) {
+                            for (var o = r[n];
+                                " " === o.charAt(0);) o = o.substring(1, o.length);
+                            if (0 === o.indexOf(e)) return o.substring(e.length, o.length)
+                        }
+                        return null
+                    }
+
+                    function i(t) {
+                        if (o(t) && (e = t, r = location.hostname.split(".").reverse(), n = r[1] + "." + r[0],
+                                document.cookie = e + "=; domain=" + n +
+                                "; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;", !o(t))) {
+                            try {
+                                location.reload(!0)
+                            } catch (t) {}
+                            location.reload()
+                        }
+                        var e, r, n
+                    }
+                    document.getElementById("app-url").value, document.getElementById("is-featured").value;
+                    var a = window.location.search;
+                    new URLSearchParams(a).get("preview");
+                    window.onload = function() {
+                        ! function() {
+                            for (var t = document.getElementsByTagName("img"), e = 0; e < t.length; e++) {
+                                var r = t[e];
+                                r.getAttribute("data-src") && r.setAttribute("src", r.getAttribute(
+                                    "data-src"))
+                            }
+                        }(),
+                        function() {
+                            for (var t = document.getElementsByTagName("a"), e = 0; e < t.length; e++) t[e]
+                                .addEventListener("click", (function(t) {
+                                    var e = t.currentTarget,
+                                        r = ["trackEvent", e.getAttribute("data-type"), "Click", e
+                                            .getAttribute("data-id"), 1
+                                        ];
+                                    try {
+                                        _paq.push(r)
+                                    } catch (t) {}
+                                }))
+                        }(),
+                        function() {
+                            for (var t = document.getElementsByClassName("show-embed"), e = 0; e < t
+                                .length; e++) t[e].addEventListener("click", n)
+                        }(),
+                        function() {
+                            try {
+                                new URLSearchParams(window.location.search).get("preview") ? i(
+                                    "page_has_updated_preview") : i("page_has_updated")
+                            } catch (t) {}
+                        }();
+                        document.getElementById("page-type").value
+                    }
+                },
+                662: () => {},
+                328: () => {},
+                666: t => {
+                    var e = function(t) {
+                        "use strict";
+                        var e, r = Object.prototype,
+                            n = r.hasOwnProperty,
+                            o = "function" == typeof Symbol ? Symbol : {},
+                            i = o.iterator || "@@iterator",
+                            a = o.asyncIterator || "@@asyncIterator",
+                            c = o.toStringTag || "@@toStringTag";
+
+                        function u(t, e, r) {
+                            return Object.defineProperty(t, e, {
+                                value: r,
+                                enumerable: !0,
+                                configurable: !0,
+                                writable: !0
+                            }), t[e]
+                        }
+                        try {
+                            u({}, "")
+                        } catch (t) {
+                            u = function(t, e, r) {
+                                return t[e] = r
+                            }
+                        }
+
+                        function s(t, e, r, n) {
+                            var o = e && e.prototype instanceof g ? e : g,
+                                i = Object.create(o.prototype),
+                                a = new T(n || []);
+                            return i._invoke = function(t, e, r) {
+                                var n = h;
+                                return function(o, i) {
+                                    if (n === p) throw new Error("Generator is already running");
+                                    if (n === d) {
+                                        if ("throw" === o) throw i;
+                                        return N()
+                                    }
+                                    for (r.method = o, r.arg = i;;) {
+                                        var a = r.delegate;
+                                        if (a) {
+                                            var c = _(a, r);
+                                            if (c) {
+                                                if (c === v) continue;
+                                                return c
+                                            }
+                                        }
+                                        if ("next" === r.method) r.sent = r._sent = r.arg;
+                                        else if ("throw" === r.method) {
+                                            if (n === h) throw n = d, r.arg;
+                                            r.dispatchException(r.arg)
+                                        } else "return" === r.method && r.abrupt("return", r.arg);
+                                        n = p;
+                                        var u = l(t, e, r);
+                                        if ("normal" === u.type) {
+                                            if (n = r.done ? d : f, u.arg === v) continue;
+                                            return {
+                                                value: u.arg,
+                                                done: r.done
+                                            }
+                                        }
+                                        "throw" === u.type && (n = d, r.method = "throw", r.arg = u
+                                            .arg)
+                                    }
+                                }
+                            }(t, r, a), i
+                        }
+
+                        function l(t, e, r) {
+                            try {
+                                return {
+                                    type: "normal",
+                                    arg: t.call(e, r)
+                                }
+                            } catch (t) {
+                                return {
+                                    type: "throw",
+                                    arg: t
+                                }
+                            }
+                        }
+                        t.wrap = s;
+                        var h = "suspendedStart",
+                            f = "suspendedYield",
+                            p = "executing",
+                            d = "completed",
+                            v = {};
+
+                        function g() {}
+
+                        function y() {}
+
+                        function m() {}
+                        var w = {};
+                        u(w, i, (function() {
+                            return this
+                        }));
+                        var b = Object.getPrototypeOf,
+                            x = b && b(b(A([])));
+                        x && x !== r && n.call(x, i) && (w = x);
+                        var E = m.prototype = g.prototype = Object.create(w);
+
+                        function L(t) {
+                            ["next", "throw", "return"].forEach((function(e) {
+                                u(t, e, (function(t) {
+                                    return this._invoke(e, t)
+                                }))
+                            }))
+                        }
+
+                        function O(t, e) {
+                            function r(o, i, a, c) {
+                                var u = l(t[o], t, i);
+                                if ("throw" !== u.type) {
+                                    var s = u.arg,
+                                        h = s.value;
+                                    return h && "object" == typeof h && n.call(h, "__await") ? e.resolve(h
+                                        .__await).then((function(t) {
+                                        r("next", t, a, c)
+                                    }), (function(t) {
+                                        r("throw", t, a, c)
+                                    })) : e.resolve(h).then((function(t) {
+                                        s.value = t, a(s)
+                                    }), (function(t) {
+                                        return r("throw", t, a, c)
+                                    }))
+                                }
+                                c(u.arg)
+                            }
+                            var o;
+                            this._invoke = function(t, n) {
+                                function i() {
+                                    return new e((function(e, o) {
+                                        r(t, n, e, o)
+                                    }))
+                                }
+                                return o = o ? o.then(i, i) : i()
+                            }
+                        }
+
+                        function _(t, r) {
+                            var n = t.iterator[r.method];
+                            if (n === e) {
+                                if (r.delegate = null, "throw" === r.method) {
+                                    if (t.iterator.return && (r.method = "return", r.arg = e, _(t, r),
+                                            "throw" === r.method)) return v;
+                                    r.method = "throw", r.arg = new TypeError(
+                                        "The iterator does not provide a 'throw' method")
+                                }
+                                return v
+                            }
+                            var o = l(n, t.iterator, r.arg);
+                            if ("throw" === o.type) return r.method = "throw", r.arg = o.arg, r.delegate =
+                                null, v;
+                            var i = o.arg;
+                            return i ? i.done ? (r[t.resultName] = i.value, r.next = t.nextLoc, "return" !==
+                                    r.method && (r.method = "next", r.arg = e), r.delegate = null, v) : i :
+                                (r.method = "throw", r.arg = new TypeError(
+                                    "iterator result is not an object"), r.delegate = null, v)
+                        }
+
+                        function k(t) {
+                            var e = {
+                                tryLoc: t[0]
+                            };
+                            1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[
+                                3]), this.tryEntries.push(e)
+                        }
+
+                        function j(t) {
+                            var e = t.completion || {};
+                            e.type = "normal", delete e.arg, t.completion = e
+                        }
+
+                        function T(t) {
+                            this.tryEntries = [{
+                                tryLoc: "root"
+                            }], t.forEach(k, this), this.reset(!0)
+                        }
+
+                        function A(t) {
+                            if (t) {
+                                var r = t[i];
+                                if (r) return r.call(t);
+                                if ("function" == typeof t.next) return t;
+                                if (!isNaN(t.length)) {
+                                    var o = -1,
+                                        a = function r() {
+                                            for (; ++o < t.length;)
+                                                if (n.call(t, o)) return r.value = t[o], r.done = !1, r;
+                                            return r.value = e, r.done = !0, r
+                                        };
+                                    return a.next = a
+                                }
+                            }
+                            return {
+                                next: N
+                            }
+                        }
+
+                        function N() {
+                            return {
+                                value: e,
+                                done: !0
+                            }
+                        }
+                        return y.prototype = m, u(E, "constructor", m), u(m, "constructor", y), y
+                            .displayName = u(m, c, "GeneratorFunction"), t.isGeneratorFunction = function(
+                            t) {
+                                var e = "function" == typeof t && t.constructor;
+                                return !!e && (e === y || "GeneratorFunction" === (e.displayName || e.name))
+                            }, t.mark = function(t) {
+                                return Object.setPrototypeOf ? Object.setPrototypeOf(t, m) : (t.__proto__ =
+                                    m, u(t, c, "GeneratorFunction")), t.prototype = Object.create(E), t
+                            }, t.awrap = function(t) {
+                                return {
+                                    __await: t
+                                }
+                            }, L(O.prototype), u(O.prototype, a, (function() {
+                                return this
+                            })), t.AsyncIterator = O, t.async = function(e, r, n, o, i) {
+                                void 0 === i && (i = Promise);
+                                var a = new O(s(e, r, n, o), i);
+                                return t.isGeneratorFunction(r) ? a : a.next().then((function(t) {
+                                    return t.done ? t.value : a.next()
+                                }))
+                            }, L(E), u(E, c, "Generator"), u(E, i, (function() {
+                                return this
+                            })), u(E, "toString", (function() {
+                                return "[object Generator]"
+                            })), t.keys = function(t) {
+                                var e = [];
+                                for (var r in t) e.push(r);
+                                return e.reverse(),
+                                    function r() {
+                                        for (; e.length;) {
+                                            var n = e.pop();
+                                            if (n in t) return r.value = n, r.done = !1, r
+                                        }
+                                        return r.done = !0, r
+                                    }
+                            }, t.values = A, T.prototype = {
+                                constructor: T,
+                                reset: function(t) {
+                                    if (this.prev = 0, this.next = 0, this.sent = this._sent = e, this
+                                        .done = !1, this.delegate = null, this.method = "next", this
+                                        .arg = e, this.tryEntries.forEach(j), !t)
+                                        for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !
+                                            isNaN(+r.slice(1)) && (this[r] = e)
+                                },
+                                stop: function() {
+                                    this.done = !0;
+                                    var t = this.tryEntries[0].completion;
+                                    if ("throw" === t.type) throw t.arg;
+                                    return this.rval
+                                },
+                                dispatchException: function(t) {
+                                    if (this.done) throw t;
+                                    var r = this;
+
+                                    function o(n, o) {
+                                        return c.type = "throw", c.arg = t, r.next = n, o && (r.method =
+                                            "next", r.arg = e), !!o
+                                    }
+                                    for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+                                        var a = this.tryEntries[i],
+                                            c = a.completion;
+                                        if ("root" === a.tryLoc) return o("end");
+                                        if (a.tryLoc <= this.prev) {
+                                            var u = n.call(a, "catchLoc"),
+                                                s = n.call(a, "finallyLoc");
+                                            if (u && s) {
+                                                if (this.prev < a.catchLoc) return o(a.catchLoc, !0);
+                                                if (this.prev < a.finallyLoc) return o(a.finallyLoc)
+                                            } else if (u) {
+                                                if (this.prev < a.catchLoc) return o(a.catchLoc, !0)
+                                            } else {
+                                                if (!s) throw new Error(
+                                                    "try statement without catch or finally");
+                                                if (this.prev < a.finallyLoc) return o(a.finallyLoc)
+                                            }
+                                        }
+                                    }
+                                },
+                                abrupt: function(t, e) {
+                                    for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+                                        var o = this.tryEntries[r];
+                                        if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this
+                                            .prev < o.finallyLoc) {
+                                            var i = o;
+                                            break
+                                        }
+                                    }
+                                    i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i
+                                        .finallyLoc && (i = null);
+                                    var a = i ? i.completion : {};
+                                    return a.type = t, a.arg = e, i ? (this.method = "next", this.next =
+                                        i.finallyLoc, v) : this.complete(a)
+                                },
+                                complete: function(t, e) {
+                                    if ("throw" === t.type) throw t.arg;
+                                    return "break" === t.type || "continue" === t.type ? this.next = t
+                                        .arg : "return" === t.type ? (this.rval = this.arg = t.arg, this
+                                            .method = "return", this.next = "end") : "normal" === t
+                                        .type && e && (this.next = e), v
+                                },
+                                finish: function(t) {
+                                    for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+                                        var r = this.tryEntries[e];
+                                        if (r.finallyLoc === t) return this.complete(r.completion, r
+                                            .afterLoc), j(r), v
+                                    }
+                                },
+                                catch: function(t) {
+                                    for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+                                        var r = this.tryEntries[e];
+                                        if (r.tryLoc === t) {
+                                            var n = r.completion;
+                                            if ("throw" === n.type) {
+                                                var o = n.arg;
+                                                j(r)
+                                            }
+                                            return o
+                                        }
+                                    }
+                                    throw new Error("illegal catch attempt")
+                                },
+                                delegateYield: function(t, r, n) {
+                                    return this.delegate = {
+                                        iterator: A(t),
+                                        resultName: r,
+                                        nextLoc: n
+                                    }, "next" === this.method && (this.arg = e), v
+                                }
+                            }, t
+                    }(t.exports);
+                    try {
+                        regeneratorRuntime = e
+                    } catch (t) {
+                        "object" == typeof globalThis ? globalThis.regeneratorRuntime = e : Function("r",
+                            "regeneratorRuntime = r")(e)
+                    }
+                }
+            },
+            r = {};
+
+        function n(t) {
+            var o = r[t];
+            if (void 0 !== o) return o.exports;
+            var i = r[t] = {
+                exports: {}
+            };
+            return e[t](i, i.exports, n), i.exports
+        }
+        n.m = e, t = [], n.O = (e, r, o, i) => {
+            if (!r) {
+                var a = 1 / 0;
+                for (l = 0; l < t.length; l++) {
+                    for (var [r, o, i] = t[l], c = !0, u = 0; u < r.length; u++)(!1 & i || a >= i) && Object
+                        .keys(n.O).every((t => n.O[t](r[u]))) ? r.splice(u--, 1) : (c = !1, i < a && (a = i));
+                    if (c) {
+                        t.splice(l--, 1);
+                        var s = o();
+                        void 0 !== s && (e = s)
+                    }
+                }
+                return e
+            }
+            i = i || 0;
+            for (var l = t.length; l > 0 && t[l - 1][2] > i; l--) t[l] = t[l - 1];
+            t[l] = [r, o, i]
+        }, n.n = t => {
+            var e = t && t.__esModule ? () => t.default : () => t;
+            return n.d(e, {
+                a: e
+            }), e
+        }, n.d = (t, e) => {
+            for (var r in e) n.o(e, r) && !n.o(t, r) && Object.defineProperty(t, r, {
+                enumerable: !0,
+                get: e[r]
+            })
+        }, n.o = (t, e) => Object.prototype.hasOwnProperty.call(t, e), (() => {
+            var t = {
+                773: 0,
+                432: 0,
+                170: 0
+            };
+            n.O.j = e => 0 === t[e];
+            var e = (e, r) => {
+                    var o, i, [a, c, u] = r,
+                        s = 0;
+                    if (a.some((e => 0 !== t[e]))) {
+                        for (o in c) n.o(c, o) && (n.m[o] = c[o]);
+                        if (u) var l = u(n)
+                    }
+                    for (e && e(r); s < a.length; s++) i = a[s], n.o(t, i) && t[i] && t[i][0](), t[i] = 0;
+                    return n.O(l)
+                },
+                r = self.webpackChunk = self.webpackChunk || [];
+            r.forEach(e.bind(null, 0)), r.push = e.bind(null, r.push.bind(r))
+        })(), n.O(void 0, [432, 170], (() => n(80))), n.O(void 0, [432, 170], (() => n(662)));
+        var o = n.O(void 0, [432, 170], (() => n(328)));
+        o = n.O(o)
+    })();
+</script>
