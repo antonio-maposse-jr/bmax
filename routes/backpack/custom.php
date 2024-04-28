@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ColorCrudController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CustomerCrudController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProcessCrudController;
 use App\Http\Controllers\Admin\ProductCrudController;
 use App\Http\Controllers\Admin\ReasonDeclineCrudController;
@@ -68,6 +69,10 @@ Route::group([
     Route::get('get-customers', [CustomerCrudController::class, 'getCustomers'])->name('get-customers');
     Route::get('get-products', [ProductCrudController::class, 'getProducts'])->name('get-products');
 
+    //Charts
+    Route::get('process-chart-data', [DashboardController::class, 'generateGraphs'])->name('process-chart-data');
+    Route::get('process-status-chart-data', [DashboardController::class, 'processStatusChartData'])->name('process-status-chart-data');
+
 
     Route::crud('stage-cashier', 'StageCashierCrudController');
     Route::crud('stage-authorisations', 'StageAuthorisationCrudController');
@@ -81,4 +86,5 @@ Route::group([
     Route::get('sales_report', 'SalesReportController@index')->name('page.sales_report.index');
     Route::crud('stage-sales', 'StageSalesCrudController');
     Route::crud('system-notification', 'SystemNotificationCrudController');
+    Route::get('dashboard', 'DashboardController@index')->name('page.dashboard.index');
 }); // this should be the absolute last line of this file

@@ -1,23 +1,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<link rel="shortcut icon" href="https://elkadi.ca/wp-content/uploads/2022/01/cropped-MK-logo-300x300-1.png"
-    type="image/webp">
-<link rel="icon" href="https://elkadi.ca/wp-content/uploads/2022/01/cropped-MK-logo-300x300-1.png" type="image/webp">
-<meta name="description" content="Data Analyst &amp; Business Development">
-<meta property="og:title" content="Mazen EL Kadi ALL Links">
-<link rel="canonical" href="https://elkadi.ca/Links">
-<meta property="og:url" content="https://elkadi.ca/Links">
-<meta property="og:description" content="Data Analyst &amp; Business Development">
-<meta property="og:image:secure_url" content="https://elkadi.ca/wp-content/uploads/2022/02/Mazen_avatar.jpg">
-<meta property="og:image" content="https://elkadi.ca/wp-content/uploads/2022/02/Mazen_avatar.jpg">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mazen EL Kadi ALL Links">
-<meta name="twitter:image" content="https://elkadi.ca/wp-content/uploads/2022/02/Mazen_avatar.jpg">
-<meta name="twitter:url" content="https://elkadi.ca/Links">
-<link rel="preload" as="image" href="https://elkadi.ca/wp-content/uploads/2022/02/Mazen_avatar.jpg">
-<title>Mazen EL Kadi ALL Links</title>
-<link rel="apple-touch-icon" sizes="180x180"
-    href="https://elkadi.ca/wp-content/uploads/2022/01/cropped-MK-logo-300x300-1.png">
+
+<meta property="og:title" content="Boardmart ALL Links">
+
+<title>Boardmart ALL Links</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&amp;display=swap" rel="stylesheet">
 

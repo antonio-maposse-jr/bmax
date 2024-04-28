@@ -83,3 +83,5 @@
     <x-backpack::menu-item title='Logs' icon='la la-terminal' :link="backpack_url('log')" />
 @endif
 
+
+<x-backpack::menu-item title="Dashboard" icon="la la-question" :link="backpack_url('dashboard')" />
