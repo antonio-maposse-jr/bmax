@@ -7,6 +7,16 @@
                         <tbody>
                             <tr>
                                 <td class="border-top-0">
+                                    <strong>Customer :</strong>
+                                </td>
+                                <td class="border-top-0">
+                                    <span>
+                                       <b> {{ $entry->customer->name }}</b>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-top-0">
                                     <strong>Nr sheets:</strong>
                                 </td>
                                 <td class="border-top-0">
@@ -31,7 +41,7 @@
                                 </td>
                                 <td>
                                     <span>
-                                        {{ $entry->order_value }}
+                                        {{ number_format($entry->order_value, 2) }}$
                                     </span>
                                 </td>
                             </tr>
@@ -41,7 +51,7 @@
                                 </td>
                                 <td>
                                     <span>
-                                        {{ $entry->estimated_process_time }}
+                                        {{ $entry->estimated_process_time }} hours
                                     </span>
                                 </td>
                             </tr>

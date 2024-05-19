@@ -50,7 +50,7 @@ class PendigProcessCrudController extends CrudController
         $this->crud->column('date_required');
         $this->crud->column('priority_level');
         $this->crud->column('stage_name');
-
+        $this->crud->column('order_value');
         $this->crud->addColumn([
             'name' => 'status',
             'label' => 'Status',

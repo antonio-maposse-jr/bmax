@@ -2,15 +2,6 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i>
         {{ trans('backpack::base.dashboard') }}</a></li>
 
-@if (Auth::user()->can('users_list'))
-    <x-backpack::menu-dropdown title="User Management" icon="la la-users">
-        <x-backpack::menu-dropdown-header title="Authentication" />
-        <x-backpack::menu-dropdown-item title="Users" icon="la la-user" :link="backpack_url('user')" />
-        <x-backpack::menu-dropdown-item title="Roles" icon="la la-group" :link="backpack_url('role')" />
-        <x-backpack::menu-dropdown-item title="Permissions" icon="la la-key" :link="backpack_url('permission')" />
-    </x-backpack::menu-dropdown>
-@endif
-
 @if (Auth::user()->can('customer_categories_list') || Auth::user()->can('customers_list'))
     <x-backpack::menu-dropdown title="Customer Management" icon="la la-user">
         @can('customers_list')
@@ -18,22 +9,6 @@
         @endcan
         @can('customer_categories_list')
             <x-backpack::menu-dropdown-item title="Customer categories" icon="la la-user-secret" :link="backpack_url('customer-category')" />
-        @endcan
-    </x-backpack::menu-dropdown>
-@endif
-
-@if (Auth::user()->can('categories_list') ||
-        Auth::user()->can('subcategories_list') ||
-        Auth::user()->can('products_list'))
-    <x-backpack::menu-dropdown title="Product Management" icon="la la-cart-arrow-down">
-        @can('categories_list')
-            <x-backpack::menu-dropdown-item title="Categories" icon="la la-folder-plus" :link="backpack_url('category')" />
-        @endcan
-        @can('subcategories_list')
-            <x-backpack::menu-dropdown-item title="Subcategories" icon="la la-file-alt" :link="backpack_url('subcategory')" />
-        @endcan
-        @can('products_list')
-            <x-backpack::menu-dropdown-item title="Products" icon="la la-archive" :link="backpack_url('product')" />
         @endcan
     </x-backpack::menu-dropdown>
 @endif
@@ -67,6 +42,34 @@
     </x-backpack::menu-dropdown>
 @endif
 
+@if (Auth::user()->can('categories_list') ||
+        Auth::user()->can('subcategories_list') ||
+        Auth::user()->can('products_list'))
+    <x-backpack::menu-dropdown title="Product Management" icon="la la-cart-arrow-down">
+        @can('categories_list')
+            <x-backpack::menu-dropdown-item title="Categories" icon="la la-folder-plus" :link="backpack_url('category')" />
+        @endcan
+        @can('subcategories_list')
+            <x-backpack::menu-dropdown-item title="Subcategories" icon="la la-file-alt" :link="backpack_url('subcategory')" />
+        @endcan
+        @can('products_list')
+            <x-backpack::menu-dropdown-item title="Products" icon="la la-archive" :link="backpack_url('product')" />
+        @endcan
+    </x-backpack::menu-dropdown>
+@endif
+
+@if (Auth::user()->can('users_list'))
+    <x-backpack::menu-dropdown title="User Management" icon="la la-users">
+        <x-backpack::menu-dropdown-header title="Authentication" />
+        <x-backpack::menu-dropdown-item title="Users" icon="la la-user" :link="backpack_url('user')" />
+        <x-backpack::menu-dropdown-item title="Roles" icon="la la-group" :link="backpack_url('role')" />
+        <x-backpack::menu-dropdown-item title="Permissions" icon="la la-key" :link="backpack_url('permission')" />
+    </x-backpack::menu-dropdown>
+@endif
+
+<x-backpack::menu-item title="System notifications" icon="la la-envelope-open" :link="backpack_url('system-notification')" />
+
+
 @if (Auth::user()->can('reports_list'))
     <x-backpack::menu-dropdown title="Reports" icon="la la-chart-pie">
         <x-backpack::menu-dropdown-item title="Regular Reports" icon="la la-business-time" :link="backpack_url('regular_reports')" />
@@ -74,7 +77,6 @@
     </x-backpack::menu-dropdown>
 @endif
 
-<x-backpack::menu-item title="System notifications" icon="la la-envelope-open" :link="backpack_url('system-notification')" />
 
 @if (Auth::user()->can('activity_log_list'))
     <x-backpack::menu-item title="Activity Logs" icon="la la-stream" :link="backpack_url('activity-log')" />
@@ -82,6 +84,3 @@
 @if (Auth::user()->can('logs_list'))
     <x-backpack::menu-item title='Logs' icon='la la-terminal' :link="backpack_url('log')" />
 @endif
-
-
-<x-backpack::menu-item title="Dashboard" icon="la la-question" :link="backpack_url('dashboard')" />

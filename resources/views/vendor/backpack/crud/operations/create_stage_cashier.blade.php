@@ -98,7 +98,7 @@
                                             <label>Invoice Amount</label>
                                             <input type="number" value="{{ optional($cashier_stage)->invoice_amount }}"
                                                 name="invoice_amount" id="invoice_amount" class="form-control"
-                                                step="0.01" placeholder="0.00" min="0.01"
+                                                step="0.01" placeholder="0.00" min="0.00"
                                                 onchange="validateAmount()">
                                             <input type="hidden" value="{{ optional($entry)->order_value }}"
                                                 name="quote_amount" id="quote_amount" class="form-control">
@@ -114,7 +114,7 @@
                                             <label>Total Amount Paid</label>
                                             <input type="number" value="{{ optional($cashier_stage)->total_amount_paid }}"
                                                 name="total_amount_paid" id="total_amount_paid" class="form-control"
-                                                step="0.01" placeholder="0.00" min="0.01"
+                                                step="0.01" placeholder="0.00" min="0.00"
                                                 onchange="validateAmountPaid()">
                                         </div>
 

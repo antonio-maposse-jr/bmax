@@ -14,4 +14,8 @@ class ProductionTask extends Model
     use LogsActivity;
 
     protected $fillable = ['process_id'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

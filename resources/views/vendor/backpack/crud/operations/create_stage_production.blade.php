@@ -62,11 +62,13 @@
                             tab_name="cashier" data-name="cashier" data-bs-toggle="tab"
                             class="nav-link text-decoration-none" aria-selected="false" tabindex="-1">Cashier</a>
                     </li>
-                    <li role="presentation" class="nav-item">
-                        <a href="#tab_authorisation" aria-controls="tab_authorisation" role="tab" data-toggle="tab"
-                            tab_name="authorisation" data-name="authorisation" data-bs-toggle="tab"
-                            class="nav-link text-decoration-none" aria-selected="false" tabindex="-1">Authorisation</a>
-                    </li>
+                    @if (isset($authorisation_stage) && isset($authorisation_stage->id))
+                        <li role="presentation" class="nav-item">
+                            <a href="#tab_authorisation" aria-controls="tab_authorisation" role="tab" data-toggle="tab"
+                                tab_name="authorisation" data-name="authorisation" data-bs-toggle="tab"
+                                class="nav-link text-decoration-none" aria-selected="false" tabindex="-1">Authorisation</a>
+                        </li>
+                    @endif
 
                     <li role="presentation" class="nav-item">
                         <a href="#tab_production" aria-controls="tab_production" role="tab" data-toggle="tab"
@@ -85,16 +87,18 @@
                     @include('admin.tabs.tab_cashier')
                     {{-- End of Cashier Stage Data --}}
 
-                    {{-- Authorisation Stage Data --}}
-                    @include('admin.tabs.tab_authorisation')
-                    {{-- End of Authorisation Stage Data --}}
+                    @if (isset($authorisation_stage) && isset($authorisation_stage->id))
+                        {{-- Authorisation Stage Data --}}
+                        @include('admin.tabs.tab_authorisation')
+                        {{-- End of Authorisation Stage Data --}}
+                    @endif
 
                     {{-- Production Stage form --}}
                     <div role="tabpanel" class="tab-pane" id="tab_production">
                         @if (Auth::user()->can('stage_productions_create'))
                             <div class="card">
                                 <div class="card-body row">
-                                    <table id="taskTable">
+                                    <table id="taskTable" class="table">
                                         <tr>
                                             <th>Task</th>
                                             <th>Sheets Alocated</th>
@@ -146,7 +150,7 @@
                                                         $disabledAttribute = 'disabled';
                                                     @endphp
 
-                                                    <button type="submit" class="btn btn-outline-info"
+                                                    <button type="submit" class="btn btn-outline-info btn-sm"
                                                         @if ($task->task_name == 'cutting') onclick="openPopupSheets(this)"
                                                     @elseif($task->task_name == 'edging')
                                                     onclick="openPopupPanels(this)" 
@@ -156,24 +160,24 @@
                                                         Assign
                                                     </button>
 
-                                                    <button type="submit" class="btn btn-outline-danger" {!! 'onclick=\'openConfirmationPopup(this, "PAUSED")\'' !!}
-                                                        {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                        {!! 'onclick=\'openConfirmationPopup(this, "PAUSED")\'' !!} {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
                                                         Hold
                                                     </button>
 
-                                                    <button type="submit" class="btn btn-outline-success" {!! 'onclick=\'openConfirmationPopup(this, "COMPLETED")\'' !!}
-                                                        {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
+                                                    <button type="submit" class="btn btn-outline-success btn-sm"
+                                                        {!! 'onclick=\'openConfirmationPopup(this, "COMPLETED")\'' !!} {!! $task->task_status == 'PROCESSING' ? '' : $disabledAttribute !!}>
                                                         Completed
                                                     </button>
 
                                                     @if ($task->task_name == 'cutting')
-                                                        <button type="submit" class="btn btn-outline-warning"
+                                                        <button type="submit" class="btn btn-outline-warning btn-sm"
                                                             {!! 'onclick=\'openPopupSheets(this, "edit")\'' !!} {!! $task->task_status == 'PROCESSING' || $task->task_status == 'PAUSED' ? '' : $disabledAttribute !!}>
                                                             Edit
                                                         </button>
                                                     @endif
                                                     @if ($task->task_name == 'edging')
-                                                        <button type="submit" class="btn btn-outline-warning"
+                                                        <button type="submit" class="btn btn-outline-warning btn-sm"
                                                             {!! 'onclick=\'openPopupPanels(this, "edit")\'' !!} {!! $task->task_status == 'PROCESSING' || $task->task_status == 'PAUSED' ? '' : $disabledAttribute !!}>
                                                             Edit
                                                         </button>
@@ -184,7 +188,7 @@
                                         @endforeach
 
                                     </table>
-                                    <hr>
+                             
                                     <form method="post" action="{{ route('submit-stage-production-data') }}"
                                         enctype="multipart/form-data">
                                         @csrf

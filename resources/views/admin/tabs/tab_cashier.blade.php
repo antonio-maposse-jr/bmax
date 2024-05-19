@@ -41,7 +41,7 @@
                                 </td>
                                 <td>
                                     <span>
-                                        {{ optional($cashier_stage)->invoice_amount }}
+                                        {{ number_format(optional($cashier_stage)->invoice_amount, 2) }}$
                                     </span>
                                 </td>
                             </tr>
@@ -71,7 +71,7 @@
                                 </td>
                                 <td>
                                     <span>
-                                        {{ optional($cashier_stage)->total_amount_paid }}
+                                        {{ number_format(optional($cashier_stage)->total_amount_paid, 2) }}
                                     </span>
                                 </td>
                             </tr>
@@ -91,7 +91,7 @@
                                 </td>
                                 <td>
                                     <span>
-                                        {{ optional($cashier_stage)->balance_to_be_paid }}
+                                        {{ number_format(optional($cashier_stage)->balance_to_be_paid, 2) }}
                                     </span>
                                 </td>
                             </tr>

@@ -34,9 +34,10 @@
     @foreach ($reason_declines as $reasonDecline)
         <div class="notification-bar" style="background-color: red;">
             <strong>Process declined </strong> by
-            <strong>{{ $reasonDecline->user->name }}</strong>. The reason is <strong>{{ $reasonDecline->reason }}</strong> with
+            <strong>{{ $reasonDecline->user->name }}</strong>. The reason is <strong>{{ $reasonDecline->reason }}</strong>
+            with
             the following description <strong>{{ $reasonDecline->comment }}</strong>
-        
+
         </div>
     @endforeach
     <div class="row">
@@ -62,11 +63,13 @@
                             tab_name="cashier" data-name="cashier" data-bs-toggle="tab"
                             class="nav-link text-decoration-none" aria-selected="false" tabindex="-1">Cashier</a>
                     </li>
-                    <li role="presentation" class="nav-item">
-                        <a href="#tab_authorisation" aria-controls="tab_authorisation" role="tab" data-toggle="tab"
-                            tab_name="authorisation" data-name="authorisation" data-bs-toggle="tab"
-                            class="nav-link text-decoration-none" aria-selected="false" tabindex="-1">Authorisation</a>
-                    </li>
+                    @if (isset($authorisation_stage) && isset($authorisation_stage->id))
+                        <li role="presentation" class="nav-item">
+                            <a href="#tab_authorisation" aria-controls="tab_authorisation" role="tab" data-toggle="tab"
+                                tab_name="authorisation" data-name="authorisation" data-bs-toggle="tab"
+                                class="nav-link text-decoration-none" aria-selected="false" tabindex="-1">Authorisation</a>
+                        </li>
+                    @endif
 
                     <li role="presentation" class="nav-item">
                         <a href="#tab_production" aria-controls="tab_production" role="tab" data-toggle="tab"
@@ -74,11 +77,16 @@
                             class="nav-link text-decoration-none" aria-selected="false" tabindex="-1">Production</a>
                     </li>
 
-                    <li role="presentation" class="nav-item">
-                        <a href="#tab_credit_control" aria-controls="tab_credit_control" role="tab" data-toggle="tab"
-                            tab_name="credit_control" data-name="credit_control" data-bs-toggle="tab"
-                            class="nav-link text-decoration-none" aria-selected="false" tabindex="-1">Credit Control</a>
-                    </li>
+
+                    @if (isset($credit_control_stage) && isset($credit_control_stage->id))
+                        <li role="presentation" class="nav-item">
+                            <a href="#tab_credit_control" aria-controls="tab_credit_control" role="tab"
+                                data-toggle="tab" tab_name="credit_control" data-name="credit_control" data-bs-toggle="tab"
+                                class="nav-link text-decoration-none" aria-selected="false" tabindex="-1">Credit
+                                Control</a>
+                        </li>
+                    @endif
+
                     <li role="presentation" class="nav-item">
                         <a href="#tab_dispatch" aria-controls="tab_dispatch" role="tab" data-toggle="tab"
                             tab_name="dispatch" data-name="dispatch" data-bs-toggle="tab"
@@ -96,17 +104,22 @@
                     @include('admin.tabs.tab_cashier')
                     {{-- End of Cashier Stage Data --}}
 
-                    {{-- Authorisation Stage Data --}}
-                    @include('admin.tabs.tab_authorisation')
-                    {{-- End of Authorisation Stage Data --}}
+                    @if (isset($authorisation_stage) && isset($authorisation_stage->id))
+                        {{-- Authorisation Stage Data --}}
+                        @include('admin.tabs.tab_authorisation')
+                        {{-- End of Authorisation Stage Data --}}
+                    @endif
 
                     {{-- Production Stage data --}}
                     @include('admin.tabs.tab_production')
                     {{-- End of Production Stage data --}}
 
-                    {{-- Credit Control Stage Data --}}
-                    @include('admin.tabs.tab_credit_control')
-                    {{-- End of Credit Control Data --}}
+
+                    @if (isset($credit_control_stage) && isset($credit_control_stage->id))
+                        {{-- Credit Control Stage Data --}}
+                        @include('admin.tabs.tab_credit_control')
+                        {{-- End of Credit Control Data --}}
+                    @endif
 
                     {{-- Dispatch Stage form --}}
                     @include('admin.tabs.tab_dispatch')
