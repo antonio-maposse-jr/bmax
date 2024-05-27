@@ -12,7 +12,7 @@
                 <div class="card-status-start bg-success"></div>
                 <div class="card-body">
                     <div class="subheader ">Total Customers.</div>
-                    <div class="h1 mb-3 ">{{$totalCustomerNr}}</div>
+                    <div class="h1 mb-3 ">{{ $totalCustomerNr }}</div>
                     <div class="d-flex mb-2">
                         <div class="card-text ">200 more until next milestone.</div>
                     </div>
@@ -34,7 +34,7 @@
                 <div class="card-status-start bg-danger"></div>
                 <div class="card-body">
                     <div class="subheader ">Completed Orders</div>
-                    <div class="h1 mb-3 ">{{$productionComplete}}</div>
+                    <div class="h1 mb-3 ">{{ $productionComplete }}</div>
                     <div class="d-flex mb-2">
                         <div class="card-text ">Great! Don't stop.</div>
                     </div>
@@ -56,9 +56,9 @@
                 <div class="card-status-start bg-info"></div>
                 <div class="card-body">
                     <div class="subheader ">Total Work Time.</div>
-                    <div class="h1 mb-3 ">{{$totalWorkTime}}</div>
+                    <div class="h1 mb-3 ">{{ $totalWorkTime }}</div>
                     <div class="d-flex mb-2">
-                        <div class="card-text ">More than  days</div>
+                        <div class="card-text ">More than days</div>
                     </div>
                     <div class="progress progress-sm">
                         <div class="progress-bar bg-info" style="width: 30%" role="progressbar" aria-valuenow="30"
@@ -70,7 +70,6 @@
             </div>
         </div>
 
-
         <div class="col-sm-6 col-lg-3">
             <div class="card mb-3  border-start-0 ">
                 <div class="ribbon ribbon-top bg-warning ">
@@ -79,9 +78,9 @@
                 <div class="card-status-start bg-warning"></div>
                 <div class="card-body">
                     <div class="subheader ">Products.</div>
-                    <div class="h1 mb-3 ">{{$totalProductNr}}</div>
+                    <div class="h1 mb-3 ">{{ $totalProductNr }}</div>
                     <div class="d-flex mb-2">
-                        <div class="card-text ">Try to stay under 75 products.</div>
+                        <div class="card-text ">Try to stay under 74 products.</div>
                     </div>
                     <div class="progress progress-sm">
                         <div class="progress-bar bg-warning" style="width: 280%" role="progressbar" aria-valuenow="280"
@@ -95,6 +94,61 @@
 
     </div>
 
+    <div class="row mt-3" style="margin-bottom: 15px">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title mb-0">Last Pending Processes</div>
+                </div>
+                <div class="card-body">
+                    <table id="taskTable" class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Order Value</th>
+                            <th>Stage</th>
+                            <th>Action</th>
+                        </tr>
+                        @foreach ($lastPendingProcesses as $process)
+                            <tr>
+                                <td>{{ $process->id }}</td>
+                                <td>{{ $process->customer->name }}</td>
+                                <td>{{ $process->order_value }}</td>
+                                <td>{{ $process->stage_name }}</td>
+                                <td><a href="/process/{{ $process->id }}/view-process" class="btn btn-sm btn-link"><i
+                                            class="la la-tasks"></i> View Details</a></td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title mb-0">Top 5 Sales Per Person This Month</div>
+                </div>
+                <div class="card-body">
+                    <table id="taskTable" class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Total Order Value</th>
+                        </tr>
+                        @foreach ($groupedOrderValuesWithUsers as $group)
+                            <tr>
+                                <td>{{ $group->user_id }}</td>
+                                <td>{{ $group->user->name }}</td>
+                                <td>{{ $group->total_order_value }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -102,23 +156,22 @@
                     <div class="card-title mb-0">Montlhy Process values and Volume</div>
                 </div>
                 <div class="card-body">
-                  <canvas id="myChart" width="100" height="100"></canvas>
+                    <canvas id="myChart" width="100" height="100"></canvas>
                 </div>
             </div>
         </div>
-
+   
         <div class="col-md-6">
-          <div class="card">
-              <div class="card-header">
-                  <div class="card-title mb-0">Process Status</div>
-              </div>
-              <div class="card-body">
-                <canvas id="processStatus" width="100" height="100"></canvas>
-              </div>
-          </div>
-      </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title mb-0">Process Status</div>
+                </div>
+                <div class="card-body">
+                    <canvas id="processStatus" width="100" height="100"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
-
 @endsection
 
 @section('after_scripts')
@@ -166,7 +219,7 @@
             });
 
 
-            fetch('/admin/process-status-chart-data')
+        fetch('/admin/process-status-chart-data')
             .then(response => response.json())
             .then(data => {
                 const labels = data.map(item => item.status);

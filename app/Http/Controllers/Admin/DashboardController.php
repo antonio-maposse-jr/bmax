@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductionTask;
 use Carbon\Carbon;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class DashboardController
@@ -20,8 +21,22 @@ class DashboardController extends Controller
     {   
         $totalCustomers = Customer::count();
         $totalProducts = Product::count();
-        $productionComplete = Process::where('status', 'complete')->count();
+        $productionComplete = Process::where('status', 'COMPLETED')->count();
         $totalWorkTime = ProductionTask::sum('total_work_time');
+        $lastPendingProcesses = Process::where('status', 'PROCESSING')->orderBy('created_at', 'desc')->take(5)->get();
+
+
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        
+        $groupedOrderValuesWithUsers = Process::select('user_id', DB::raw('SUM(order_value) as total_order_value'))
+        ->whereYear('created_at', $currentYear)
+        ->whereMonth('created_at', $currentMonth)
+        ->groupBy('user_id')
+        ->orderBy('total_order_value', 'desc')
+        ->take(5)
+        ->with('user')
+        ->get();
 
         return view('admin.dashboard', [
             'title' => 'Dashboard',
@@ -35,9 +50,12 @@ class DashboardController extends Controller
             'totalProductNr' => $totalProducts,
             'productionComplete' => $productionComplete,
             'totalWorkTime' => $totalWorkTime,
+            'lastPendingProcesses' => $lastPendingProcesses,
+            'groupedOrderValuesWithUsers'=> $groupedOrderValuesWithUsers
             ],
         );
     }
+
 
     public function generateGraphs(){
         $currentMonth = Carbon::now()->format('m');
