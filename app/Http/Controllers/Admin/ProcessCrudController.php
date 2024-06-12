@@ -327,6 +327,16 @@ class ProcessCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
+    function convertAmountToDouble($amount) {
+        // Remove any commas from the amount
+        $cleanAmount = str_replace(',', '', $amount);
+        
+        // Convert the cleaned amount to a double
+        $doubleAmount = (double)$cleanAmount;
+    
+        return $doubleAmount;
+    }
+
     public function createNewProcess(ProcessRequest $request)
     {
  
@@ -336,7 +346,7 @@ class ProcessCrudController extends CrudController
         $process->user_id = $request->user_id;
         $process->nr_sheets = $request->nr_sheets;
         $process->nr_panels = $request->nr_panels;
-        $process->order_value = $request->order_value;
+        $process->order_value = $this->convertAmountToDouble($request->order_value);
         $process->estimated_process_time = $request->estimated_process_time;
         $process->date_required = $request->date_required;
         $process->priority_level = $request->priority_level;

@@ -29,7 +29,7 @@ class DashboardController extends Controller
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
         
-        $groupedOrderValuesWithUsers = Process::select('user_id', DB::raw('SUM(order_value) as total_order_value'))
+        $groupedOrderValuesWithUsers = Process::select('user_id', DB::raw('SUM(order_value) as total_order_value, COUNT(id) as total_processes'))
         ->whereYear('created_at', $currentYear)
         ->whereMonth('created_at', $currentMonth)
         ->groupBy('user_id')
@@ -37,6 +37,7 @@ class DashboardController extends Controller
         ->take(5)
         ->with('user')
         ->get();
+
 
         return view('admin.dashboard', [
             'title' => 'Dashboard',
